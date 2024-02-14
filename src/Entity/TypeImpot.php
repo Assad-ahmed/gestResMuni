@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\TypeImpotRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -19,6 +21,14 @@ class TypeImpot
 
     #[ORM\Column(type: Types::DECIMAL, precision: 30, scale: 3)]
     private ?string $montantCumuleJour = null;
+
+    #[ORM\ManyToMany(targetEntity: RecetteFiscale::class, mappedBy: 'type_impots')]
+    private Collection $recetteFiscales;
+
+    public function __construct()
+    {
+        $this->recetteFiscales = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -45,6 +55,33 @@ class TypeImpot
     public function setMontantCumuleJour(string $montantCumuleJour): static
     {
         $this->montantCumuleJour = $montantCumuleJour;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, RecetteFiscale>
+     */
+    public function getRecetteFiscales(): Collection
+    {
+        return $this->recetteFiscales;
+    }
+
+    public function addRecetteFiscale(RecetteFiscale $recetteFiscale): static
+    {
+        if (!$this->recetteFiscales->contains($recetteFiscale)) {
+            $this->recetteFiscales->add($recetteFiscale);
+            $recetteFiscale->addTypeImpot($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRecetteFiscale(RecetteFiscale $recetteFiscale): static
+    {
+        if ($this->recetteFiscales->removeElement($recetteFiscale)) {
+            $recetteFiscale->removeTypeImpot($this);
+        }
 
         return $this;
     }

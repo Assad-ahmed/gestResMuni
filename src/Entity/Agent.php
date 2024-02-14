@@ -32,6 +32,12 @@ class Agent
     #[ORM\Column(type: Types::DECIMAL, precision: 30, scale: 3, nullable: true)]
     private ?string $montantCollecteAnnuel = null;
 
+    #[ORM\ManyToOne(inversedBy: 'agents')]
+    private ?ControlleurCentrale $controlleur_centrale = null;
+
+    #[ORM\ManyToOne(inversedBy: 'agents')]
+    private ?Maire $maire = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -107,5 +113,37 @@ class Agent
         $this->montantCollecteAnnuel = $montantCollecteAnnuel;
 
         return $this;
+    }
+
+    public function getControlleurCentrale(): ?ControlleurCentrale
+    {
+        return $this->controlleur_centrale;
+    }
+
+    public function setControlleurCentrale(?ControlleurCentrale $controlleur_centrale): static
+    {
+        $this->controlleur_centrale = $controlleur_centrale;
+
+        return $this;
+    }
+
+    public function getMaire(): ?Maire
+    {
+        return $this->maire;
+    }
+
+    public function setMaire(?Maire $maire): static
+    {
+        $this->maire = $maire;
+
+        return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->nomAgent. " ". $this->date. " ".
+            $this->montantCollecteJournalier. " ".
+            $this->montantCollecteMensuel. " ".
+            $this->montantCollecteAnnuel;
     }
 }

@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\SiteRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -25,6 +27,22 @@ class Site
 
     #[ORM\Column(type: Types::DECIMAL, precision: 30, scale: 3)]
     private ?string $montantAnnuel = null;
+
+    #[ORM\ManyToMany(targetEntity: Ressourcepropre::class, inversedBy: 'sites')]
+    private Collection $ressource_propre;
+
+    #[ORM\ManyToMany(targetEntity: Contributeur::class)]
+    private Collection $contributeur;
+
+    #[ORM\ManyToMany(targetEntity: Agent::class)]
+    private Collection $agent_collecte;
+
+    public function __construct()
+    {
+        $this->ressource_propre = new ArrayCollection();
+        $this->contributeur = new ArrayCollection();
+        $this->agent_collecte = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -75,6 +93,78 @@ class Site
     public function setMontantAnnuel(string $montantAnnuel): static
     {
         $this->montantAnnuel = $montantAnnuel;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Ressourcepropre>
+     */
+    public function getRessourcePropre(): Collection
+    {
+        return $this->ressource_propre;
+    }
+
+    public function addRessourcePropre(Ressourcepropre $ressourcePropre): static
+    {
+        if (!$this->ressource_propre->contains($ressourcePropre)) {
+            $this->ressource_propre->add($ressourcePropre);
+        }
+
+        return $this;
+    }
+
+    public function removeRessourcePropre(Ressourcepropre $ressourcePropre): static
+    {
+        $this->ressource_propre->removeElement($ressourcePropre);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Contributeur>
+     */
+    public function getContributeur(): Collection
+    {
+        return $this->contributeur;
+    }
+
+    public function addContributeur(Contributeur $contributeur): static
+    {
+        if (!$this->contributeur->contains($contributeur)) {
+            $this->contributeur->add($contributeur);
+        }
+
+        return $this;
+    }
+
+    public function removeContributeur(Contributeur $contributeur): static
+    {
+        $this->contributeur->removeElement($contributeur);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Agent>
+     */
+    public function getAgentCollecte(): Collection
+    {
+        return $this->agent_collecte;
+    }
+
+    public function addAgentCollecte(Agent $agentCollecte): static
+    {
+        if (!$this->agent_collecte->contains($agentCollecte)) {
+            $this->agent_collecte->add($agentCollecte);
+        }
+
+        return $this;
+    }
+
+    public function removeAgentCollecte(Agent $agentCollecte): static
+    {
+        $this->agent_collecte->removeElement($agentCollecte);
 
         return $this;
     }

@@ -93,4 +93,10 @@ class Contributeur
 
         return $this;
     }
+
+    public function __toString(): string
+    {
+        return $this->nomContributeur. " ". $this->date. " ".
+            $this->montantJournalier. " ".$this->montantMensuel. " ". $this->montantAnnuel;
+    }
 }
