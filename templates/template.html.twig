@@ -8,6 +8,7 @@
     <meta name="author" content="" />
     <title>{% block titre %}Static Navigation - SB Admin{% endblock %}</title>
     <link href="{{ asset('css/styles.css') }}" rel="stylesheet" />
+    <link rel="stylesheet" href="{{ asset('node_modules/select2/dist/css/select2.css') }}">
     {% block stylesheets %}
     {% endblock %}
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
@@ -107,7 +108,7 @@
                     </a>
                     <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                         <nav class="sb-sidenav-menu-nested nav">
-                            <a class="nav-link" href="#">Creer un site</a>
+                            <a class="nav-link" href="{{ path('add_site') }}">Creer un site</a>
                             <a class="nav-link" href="#">Liste de sites</a>
                         </nav>
                     </div>
@@ -176,6 +177,8 @@
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 <script src="{{ asset('js/scripts.js') }}"></script>
+<script src="{{ asset('node_modules/jquery/dist/jquery.min.js') }}"></script>
+<script src="{{ asset('node_modules/select2/dist/js/select2.min.js') }}"></script>
 {% block javascripts %}
 {% endblock %}
 </body>

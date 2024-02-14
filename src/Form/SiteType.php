@@ -2,7 +2,11 @@
 
 namespace App\Form;
 
+use App\Entity\Agent;
+use App\Entity\Contributeur;
+use App\Entity\Ressourcepropre;
 use App\Entity\Site;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -17,9 +21,30 @@ class SiteType extends AbstractType
             ->add('montantJournalier')
             ->add('montantMensuel')
             ->add('montantAnnuel')
-            ->add('ressource_propre')
-            ->add('contributeur')
-            ->add('agent_collecte')
+            ->add('ressource_propre', EntityType::class, [
+                'expanded'=>false,
+                'multiple'=>true,
+                'class' => Ressourcepropre::class,
+                'attr'=>[
+                    'classe' => 'select2'
+                ]
+            ])
+            ->add('contributeur', EntityType::class, [
+                'expanded'=>false,
+                'multiple'=>true,
+                'class' => Contributeur::class,
+                'attr'=>[
+                    'classe' => 'select2'
+                ]
+            ])
+            ->add('agent_collecte', EntityType::class, [
+                'expanded'=>false,
+                'multiple'=>true,
+                'class' => Agent::class,
+                'attr'=>[
+                    'classe' => 'select2'
+                ]
+            ])
             ->add('Ajouter', SubmitType::class)
         ;
     }
