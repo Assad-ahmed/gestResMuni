@@ -1,0 +1,18 @@
+{% extends 'template.html.twig' %}
+
+{% block body %}
+    <div class="row ">
+        <div class="col">{{ form_row(form.nomContributeur) }}</div>
+    </div>
+    <div class="row">
+        <div class="col">{{ form_row(form.montantJournalier) }}</div>
+        <div class="col">{{ form_row(form.montantMensuel) }}</div>
+        <div class="col">{{ form_row(form.montantAnnuel) }}</div>
+    </div>
+    {{ form_rest(form) }}
+{% endblock %}
+
+{% block title %}
+
+{% endblock %}
+

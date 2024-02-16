@@ -141,7 +141,7 @@ class Agent
 
     public function __toString(): string
     {
-        return $this->nomAgent. " ". $this->date. " ".
+        return $this->nomAgent. " ".
             $this->montantCollecteJournalier. " ".
             $this->montantCollecteMensuel. " ".
             $this->montantCollecteAnnuel;

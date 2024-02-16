@@ -1,0 +1,31 @@
+{% extends 'template.html.twig' %}
+
+{% block title %}Hello ContributeurController!{% endblock %}
+
+{% block body %}
+    <table  class="table table-responsive ">
+        <thead>
+        <tr>
+            <th scope="col" >Identifier</th>
+            <th scope="col">Nom</th>
+            <th scope="col" >Date</th>
+            <th scope="col">MontantJournalier</th>
+            <th scope="col">MontantMensuel</th>
+            <th scope="col">MontantAnnuel</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for contributeur in contributeurs %}
+            <tr>
+                <th scope="row">{{ contributeur.id }}</th>
+                <td>{{ contributeur.nomContributeur }}</td>
+                <td >{{ contributeur.date|date('Y-m-d') }}</td>
+                <td>{{ contributeur.montantJournalier }}</td>
+                <td>{{ contributeur.montantMensuel }}</td>
+                <td>{{ contributeur.montantMensuel }}</td>
+                <td>{{contributeur.montantAnnuel}}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

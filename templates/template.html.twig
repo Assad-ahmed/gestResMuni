@@ -44,61 +44,15 @@
                         <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                        Menu
                     </a>
-                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
-                        <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
+                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                        <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
                         Ressource Propre
                         <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                     </a>
-                    <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
-                        <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
-                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">
-                                 Recette Fiscale
-                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                            </a>
-                            <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
-                                <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="#">liste</a>
-                                    <a class="nav-link" href="#">Etat journalier </a>
-                                    <a class="nav-link" href="#">Etat Mensuel</a>
-                                    <a class="nav-link" href="#">Etat annuell</a>
-                                </nav>
-                            </div>
-                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError">
-                                Non Recette Fiscale
-                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                            </a>
-                            <div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
-                                <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="#">Liste</a>
-                                    <a class="nav-link" href="#">Etat journalier</a>
-                                    <a class="nav-link" href="#"> Etat Mensuel</a>
-                                    <a class="nav-link" href="#">Etat annuell</a>
-                                </nav>
-                            </div>
-                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError">
-                                Excédents de clôture
-                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                            </a>
-                            <div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
-                                <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="#">Liste</a>
-                                    <a class="nav-link" href="#">Etat journalier</a>
-                                    <a class="nav-link" href="#"> Etat Mensuel</a>
-                                    <a class="nav-link" href="#">Etat annuell</a>
-                                </nav>
-                            </div>
-                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError">
-                                Ristournes
-                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                            </a>
-                            <div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
-                                <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="#">Liste</a>
-                                    <a class="nav-link" href="#">Etat journalier</a>
-                                    <a class="nav-link" href="#"> Etat Mensuel</a>
-                                    <a class="nav-link" href="#">Etat annuell</a>
-                                </nav>
-                            </div>
+                    <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                        <nav class="sb-sidenav-menu-nested nav">
+                            <a class="nav-link" href="{{ path('add_ressource') }}">Registre ressource</a>
+                            <a class="nav-link" href="#">Liste Ressource propres</a>
                         </nav>
                     </div>
                     <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
@@ -108,7 +62,7 @@
                     </a>
                     <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                         <nav class="sb-sidenav-menu-nested nav">
-                            <a class="nav-link" href="{{ path('add_site') }}">Creer un site</a>
+                            <a class="nav-link" href="{{ path('add_site') }}">Registre Site</a>
                             <a class="nav-link" href="#">Liste de sites</a>
                         </nav>
                     </div>
@@ -119,8 +73,8 @@
                     </a>
                     <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                         <nav class="sb-sidenav-menu-nested nav">
-                            <a class="nav-link" href="#">Creer un contributeur</a>
-                            <a class="nav-link" href="#">Liste de contributeur</a>
+                            <a class="nav-link" href="{{ path('add_contributeur') }}">Registre Contributeur</a>
+                            <a class="nav-link" href="#">Liste contributeur</a>
                         </nav>
                     </div>
                     <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
@@ -130,8 +84,8 @@
                     </a>
                     <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                         <nav class="sb-sidenav-menu-nested nav">
-                            <a class="nav-link" href="#">Creer un agent de collecte</a>
-                            <a class="nav-link" href="#">Liste des agents de collecte</a>
+                            <a class="nav-link" href="{{ path('add_agent') }}">Registre agent</a>
+                            <a class="nav-link" href="{{ path('liste_agent') }}">Liste des agents </a>
                         </nav>
                     </div>
                 </div>
@@ -144,7 +98,7 @@
     </div>
     <div id="layoutSidenav_content">
         <main>
-            <div class="container-fluid px-4">
+            <div class="container-fluid px-1">
                 <h1 class="mt-4">
                     {% block PageTitre %}
                         Static Navigation
@@ -152,6 +106,11 @@
                 </h1>
                 <div class="card mb-4">
                     <div class="card-body">
+                        {% for message in app.session.flashBag.get('seccuss') %}
+                            <div class="alert alert-success">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
                         {% block body %}
                             My body de page
                         {% endblock %}

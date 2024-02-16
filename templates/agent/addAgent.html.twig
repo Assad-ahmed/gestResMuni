@@ -1,0 +1,22 @@
+{% extends 'template.html.twig' %}
+
+{% block body %}
+    {{ form_start(form) }}
+    <div class="row">
+        <div class="col">{{ form_row(form.nomAgent) }}</div>
+        <div class="col">{{ form_row(form.siteVisite) }}</div>
+    </div>
+    <div class="row">
+        <div class="col">{{ form_row(form.montantCollecteJournalier) }}</div>
+        <div class="col">{{ form_row(form.montantCollecteMensuel) }}</div>
+        <div class="col">{{ form_row(form.montantCollecteAnnuel) }}</div>
+    </div>
+    {{ form_rest(form) }}
+{% endblock %}
+{% block PageTitre %}
+    Ajouter un Agent de collecte
+{% endblock %}
+{% block title %}
+
+{% endblock %}
+
