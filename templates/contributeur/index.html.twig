@@ -19,7 +19,8 @@
                 <th scope="col">MontantM</th>
                 <th scope="col">MontantA</th>
                 <th scope="col">Date</th>
-                <th scope="col">Actions</th>
+                <th scope="col">Modification</th>
+                <th scope="col">Supprimer</th>
             </tr>
             </thead>
             <tbody class="text-center">
@@ -34,8 +35,8 @@
                     <td>{{ contributeur.montantMensuel}}</td>
                     <td>{{ contributeur.montantAnnuel}}</td>
                     <td>{{ contributeur.datePaye|date('Y-m-d') }}</td>
-                    <td><a href="{{ path('add_contributeur',{id: contributeur.id}) }}" class="btn btn-primary "> <i class="fa-solid fa-user-pen"></i></a></td>
-                    {#<td><a href="{{ path('delete_agent',{id: agentCollecte.id}) }}" class="btn btn-danger "><i class="fa-solid fa-trash"></i></a></td>#}
+                    <td><a href="{{ path('edit_contributeur',{id: contributeur.id}) }}" class="btn btn-primary "> <i class="fa-solid fa-user-pen"></i></a></td>
+                    <td><a href="{{ path('delete_contributeur',{id: contributeur.id}) }}" class="btn btn-danger "><i class="fa-solid fa-trash"></i></a></td>
                 </tr>
             {% endfor %}
             </tbody>

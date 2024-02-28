@@ -88,7 +88,7 @@
                     </a>
                     <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                         <nav class="sb-sidenav-menu-nested nav">
-                            <a class="nav-link" href="{{ path('add_contributeur') }}">Registre Contributeur </a>
+                            <a class="nav-link" href="{{ path('edit_contributeur') }}">Registre Contributeur </a>
                             <a class="nav-link" href="{{ path('liste_contributeur') }}">Liste Contributeurs</a>
                         </nav>
                     </div>
@@ -102,8 +102,8 @@
     </div>
     <div id="layoutSidenav_content">
         <main>
-            <div class="container-fluid px-1">
-                <h1 class="mt-4">
+            <div class="container-fluid px-lg-auto">
+                <h1 class="mt-5">
                     {% block PageTitre %}
                         Static Navigation
                     {% endblock %}

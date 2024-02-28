@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\AgentCollecte;
 use App\Entity\Contributeurs;
 use App\Entity\SiteCollecte;
 use App\Form\ContributeurType;
@@ -24,15 +25,20 @@ class ContributeurController extends AbstractController
         ]);
     }
 
-    #[Route('/add', name: 'add_contributeur')]
-    public function addContributeur(ManagerRegistry $registry, Request $request): Response
+    #[Route('/edit{id?0}', name: 'edit_contributeur')]
+    public function addContributeur(Contributeurs $contributeurs=null,ManagerRegistry $registry, Request $request): Response
     {
-
+        $new=false;
+        if (!$contributeurs)
+        {
+            $new=true;
             $contributeurs = new Contributeurs();
+        }
+
 
         $form=$this->createForm(ContributeurType::class,$contributeurs);
         $form->handleRequest($request);
-        if ($form->isSubmitted())
+        if ($form->isSubmitted() && $form->isValid())
         {
             $manager=$registry->getManager();
             $manager->persist($contributeurs);
@@ -45,10 +51,26 @@ class ContributeurController extends AbstractController
                 $message=" a été ajouté avec success";
             }
             $this->addFlash('success', $contributeurs->getNom().$message);
-            return $this->redirectToRoute('liste_site_collecte');
+            return $this->redirectToRoute('liste_contributeur');
         }
         return $this->render('contributeur/add.html.twig', [
             'form' => $form->createView(),
         ]);
+    }
+
+    #[Route('/delete/{id}', name: 'delete_contributeur')]
+    public function deleteAgent(Contributeurs $contributeurs= null, ManagerRegistry $registry):Response
+    {
+        if($contributeurs)
+        {
+            $manager=$registry->getManager();
+            $manager->remove($contributeurs);
+            $manager->flush();
+            $this->addFlash('success', "le contributeur a été supprimé avec success ");
+        }else
+        {
+            $this->addFlash('errer', "le contributeur est innexistante ");
+        }
+        return $this->redirectToRoute('list_agent');
     }
 }
