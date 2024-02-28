@@ -1,0 +1,47 @@
+ {% extends 'template.html.twig' %}
+
+    {% block title %}Hello Contributeur!{% endblock %}
+
+    {%block PageTitre %}
+        Liste des Contributeurs
+    {% endblock %}
+
+    {% block body %}
+        <table class="table">
+            <thead class="text-center">
+            <tr>
+                <th scope="col" >Id</th>
+                <th scope="col">Nom </th>
+                <th scope="col">prenom</th>
+                <th scope="col">Adresse</th>
+                <th scope="col">Téléphone</th>
+                <th scope="col">MontantJ</th>
+                <th scope="col">MontantM</th>
+                <th scope="col">MontantA</th>
+                <th scope="col">Date</th>
+                <th scope="col">Actions</th>
+            </tr>
+            </thead>
+            <tbody class="text-center">
+            {% for contributeur in contributeurs %}
+                <tr>
+                    <th scope="row">{{ contributeur.id }}</th>
+                    <td>{{ contributeur.nom}}</td>
+                    <td>{{contributeur.prenom}}</td>
+                    <td>{{ contributeur.adresse }}</td>
+                    <td>{{ contributeur.telephone }}</td>
+                    <td>{{contributeur.montantJournalier }}</td>
+                    <td>{{ contributeur.montantMensuel}}</td>
+                    <td>{{ contributeur.montantAnnuel}}</td>
+                    <td>{{ contributeur.datePaye|date('Y-m-d') }}</td>
+                    <td><a href="{{ path('add_contributeur',{id: contributeur.id}) }}" class="btn btn-primary "> <i class="fa-solid fa-user-pen"></i></a></td>
+                    {#<td><a href="{{ path('delete_agent',{id: agentCollecte.id}) }}" class="btn btn-danger "><i class="fa-solid fa-trash"></i></a></td>#}
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% endblock %}
+
+
+
+

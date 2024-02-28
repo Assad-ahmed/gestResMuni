@@ -1,0 +1,35 @@
+{% extends 'template.html.twig' %}
+{% block titre %}
+    Page de ressource propre
+{% endblock %}
+
+{% block PageTitre %}
+    Liste des ressources propres
+{% endblock %}
+
+{% block body %}
+    <table class="table">
+        <thead class="text-center">
+        <tr>
+            <th scope="col" >Id</th>
+            <th scope="col">Nom du ressource</th>
+            <th scope="col">Type</th>
+            <th scope="col">Actions</th>
+        </tr>
+        </thead>
+        <tbody class="text-center">
+        {% for ressource in ressources %}
+        <tr>
+            <th scope="row">{{ ressource.id  }}</th>
+            <td>{{ ressource.nomRessource }}</td>
+            <td>{{ ressource.type }}</td>
+            <td><a href="{{ path('edit_ressource',{id: ressource.id}) }}" class="btn btn-primary mt-2"> <i class="fa-solid fa-user-pen"></i></a></td>
+            <td><a href="{{ path('delete_ressource',{id: ressource.id}) }}" class="btn btn-danger mt-2"><i class="fa-solid fa-trash"></i></a></td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
+
+
+

@@ -1,0 +1,43 @@
+{% extends 'template.html.twig' %}
+
+{% block title %}Hello AgentCollecteController!{% endblock %}
+
+{%block PageTitre %}
+    Liste des Agents
+{% endblock %}
+
+{% block body %}
+    <table class="table">
+        <thead class="text-center">
+        <tr>
+            <th scope="col" >Id</th>
+            <th scope="col">Nom </th>
+            <th scope="col">prenom</th>
+            <th scope="col">Téléphone</th>
+            <th scope="col">MontantJ</th>
+            <th scope="col">MontantM</th>
+            <th scope="col">Montant</th>
+            <th scope="col">Date</th>
+            <th scope="col">Actions</th>
+        </tr>
+        </thead>
+        <tbody class="text-center">
+        {% for agentCollecte in agentCollectes %}
+            <tr>
+                <th scope="row">{{ agentCollecte.id }}</th>
+                <td>{{ agentCollecte.nom }}</td>
+                <td>{{ agentCollecte.prenom }}</td>
+                <td>{{ agentCollecte.telephone }}</td>
+                <td>{{ agentCollecte.montantJournalier }}</td>
+                <td>{{ agentCollecte.montantMensuel }}</td>
+                <td>{{ agentCollecte.montantAnnule }}</td>
+                <td>{{ agentCollecte.date|date('Y-m-d') }}</td>
+                <td><a href="{{ path('edit_agent',{id: agentCollecte.id}) }}" class="btn btn-primary "> <i class="fa-solid fa-user-pen"></i></a></td>
+                 <td><a href="{{ path('delete_agent',{id: agentCollecte.id}) }}" class="btn btn-danger "><i class="fa-solid fa-trash"></i></a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
+
+

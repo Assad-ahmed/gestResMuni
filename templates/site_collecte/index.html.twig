@@ -1,0 +1,33 @@
+{% extends 'template.html.twig' %}
+
+{% block title %}Hello SiteCollecteController!{% endblock %}
+
+{% block body %}
+    <table class="table">
+        <thead class="text-center">
+        <tr>
+            <th scope="col" >Id</th>
+            <th scope="col">Nom </th>
+            <th scope="col">Adresse</th>
+            <th scope="col">MontantJ</th>
+            <th scope="col">MontantM</th>
+            <th scope="col">MontantA</th>
+            <th scope="col">Actions</th>
+        </tr>
+        </thead>
+        <tbody class="text-center">
+        {% for siteCollecte in siteCollectes %}
+            <tr>
+                <th scope="row">{{ siteCollecte.id }}</th>
+                <td>{{siteCollecte.nom}}</td>
+                <td>{{ siteCollecte.adresse}}</td>
+                <td>{{ siteCollecte.montantJournalier }}</td>
+                <td>{{ siteCollecte.montantMensuel }}</td>
+                <td>{{ siteCollecte.montantAnnuel}}</td>
+                <td><a href="{{ path('edit_site_collecte',{id: siteCollecte.id}) }}" class="btn btn-primary "> <i class="fa-solid fa-user-pen"></i></a></td>
+                <td><a href="{{ path('delete_site',{id: siteCollecte.id}) }}" class="btn btn-danger "><i class="fa-solid fa-trash"></i></a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

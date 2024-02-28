@@ -2,7 +2,10 @@
 
 namespace App\Form;
 
-use App\Entity\Contributeur;
+use App\Entity\Contributeurs;
+use App\Entity\SiteCollecte;
+use Doctrine\ORM\EntityRepository;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -13,19 +16,35 @@ class ContributeurType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('nomContributeur')
-            ->add('date')
+            ->add('nom')
+            ->add('prenom')
+            ->add('adresse')
+            ->add('telephone')
+            ->add('date_paye')
             ->add('montantJournalier')
             ->add('montantMensuel')
             ->add('montantAnnuel')
-            ->add('Ajouter', SubmitType::class)
+            ->add('sites',EntityType::class, [
+                'expanded'=>false,
+                'class'=>SiteCollecte::class,
+                'multiple'=>true,
+                'query_builder' => function (EntityRepository $er){
+                    return $er->createQueryBuilder('c')
+                        ->orderBy('c.nom', 'ASC');
+                },
+                'choice_label' => 'nom',
+                'attr' => [
+                    'class'=> 'select2'
+                ]
+            ])
+            ->add('Enregistre', SubmitType::class)
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Contributeur::class,
+            'data_class' => Contributeurs::class,
         ]);
     }
 }
