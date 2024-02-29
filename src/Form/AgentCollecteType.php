@@ -25,6 +25,7 @@ class AgentCollecteType extends AbstractType
             ->add('date')
             ->add('sites', EntityType::class,[
                 'expanded'=>false,
+
                 'class'=>SiteCollecte::class,
                 'multiple'=>true,
                 'query_builder' => function (EntityRepository $er){

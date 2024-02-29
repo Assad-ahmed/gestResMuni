@@ -165,4 +165,6 @@ class SiteCollecte
 
         return $this;
     }
+
 }
+

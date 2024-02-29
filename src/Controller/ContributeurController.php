@@ -71,6 +71,6 @@ class ContributeurController extends AbstractController
         {
             $this->addFlash('errer', "le contributeur est innexistante ");
         }
-        return $this->redirectToRoute('list_agent');
+        return $this->redirectToRoute('liste_contributeur');
     }
 }

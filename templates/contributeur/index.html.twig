@@ -7,8 +7,8 @@
     {% endblock %}
 
     {% block body %}
-        <table class="table">
-            <thead class="text-center">
+        <table class="table table-bordered">
+            <thead class="text-center" style="background-color: rgb(130, 106, 251);color:#fff;">
             <tr>
                 <th scope="col" >Id</th>
                 <th scope="col">Nom </th>
@@ -19,7 +19,8 @@
                 <th scope="col">MontantM</th>
                 <th scope="col">MontantA</th>
                 <th scope="col">Date</th>
-                <th scope="col">Modification</th>
+                <th scope="col">Sites</th>
+                <th scope="col">Modifier</th>
                 <th scope="col">Supprimer</th>
             </tr>
             </thead>
@@ -35,6 +36,10 @@
                     <td>{{ contributeur.montantMensuel}}</td>
                     <td>{{ contributeur.montantAnnuel}}</td>
                     <td>{{ contributeur.datePaye|date('Y-m-d') }}</td>
+                    <td>{% for site in contributeur.sites %}
+                            {{ site.nom}}
+                        {% endfor %}
+                    </td>
                     <td><a href="{{ path('edit_contributeur',{id: contributeur.id}) }}" class="btn btn-primary "> <i class="fa-solid fa-user-pen"></i></a></td>
                     <td><a href="{{ path('delete_contributeur',{id: contributeur.id}) }}" class="btn btn-danger "><i class="fa-solid fa-trash"></i></a></td>
                 </tr>
