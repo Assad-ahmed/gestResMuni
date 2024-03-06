@@ -21,6 +21,20 @@ class RessourceController extends AbstractController
             'ressources' => $ressources,
         ]);
     }
+    #[Route('/id<\id+\>', name: 'datails_ressource')]
+    public function detailRessource(Ressource $ressource=null,ManagerRegistry $registry, Request $request): Response
+    {
+        $manager=$registry->getRepository(Ressource::class);
+        $ressource = $manager->find($ressource);
+        if (!$ressource)
+        {
+            $this->addFlash('error', " La ressource n'existe pas");
+        }
+
+        return $this->render('ressource/detail.html.twig', [
+            'ressource' => $ressource,
+        ]);
+    }
 
     #[Route('/edit{id?0}', name: 'edit_ressource')]
     public function editRessource(Ressource $ressource=null,ManagerRegistry $registry, Request $request): Response
@@ -45,7 +59,7 @@ class RessourceController extends AbstractController
             {
                 $message=" a été ajouté avec success";
             }
-            $this->addFlash('success',$ressource->getNomRessource().$message);
+            $this->addFlash('success',$ressource->getType().$message);
             return $this->redirectToRoute('liste_ressource');
         }else
         {

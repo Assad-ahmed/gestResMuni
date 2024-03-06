@@ -16,16 +16,7 @@ class RessourceType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-
-            ->add('nomRessource')
-            ->add('type', ChoiceType::class,[
-                'choices'=> [
-                    'Recette fiscal'=>'Recette fiscal',
-                    'non Recette fiscal'=> 'non Recette fiscal',
-                    'Ristournes'=> ' Ristournes',
-                    'Excédents de clôture'=>'Excédents de clôture'
-                ]
-            ])
+            ->add('type')
             ->add('sites',EntityType::class, [
                 'expanded'=>false,
                 'class'=>SiteCollecte::class,
@@ -37,6 +28,7 @@ class RessourceType extends AbstractType
             ->add('Enregistre', SubmitType::class)
 
 
+        ;
         ;
     }
 

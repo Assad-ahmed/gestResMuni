@@ -1,0 +1,26 @@
+{% extends 'template.html.twig' %}
+
+{% block title %}recette Fisscale!{% endblock %}
+
+{% block body %}
+    <table class="table table-bordered">
+        <thead class="text-center " style="background-color: rgb(130, 106, 251);color:#fff;">
+        <tr>
+            <th scope="col">Date du moi</th>
+            <th scope="col">MontantCumule Journalier</th>
+            <th scope="col">MontantCumule Mensuel</th>
+            <th scope="col">MontantCumule Annuel</th>
+        </tr>
+        </thead>
+        <tbody class="text-center">
+        {% for recettefiscale in recettefascales %}
+            <tr>
+                <td>{{ recettefiscale.date|date('d/m/y ') }}</td>
+                <td>{{ recettefiscale.montantCumuleJour }}</td>
+                <td>{{ recettefiscale.montantCumuleMoi }}</td>
+                <td>{{ recettefiscale.montantCumuleAnnee }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

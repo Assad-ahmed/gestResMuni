@@ -2,22 +2,22 @@
 
 namespace App\Entity;
 
-use App\Repository\TypeImpRepository;
+use App\Repository\RecettefiscaleRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: TypeImpRepository::class)]
-class TypeImp
+#[ORM\Entity(repositoryClass: RecettefiscaleRepository::class)]
+class Recettefiscale
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $nom_Impot = null;
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    private ?\DateTimeInterface $date = null;
 
     #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 3)]
     private ?string $montantCumuleJour = null;
@@ -28,19 +28,20 @@ class TypeImp
     #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 3)]
     private ?string $montantCumuleAnnee = null;
 
+
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getNomImpot(): ?string
+    public function getDate(): ?\DateTimeInterface
     {
-        return $this->nom_Impot;
+        return $this->date;
     }
 
-    public function setNomImpot(string $nom_Impot): static
+    public function setDate(\DateTimeInterface $date): static
     {
-        $this->nom_Impot = $nom_Impot;
+        $this->date = $date;
 
         return $this;
     }
