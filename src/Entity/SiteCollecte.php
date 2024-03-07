@@ -34,13 +34,18 @@ class SiteCollecte
     #[ORM\ManyToMany(targetEntity: Contributeurs::class, mappedBy: 'sites')]
     private Collection $contributeurs;
 
-    #[ORM\ManyToMany(targetEntity: Ressource::class, mappedBy: 'sites')]
-    private Collection $yes;
+    #[ORM\ManyToMany(targetEntity: Recettefiscale::class, mappedBy: 'sites')]
+    private Collection $recettefiscales;
+
+    #[ORM\ManyToMany(targetEntity: RecetteNonFiscale::class, mappedBy: 'sites')]
+    private Collection $recetteNonFiscales;
 
     public function __construct()
     {
         $this->contributeurs = new ArrayCollection();
         $this->yes = new ArrayCollection();
+        $this->recettefiscales = new ArrayCollection();
+        $this->recetteNonFiscales = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -139,28 +144,56 @@ class SiteCollecte
         return $this;
     }
 
+
     /**
-     * @return Collection<int, Ressource>
+     * @return Collection<int, Recettefiscale>
      */
-    public function getYes(): Collection
+    public function getRecettefiscales(): Collection
     {
-        return $this->yes;
+        return $this->recettefiscales;
     }
 
-    public function addYe(Ressource $ye): static
+    public function addRecettefiscale(Recettefiscale $recettefiscale): static
     {
-        if (!$this->yes->contains($ye)) {
-            $this->yes->add($ye);
-            $ye->addSite($this);
+        if (!$this->recettefiscales->contains($recettefiscale)) {
+            $this->recettefiscales->add($recettefiscale);
+            $recettefiscale->addSite($this);
         }
 
         return $this;
     }
 
-    public function removeYe(Ressource $ye): static
+    public function removeRecettefiscale(Recettefiscale $recettefiscale): static
     {
-        if ($this->yes->removeElement($ye)) {
-            $ye->removeSite($this);
+        if ($this->recettefiscales->removeElement($recettefiscale)) {
+            $recettefiscale->removeSite($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, RecetteNonFiscale>
+     */
+    public function getRecetteNonFiscales(): Collection
+    {
+        return $this->recetteNonFiscales;
+    }
+
+    public function addRecetteNonFiscale(RecetteNonFiscale $recetteNonFiscale): static
+    {
+        if (!$this->recetteNonFiscales->contains($recetteNonFiscale)) {
+            $this->recetteNonFiscales->add($recetteNonFiscale);
+            $recetteNonFiscale->addSite($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRecetteNonFiscale(RecetteNonFiscale $recetteNonFiscale): static
+    {
+        if ($this->recetteNonFiscales->removeElement($recetteNonFiscale)) {
+            $recetteNonFiscale->removeSite($this);
         }
 
         return $this;

@@ -1,0 +1,47 @@
+{% extends 'template.html.twig' %}
+
+{% block title %}recette Fisscale!{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="d-grid gap-7 col-2 mx-xxl-6">
+            <a href="{{ path('edit_recettefiscale') }}" class="btn bg-info" ><strong>Ajouter impot</strong></a>
+        </div>
+    </div>
+    <div class=" m-3">
+    <table class="table table-bordered">
+        <thead class="text-center " style="background-color: rgb(130, 106, 251);color:#fff;">
+        <tr>
+            <th scope="col">Nom</th>
+            <th scope="col">Date</th>
+            <th scope="col">MontantJournalier</th>
+            <th scope="col">MontantMensuel</th>
+            <th scope="col">MontantAnnuel</th>
+            <th scope="col">Sites</th>
+            <th scope="col">Modifier</th>
+            <th scope="col">Supprimer</th>
+        </tr>
+        </thead>
+        <tbody class="text-center">
+        {% for recettefiscale in recettefascales %}
+            <tr>
+                <td>{{ recettefiscale.nom }}</td>
+                <td>{{ recettefiscale.date|date('d/m/y ') }}</td>
+                <td>{{ recettefiscale.montantCumuleJour }}</td>
+                <td>{{ recettefiscale.montantCumuleMoi }}</td>
+                <td>{{ recettefiscale.montantCumuleAnnee }}</td>
+                <td>{% for site in recettefiscale.sites %}
+                        {{ site.nom }}
+                    {% endfor %}
+                </td>
+                <td><a href="{{ path('edit_recettefiscale', {id:recettefiscale.id }) }}" class="btn btn-primary mt-2"> <i class="fa-solid fa-user-pen"></i></a></td>
+                <td><a href="{{ path('delete_recettefiscale',{id:recettefiscale.id}) }}" class="btn btn-danger mt-2"><i class="fa-solid fa-trash"></i></a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    </div>
+{% endblock %}
+{% block PageTitre %}
+   La liste des recettes Fiscales
+{% endblock %}

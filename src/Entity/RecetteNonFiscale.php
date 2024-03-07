@@ -2,36 +2,36 @@
 
 namespace App\Entity;
 
-use App\Repository\RecettefiscaleRepository;
+use App\Repository\RecetteNonFiscaleRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: RecettefiscaleRepository::class)]
-class Recettefiscale
+#[ORM\Entity(repositoryClass: RecetteNonFiscaleRepository::class)]
+class RecetteNonFiscale
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $nom = null;
+
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $date = null;
 
     #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 3)]
-    private ?string $montantCumuleJour = null;
+    private ?string $montantJournalier = null;
 
     #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 3)]
-    private ?string $montantCumuleMoi = null;
+    private ?string $montantMensuel = null;
 
     #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 3)]
-    private ?string $montantCumuleAnnee = null;
+    private ?string $montantAnnuel = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $nom = null;
-
-    #[ORM\ManyToMany(targetEntity: SiteCollecte::class, inversedBy: 'recettefiscales')]
+    #[ORM\ManyToMany(targetEntity: SiteCollecte::class, inversedBy: 'recetteNonFiscales')]
     private Collection $sites;
 
     public function __construct()
@@ -39,10 +39,21 @@ class Recettefiscale
         $this->sites = new ArrayCollection();
     }
 
-
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getNom(): ?string
+    {
+        return $this->nom;
+    }
+
+    public function setNom(string $nom): static
+    {
+        $this->nom = $nom;
+
+        return $this;
     }
 
     public function getDate(): ?\DateTimeInterface
@@ -57,50 +68,38 @@ class Recettefiscale
         return $this;
     }
 
-    public function getMontantCumuleJour(): ?string
+    public function getMontantJournalier(): ?string
     {
-        return $this->montantCumuleJour;
+        return $this->montantJournalier;
     }
 
-    public function setMontantCumuleJour(string $montantCumuleJour): static
+    public function setMontantJournalier(string $montantJournalier): static
     {
-        $this->montantCumuleJour = $montantCumuleJour;
+        $this->montantJournalier = $montantJournalier;
 
         return $this;
     }
 
-    public function getMontantCumuleMoi(): ?string
+    public function getMontantMensuel(): ?string
     {
-        return $this->montantCumuleMoi;
+        return $this->montantMensuel;
     }
 
-    public function setMontantCumuleMoi(string $montantCumuleMoi): static
+    public function setMontantMensuel(string $montantMensuel): static
     {
-        $this->montantCumuleMoi = $montantCumuleMoi;
+        $this->montantMensuel = $montantMensuel;
 
         return $this;
     }
 
-    public function getMontantCumuleAnnee(): ?string
+    public function getMontantAnnuel(): ?string
     {
-        return $this->montantCumuleAnnee;
+        return $this->montantAnnuel;
     }
 
-    public function setMontantCumuleAnnee(string $montantCumuleAnnee): static
+    public function setMontantAnnuel(string $montantAnnuel): static
     {
-        $this->montantCumuleAnnee = $montantCumuleAnnee;
-
-        return $this;
-    }
-
-    public function getNom(): ?string
-    {
-        return $this->nom;
-    }
-
-    public function setNom(string $nom): static
-    {
-        $this->nom = $nom;
+        $this->montantAnnuel = $montantAnnuel;
 
         return $this;
     }
@@ -128,5 +127,4 @@ class Recettefiscale
 
         return $this;
     }
-
 }

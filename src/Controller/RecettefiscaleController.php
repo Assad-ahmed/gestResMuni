@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Contributeurs;
 use App\Entity\Recettefiscale;
 use App\Form\RecettefiscaleType;
 use Doctrine\Persistence\ManagerRegistry;
@@ -18,15 +19,21 @@ class RecettefiscaleController extends AbstractController
     {
         $manager=$registry->getRepository(Recettefiscale::class);
         $recettefascales=$manager->findAll();
-        return $this->render('recettefiscale/index.html.twig', [
+        return $this->render('ressources/recettefiscale/index.html.twig', [
             'recettefascales' => $recettefascales,
         ]);
     }
 
-    #[Route('/add', name: 'add_recettefiscale')]
-    public function addListe(ManagerRegistry $registry, Request $request): Response
+    #[Route('/edit{id?0)', name: 'edit_recettefiscale')]
+    public function addListe(Recettefiscale $recettefiscale=null,ManagerRegistry $registry, Request $request): Response
     {
-        $recettefascale = new Recettefiscale();
+        $new=false;
+        if (!$recettefiscale)
+        {
+            $new=true;
+            $recettefascale = new Recettefiscale();
+        }
+
         $form=$this->createForm(RecettefiscaleType::class,$recettefascale);
         $form->handleRequest($request);
         if ($form->isSubmitted())
@@ -34,12 +41,39 @@ class RecettefiscaleController extends AbstractController
             $manager=$registry->getManager();
             $manager->persist($recettefascale);
             $manager->flush();
-            $this->addFlash('success',"la recette a ete ajouter avec success");
-            $this->redirectToRoute('list_recettefiscale');
+            if ($new=true)
+            {
+                $message = " le nom de recette a été ajoute avec success" ;
+            }
+            else
+            {
+                $message= " le nom de recette n'existe pas";
+            }
+
+            $this->addFlash('success', $recettefiscale->getNom().$message);
+            return  $this->redirectToRoute('list_recettefiscale');
+        }else
+        {
+            return $this->render('ressources/recettefiscale/add.html.twig', [
+                'form'=>$form->createView()
+            ]);
         }
 
-        return $this->render('recettefiscale/add.html.twig', [
-            'form'=>$form->createView()
-        ]);
+    }
+
+    #[Route('/delete/{id}', name: 'delete_recettefiscale')]
+    public function deleteRecette(Recettefiscale $recettefiscale= null, ManagerRegistry $registry):Response
+    {
+        if($recettefiscale)
+        {
+            $manager=$registry->getManager();
+            $manager->remove($recettefiscale);
+            $manager->flush();
+            $this->addFlash('success', "le nom de recette a été supprimé avec success ");
+        }else
+        {
+            $this->addFlash('errer', "le nom de recette est innexistante ");
+        }
+        return $this->redirectToRoute('list_recettefiscale');
     }
 }

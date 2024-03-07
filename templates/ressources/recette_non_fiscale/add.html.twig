@@ -3,18 +3,21 @@
 {% block body %}
     {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
     <div class="row">
-        <div class="col">{{ form_row(form.type) }}</div>
-        <div class="col">{{ form_row(form.sites) }}</div>
+        <div class="col">{{ form_row(form.nom) }}</div>
+        <div class="col">{{ form_row(form.montantJournalier) }}</div>
+    </div>
+    <div class="row">
+        <div class="col">{{ form_row(form.montantMensuel) }}</div>
+        <div class="col">{{ form_row(form.montantAnnuel) }}</div>
     </div>
     {{ form_rest(form) }}
 {% endblock %}
 
 {% block PageTitre %}
-    Créér d'une ressourece propre
+    Créér d'une recette Non fiscale
 {% endblock %}
 
-{% block titreitre %}
-   formulaire d'une ressource propre
+{% block titre%}
 {% endblock %}
 
 {% block javascripts %}
@@ -24,4 +27,3 @@
         });
     </script>
 {% endblock %}
-
