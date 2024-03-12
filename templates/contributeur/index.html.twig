@@ -20,6 +20,7 @@
                 <th scope="col">MontantA</th>
                 <th scope="col">Date</th>
                 <th scope="col">Sites</th>
+                <th scope="col">Details</th>
                 <th scope="col">Modifier</th>
                 <th scope="col">Supprimer</th>
             </tr>
@@ -40,12 +41,30 @@
                             {{ site.nom}}
                         {% endfor %}
                     </td>
+                    <td><a href="#" class="btn btn-primary mt-2"><i class="fa-solid fa-circle-info"></i></a></td>
                     <td><a href="{{ path('edit_contributeur',{id: contributeur.id}) }}" class="btn btn-primary "> <i class="fa-solid fa-user-pen"></i></a></td>
                     <td><a href="{{ path('delete_contributeur',{id: contributeur.id}) }}" class="btn btn-danger "><i class="fa-solid fa-trash"></i></a></td>
                 </tr>
             {% endfor %}
             </tbody>
         </table>
+        {% if isPaginated %}
+            <div class="row mt-3">
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination">
+                        {% if page != 1 %}
+                            <li class="page-item"><a class="page-link" style="background-color: rgb(130, 106, 251);color:#fff;"href="{{ path('liste_contributeur',{page: page-1, nbre:nbre}) }}">Previous</a></li>
+                        {% endif %}
+                        {% for i in range(1, nbrePage) %}
+                            <li class="page-item"><a class="page-link" href="{{ path('liste_contributeur',{page: i, nbre:nbre}) }}">{{ i }}</a></li>
+                        {% endfor %}
+                        {% if page !=nbre %}
+                            <li class="page-item"><a class="page-link" style="background-color: rgb(130, 106, 251);color:#fff;" href="{{ path('liste_contributeur',{page: page+1, nbre:nbre}) }}">Next</a></li>
+                        {% endif %}
+                    </ul>
+                </nav>
+            </div>
+        {% endif %}
     {% endblock %}
 
 

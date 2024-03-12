@@ -54,8 +54,8 @@
                         <nav class="sb-sidenav-menu-nested nav">
                             <a class="nav-link text-primary" href="{{ path('list_recettefiscale') }} ">Recette Fiscale</a>
                             <a class="nav-link text-primary" href="{{ path('liste_recette_non_fiscale') }}">Recette non Fiscale</a>
-                            <a class="nav-link text-primary" href="#">Ristournes</a>
-                            <a class="nav-link text-primary" href="#">Excédent de cloture</a>
+                            <a class="nav-link text-primary" href="{{ path('liste_ristourne') }}">Ristournes</a>
+                            <a class="nav-link text-primary" href="{{ path('liste_excedent') }}">Excédent de cloture</a>
                         </nav>
                     </div>
 
@@ -94,7 +94,7 @@
                             <a class="nav-link" href="{{ path('liste_contributeur') }}">Liste Contributeurs</a>
                         </nav>
                     </div>
-                    <a class="nav-link collapsed" href="{{ path('liste_type_impot') }}" >
+                    <a class="nav-link collapsed" href="#" >
                         <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
                         Liste des impots
                     </a>
@@ -108,7 +108,7 @@
     </div>
     <div id="layoutSidenav_content">
         <main>
-            <div class="container-fluid px-lg-auto">
+            <div class="container-fluid px-lg-0">
                 <h1 class="mt-5">
                     {% block PageTitre %}
                         Static Navigation

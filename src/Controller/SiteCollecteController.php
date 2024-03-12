@@ -13,13 +13,19 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/site')]
 class SiteCollecteController extends AbstractController
 {
-    #[Route('/', name: 'liste_site_collecte')]
-    public function index(ManagerRegistry $registry, Request $request): Response
+    #[Route('/alls/{page?1}/{nbre?5}', name: 'liste_site_collecte')]
+    public function index(ManagerRegistry $registry, Request $request, $page, $nbre): Response
     {
         $manager=$registry->getRepository(SiteCollecte::class);
-        $siteCollectes=$manager->findAll();
+        $nbresite = $manager->count([]);
+        $nbrePage = ceil($nbresite / $nbre);
+        $siteCollectes=$manager->findBy([],['nom'=>'ASC']);
         return $this->render('site_collecte/index.html.twig', [
             'siteCollectes' =>$siteCollectes,
+            'isPaginated'=>true,
+            'page'=>$page,
+            'nbre'=>$nbre,
+            'nbrePage'=>$nbrePage
         ]);
     }
 

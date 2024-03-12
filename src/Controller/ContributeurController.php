@@ -15,13 +15,20 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/contributeur')]
 class ContributeurController extends AbstractController
 {
-    #[Route('/', name: 'liste_contributeur')]
-    public function index(ManagerRegistry $registry, Request $request): Response
+    #[Route('/alls/{page?1}/{nbre?5}', name: 'liste_contributeur')]
+    public function index(ManagerRegistry $registry, Request $request,$page,$nbre): Response
     {
         $manager = $registry->getRepository(Contributeurs::class);
-        $contributeurs=$manager->findAll();
+        $nbreContributeur = $manager->count([]);
+        $nbrePage = ceil($nbreContributeur / $nbre);
+        $contributeurs=$manager->findBy([],['nom'=>'ASC']);
         return $this->render('contributeur/index.html.twig', [
             'contributeurs' => $contributeurs,
+            'isPaginated'=>true,
+            'page'=>$page,
+            'nbre'=>$nbre,
+            'nbrePage'=>$nbrePage
+
         ]);
     }
 

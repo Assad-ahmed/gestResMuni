@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\ControllerRessources;
 
-use App\Entity\Contributeurs;
 use App\Entity\Recettefiscale;
 use App\Form\RecettefiscaleType;
 use Doctrine\Persistence\ManagerRegistry;
@@ -14,32 +13,38 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/recettefiscale',)]
 class RecettefiscaleController extends AbstractController
 {
-    #[Route('/', name: 'list_recettefiscale')]
-    public function index(ManagerRegistry $registry, Request $request): Response
+    #[Route('/alls/{page?1}/{nbre?5}', name: 'list_recettefiscale')]
+    public function index(ManagerRegistry $registry, Request $request,$page, $nbre): Response
     {
         $manager=$registry->getRepository(Recettefiscale::class);
-        $recettefascales=$manager->findAll();
+        $nbrerecette = $manager->count([]);
+        $nbrePage = ceil($nbrerecette / $nbre);
+        $recettefiscales=$manager->findBy([],['nom'=>'ASC'],$nbre, ($page-1)*$nbre);
         return $this->render('ressources/recettefiscale/index.html.twig', [
-            'recettefascales' => $recettefascales,
+            'recettefiscales' => $recettefiscales,
+            'isPaginated'=>true,
+            'page'=>$page,
+            'nbre'=>$nbre,
+            'nbrePage'=>$nbrePage
         ]);
     }
 
     #[Route('/edit{id?0)', name: 'edit_recettefiscale')]
-    public function addListe(Recettefiscale $recettefiscale=null,ManagerRegistry $registry, Request $request): Response
+    public function editRecette(Recettefiscale $recettefiscale=null,ManagerRegistry $registry, Request $request): Response
     {
         $new=false;
         if (!$recettefiscale)
         {
             $new=true;
-            $recettefascale = new Recettefiscale();
+            $recettefiscale = new Recettefiscale();
         }
 
-        $form=$this->createForm(RecettefiscaleType::class,$recettefascale);
+        $form=$this->createForm(RecettefiscaleType::class,$recettefiscale);
         $form->handleRequest($request);
-        if ($form->isSubmitted())
+        if ($form->isSubmitted()&& $form->isValid())
         {
             $manager=$registry->getManager();
-            $manager->persist($recettefascale);
+            $manager->persist($recettefiscale);
             $manager->flush();
             if ($new=true)
             {

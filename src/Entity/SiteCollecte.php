@@ -40,12 +40,20 @@ class SiteCollecte
     #[ORM\ManyToMany(targetEntity: RecetteNonFiscale::class, mappedBy: 'sites')]
     private Collection $recetteNonFiscales;
 
+    #[ORM\ManyToMany(targetEntity: Ristourne::class, mappedBy: 'sites')]
+    private Collection $ristournes;
+
+    #[ORM\ManyToMany(targetEntity: Excedent::class, mappedBy: 'sites')]
+    private Collection $excedents;
+
     public function __construct()
     {
         $this->contributeurs = new ArrayCollection();
         $this->yes = new ArrayCollection();
         $this->recettefiscales = new ArrayCollection();
         $this->recetteNonFiscales = new ArrayCollection();
+        $this->ristournes = new ArrayCollection();
+        $this->excedents = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -194,6 +202,60 @@ class SiteCollecte
     {
         if ($this->recetteNonFiscales->removeElement($recetteNonFiscale)) {
             $recetteNonFiscale->removeSite($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Ristourne>
+     */
+    public function getRistournes(): Collection
+    {
+        return $this->ristournes;
+    }
+
+    public function addRistourne(Ristourne $ristourne): static
+    {
+        if (!$this->ristournes->contains($ristourne)) {
+            $this->ristournes->add($ristourne);
+            $ristourne->addSite($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRistourne(Ristourne $ristourne): static
+    {
+        if ($this->ristournes->removeElement($ristourne)) {
+            $ristourne->removeSite($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Excedent>
+     */
+    public function getExcedents(): Collection
+    {
+        return $this->excedents;
+    }
+
+    public function addExcedent(Excedent $excedent): static
+    {
+        if (!$this->excedents->contains($excedent)) {
+            $this->excedents->add($excedent);
+            $excedent->addSite($this);
+        }
+
+        return $this;
+    }
+
+    public function removeExcedent(Excedent $excedent): static
+    {
+        if ($this->excedents->removeElement($excedent)) {
+            $excedent->removeSite($this);
         }
 
         return $this;

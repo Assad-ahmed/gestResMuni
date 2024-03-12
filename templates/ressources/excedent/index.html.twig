@@ -5,7 +5,7 @@
 {% block body %}
     <div class="container">
         <div class="d-grid gap-7 col-2 mx-xxl-6">
-            <a href="{{ path('edit_recette_non_fiscale') }}" class="btn bg-info" ><strong>Ajouter impot</strong></a>
+            <a href="{{ path('edit_excedent') }}" class="btn bg-info" ><strong>Ajouter impot</strong></a>
         </div>
     </div>
     <div class=" m-3">
@@ -21,42 +21,41 @@
                 <th scope="col">Details</th>
                 <th scope="col">Modifier</th>
                 <th scope="col">Supprimer</th>
-
             </tr>
             </thead>
             <tbody class="text-center">
-            {% for recettenonfiscale in recettenonfiscales %}
+            {% for excedent in excedents %}
                 <tr>
-                    <td>{{ recettenonfiscale.nom }}</td>
-                    <td>{{ recettenonfiscale.date|date('d/m/y ') }}</td>
-                    <td>{{ recettenonfiscale.montantJournalier }}</td>
-                    <td>{{ recettenonfiscale.montantMensuel }}</td>
-                    <td>{{ recettenonfiscale.montantAnnuel }}</td>
-                    <td>{% for site in recettenonfiscale.sites %}
+                    <td>{{ excedent.nom }}</td>
+                    <td>{{ excedent.date|date('d/m/y ') }}</td>
+                    <td>{{ excedent.montantJournalier }}</td>
+                    <td>{{ excedent.montantMensuel }}</td>
+                    <td>{{ excedent.montantAnnuel }}</td>
+                    <td>{% for site in excedent.sites %}
                             {{ site.nom }}
                         {% endfor %}
                     </td>
                     <td><a href="#" class="btn btn-primary mt-2"><i class="fa-solid fa-circle-info"></i></a></td>
-                    <td><a href="{{ path('edit_recette_non_fiscale', {id:recettenonfiscale.id }) }}" class="btn btn-primary mt-2"> <i class="fa-solid fa-user-pen"></i></a></td>
-                    <td><a href="{{ path('delete_recettenonfiscale',{id:recettenonfiscale.id}) }}" class="btn btn-danger mt-2"><i class="fa-solid fa-trash"></i></a></td>
-
+                    <td><a href="{{ path('edit_excedent', {id:excedent.id }) }}" class="btn btn-primary mt-2"> <i class="fa-solid fa-user-pen"></i></a></td>
+                  <td><a href="{{ path('delete_excedent',{id:excedent.id}) }}" class="btn btn-danger mt-2"><i class="fa-solid fa-trash"></i></a></td>
                 </tr>
             {% endfor %}
             </tbody>
         </table>
     </div>
+
     {% if isPaginated %}
         <div class="row mt-3">
             <nav aria-label="Page navigation example">
                 <ul class="pagination">
                     {% if page != 1 %}
-                        <li class="page-item"><a class="page-link" style="background-color: rgb(130, 106, 251);color:#fff; " href="{{ path('liste_recette_non_fiscale',{page: page-1, nbre:nbre}) }}">Previous</a></li>
+                        <li class="page-item"><a class="page-link" style="background-color: rgb(130, 106, 251);color:#fff;" href="{{ path('liste_excedent',{page: page-1, nbre:nbre}) }}">Previous</a></li>
                     {% endif %}
                     {% for i in range(1, nbrePage) %}
-                        <li class="page-item"><a class="page-link" href="{{ path('liste_recette_non_fiscale',{page: i, nbre:nbre}) }}">{{ i }}</a></li>
+                        <li class="page-item"><a class="page-link" href="{{ path('liste_excedent',{page: i, nbre:nbre}) }}">{{ i }}</a></li>
                     {% endfor %}
                     {% if page !=nbre %}
-                        <li class="page-item"><a class="page-link"  style="background-color: rgb(130, 106, 251);color:#fff; " href="{{ path('liste_recette_non_fiscale',{page: page+1, nbre:nbre}) }}">Next</a></li>
+                        <li class="page-item"><a class="page-link" style="background-color: rgb(130, 106, 251);color:#fff;" href="{{ path('liste_excedent',{page: page+1, nbre:nbre}) }}">Next</a></li>
                     {% endif %}
                 </ul>
             </nav>
@@ -64,5 +63,6 @@
     {% endif %}
 {% endblock %}
 {% block PageTitre %}
-    La liste des recettes non Fiscales
+    La liste des Excedent
 {% endblock %}
+

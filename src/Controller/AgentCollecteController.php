@@ -14,14 +14,20 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/agent')]
 class AgentCollecteController extends AbstractController
 {
-    #[Route('/', name: 'list_agent')]
-    public function index(ManagerRegistry $registry, Request $request): Response
+    #[Route('/alls/{page?1}/{nbre?5}', name: 'list_agent')]
+    public function index(ManagerRegistry $registry, Request $request,$page,$nbre): Response
     {
         $manager=$registry->getRepository(AgentCollecte::class);
-        $agentCollectes=$manager->findAll();
+        $nbreAgent = $manager->count([]);
+        $nbrePage = ceil($nbreAgent / $nbre);
+        $agentCollectes=$manager->findBy([],['nom'=>'ASC']);
 
         return $this->render('agent_collecte/index.html.twig', [
             'agentCollectes' => $agentCollectes,
+            'isPaginated'=>true,
+            'page'=>$page,
+            'nbre'=>$nbre,
+            'nbrePage'=>$nbrePage
 
         ]);
     }
