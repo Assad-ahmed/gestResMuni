@@ -1,0 +1,39 @@
+{% extends 'template.html.twig' %}
+
+{% block body %}
+    <div class="album py-5 bg-light">
+        <div class="container">
+
+            <div class="row row-cols-12  row-cols-sm-12 row-cols-md-12 g-3">
+                <div class="col">
+                    <div class="card shadow-sm">
+                        <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Espace réservé&nbsp;: vignette" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Impot Professionnel</text></svg>
+
+                        <div class="card-body">
+                            <p class="card-text ">
+                                <font style="vertical-align: inherit;">
+                                    <font style="vertical-align: inherit;">
+                                        La contribution des patentes est due par toute personne qui exerce à titre habituel une activité professionnelle non salariée. La patente se décompose en plusieurs droits calculés sur des bases très différentes. La patente de droit commun comprend un droit fixe et un droit proportionnel. Pour sa détermination, les professions sont classées suivant leur nature en deux tableaux A et B (Annexe II du livre I du CGI). Pour chaque classe, il est prévu un droit fixe (4000 FCFA à 75000 FCFA) et un droit proportionnel(6% à 12%).
+                                    </font>
+                                </font>
+                            </p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group">
+                                    <a href="{{ path('liste_impot') }}" class="btn btn-sm btn-outline-primary"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Voir la liste</font></font></a>
+                                    <a href="{{ path('edit_impot') }}" class="btn btn-sm btn-outline-primary"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Ajouter IP</font></font></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block title %}
+{% endblock %}
+{% block PageTitre %}
+    Les Impots preofessionnels
+{% endblock %}
+

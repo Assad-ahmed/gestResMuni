@@ -46,6 +46,15 @@ class SiteCollecte
     #[ORM\ManyToMany(targetEntity: Excedent::class, mappedBy: 'sites')]
     private Collection $excedents;
 
+    #[ORM\ManyToMany(targetEntity: Impot::class, mappedBy: 'site')]
+    private Collection $impots;
+
+    #[ORM\ManyToMany(targetEntity: ContributionPatente::class, mappedBy: 'site')]
+    private Collection $contributionPatentes;
+
+    #[ORM\ManyToMany(targetEntity: ImpotCapitation::class, mappedBy: 'site')]
+    private Collection $impotCapitations;
+
     public function __construct()
     {
         $this->contributeurs = new ArrayCollection();
@@ -54,6 +63,10 @@ class SiteCollecte
         $this->recetteNonFiscales = new ArrayCollection();
         $this->ristournes = new ArrayCollection();
         $this->excedents = new ArrayCollection();
+        $this->impots = new ArrayCollection();
+        $this->contributionPatentes = new ArrayCollection();
+        $this->impotCapitations = new ArrayCollection();
+
     }
 
     public function getId(): ?int
@@ -261,5 +274,90 @@ class SiteCollecte
         return $this;
     }
 
+    /**
+     * @return Collection<int, Impot>
+     */
+    public function getImpots(): Collection
+    {
+        return $this->impots;
+    }
+
+    public function addImpot(Impot $impot): static
+    {
+        if (!$this->impots->contains($impot)) {
+            $this->impots->add($impot);
+            $impot->addSite($this);
+        }
+
+        return $this;
+    }
+
+    public function removeImpot(Impot $impot): static
+    {
+        if ($this->impots->removeElement($impot)) {
+            $impot->removeSite($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ContributionPatente>
+     */
+    public function getContributionPatentes(): Collection
+    {
+        return $this->contributionPatentes;
+    }
+
+    public function addContributionPatente(ContributionPatente $contributionPatente): static
+    {
+        if (!$this->contributionPatentes->contains($contributionPatente)) {
+            $this->contributionPatentes->add($contributionPatente);
+            $contributionPatente->addSite($this);
+        }
+
+        return $this;
+    }
+
+    public function removeContributionPatente(ContributionPatente $contributionPatente): static
+    {
+        if ($this->contributionPatentes->removeElement($contributionPatente)) {
+            $contributionPatente->removeSite($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ImpotCapitation>
+     */
+    public function getImpotCapitations(): Collection
+    {
+        return $this->impotCapitations;
+    }
+
+    public function addImpotCapitation(ImpotCapitation $impotCapitation): static
+    {
+        if (!$this->impotCapitations->contains($impotCapitation)) {
+            $this->impotCapitations->add($impotCapitation);
+            $impotCapitation->addSite($this);
+        }
+
+        return $this;
+    }
+
+    public function removeImpotCapitation(ImpotCapitation $impotCapitation): static
+    {
+        if ($this->impotCapitations->removeElement($impotCapitation)) {
+            $impotCapitation->removeSite($this);
+        }
+
+        return $this;
+    }
+
+
+
 }
+
+
 

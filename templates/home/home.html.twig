@@ -10,7 +10,6 @@
 
 </head>
 <body>
-
     <header>
         <div class="navbar navbar-dark bg-primary shadow-sm">
             <div class="container">
@@ -24,11 +23,35 @@
     </header>
     <main>
 
-        <section class="py-2 text-center container-xl bg-warning m-5  h-auto ">
-            <div class="row py-lg-5 ">
-                <div class="col-lg-6 col-md-8 mx-auto ">
-                    <h1 class=" text-white">Bienvenue dans l’entreprise</h1>
-                    <p class="lead  text-white">Connectez-vous pour retrouver les différents applications à votre disposition .</p>
+        <section class="py-6 text-center container-xl text-bg-primary m-5  ">
+            <h1>Tableau de bord Taxe Municipale : </h1>
+            <div class="row ">
+                <div class="col-xl-4 col-md-6">
+                    <div class="card bg-info text-white mb-4">
+                        <div class="card-body">Montant Journalier</div>
+                        <div class="card-footer d-flex align-items-center justify-content-between">
+                            <a class="small text-white stretched-link" href="#">View Details</a>
+                            <div class="small text-white"><svg class="svg-inline--fa fa-angle-right fa-w-8" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="angle-right" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512" data-fa-i2svg=""><path fill="currentColor" d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34z"></path></svg><!-- <i class="fas fa-angle-right"></i> Font Awesome fontawesome.com --></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-md-6">
+                    <div class="card bg-warning text-white mb-4">
+                        <div class="card-body">Montant Mensuel</div>
+                        <div class="card-footer d-flex align-items-center justify-content-between">
+                            <a class="small text-white stretched-link" href="#">View Details</a>
+                            <div class="small text-white"><svg class="svg-inline--fa fa-angle-right fa-w-8" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="angle-right" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512" data-fa-i2svg=""><path fill="currentColor" d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34z"></path></svg><!-- <i class="fas fa-angle-right"></i> Font Awesome fontawesome.com --></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-md-6">
+                    <div class="card bg-success text-white mb-4">
+                        <div class="card-body">Montant annuel</div>
+                        <div class="card-footer d-flex align-items-center justify-content-between">
+                            <a class="small text-white stretched-link" href="#">View Details</a>
+                            <div class="small text-white"><svg class="svg-inline--fa fa-angle-right fa-w-8" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="angle-right" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512" data-fa-i2svg=""><path fill="currentColor" d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34z"></path></svg><!-- <i class="fas fa-angle-right"></i> Font Awesome fontawesome.com --></div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -38,14 +61,14 @@
                 <div class="row row-cols-1 row-cols-md-4 g-5">
                     <div class="col">
                         <div class="card h-100">
-                            <div class="card-header text-center text-dark-50 bg-warning border-success">Gestion Des Ressources Propres</div>
+                            <div class="card-header text-center text-dark-50 text-bg-primary border-success">Gestion Des Ressources Propres</div>
                             <div class="card-body">
                                 <h5 class="card-title">Ressource Propre</h5>
                                 <p class="card-text">Ce module contient ce qui
                                     est relatif aux ressources
                                     propres.</p>
                             </div>
-                            <div class="card-footer bg-warning text-center">
+                            <div class="card-footer bg-light text-center">
                                 <a href="{{ path('list_recettefiscale') }}" class="btn btn-primary">VOIR</a>
                             </div>
                         </div>
@@ -53,12 +76,12 @@
 
                     <div class="col">
                         <div class="card h-100">
-                            <div class="card-header text-dark-50 text-center bg-warning border-success">Gestion Des Sites de collectes</div>
+                            <div class="card-header text-dark-50 text-center text-bg-primary border-success">Gestion Des Sites de collectes</div>
                             <div class="card-body">
                                 <h5 class="card-title">Site de collecte</h5>
                                 <p class="card-text">Ce module contient ce qui est relatif aux sites de collectes.</p>
                             </div>
-                            <div class="card-footer bg-warning text-center">
+                            <div class="card-footer bg-light text-center">
                                 <a href="{{ path('liste_site_collecte') }}" class="btn btn-primary">VOIR</a>
                             </div>
                         </div>
@@ -66,12 +89,12 @@
 
                     <div class="col">
                         <div class="card h-100">
-                            <div class="card-header text-dark-50 text-center bg-warning border-success">Gestion Des Agents  Collectes</div>
+                            <div class="card-header text-dark-50 text-center text-bg-primary border-success">Gestion Des Agents  Collectes</div>
                             <div class="card-body">
                                 <h5 class="card-title">Agent de collecte</h5>
                                 <p class="card-text">Ce module contient ce qui est relatif aux contributeurs.</p>
                             </div>
-                            <div class="card-footer bg-warning text-center">
+                            <div class="card-footer bg-light text-center">
                                 <a href="{{ path('list_agent') }}" class="btn btn-primary">VOIR</a>
                             </div>
                         </div>
@@ -79,12 +102,12 @@
 
                     <div class="col">
                         <div class="card h-100">
-                            <div class="card-header text-dark-50 text-center bg-warning border-success">Gestion Des Contributeurs</div>
+                            <div class="card-header text-dark-50 text-center text-bg-primary border-success">Gestion Des Contributeurs</div>
                             <div class="card-body">
                                 <h5 class="card-title">Contributeur</h5>
                                 <p class="card-text"> Ce module contient ce qui est relatif aux agents de collectes.</p>
                             </div>
-                            <div class="card-footer bg-warning text-center">
+                            <div class="card-footer bg-light text-center">
                                 <a href="{{ path('liste_contributeur') }}" class="btn btn-primary">VOIR</a>
                             </div>
                         </div>

@@ -1,0 +1,82 @@
+{% extends 'template.html.twig' %}
+
+{% block body %}
+    <div class="album py-5 bg-light">
+        <div class="container">
+
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+                <div class="col">
+                    <div class="card shadow-sm">
+                        <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Espace réservé&nbsp;: vignette" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">CFPNB</text></svg>
+
+                        <div class="card-body">
+                            <p class="card-text ">
+                                <font style="vertical-align: inherit;">
+                                    <font style="vertical-align: inherit;">
+                                        La contribution foncière des propriétés non bâties (CFPNB) Les propriétés non bâties sont des terrains immatriculés où sont édifiées des constructions non adhérentes au sol, situées dans le périmètre des communes, groupements d’urbanisme et des centres lotis.
+                                    </font>
+                                </font>
+                            </p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group">
+                                    <a href="{{ path('liste_impot') }}" class="btn btn-sm btn-outline-primary"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Voir la liste</font></font></a>
+                                    <a href="{{ path('edit_impot') }}" class="btn btn-sm btn-outline-primary"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Ajouter CFPNB</font></font></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card shadow-sm">
+                        <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Espace réservé&nbsp;: vignette" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">TOM</text></svg>
+
+                        <div class="card-body">
+                            <p class="card-text">
+                                <font style="vertical-align: inherit;">
+                                    <font style="vertical-align: inherit;">
+                                        taxe d'enlèvement des ordures ménagères (TOM) Elle porte sur toutes les propriétés assujetties à la contribution foncière des propriétés bâties ou temporairement exemptées de cette contribution, à l’exception des usines et des propriétés bâties situées dans les localités
+                                    </font>
+                                </font>
+                            </p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group">
+                                    <a href="{{ path('liste_impot') }}" class="btn btn-sm btn-outline-primary"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Voir la liste</font></font></a>
+                                    <a href="{{ path('edit_impot') }}" class="btn btn-sm btn-outline-primary"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Ajouter TOM</font></font></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card shadow-sm">
+                        <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Espace réservé&nbsp;: vignette" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">CFPB</text></svg>
+
+                        <div class="card-body">
+                            <p class="card-text text-sm-start">
+                                <font style="vertical-align: inherit;">
+                                    <font style="vertical-align: inherit;">
+                                        La contribution foncière des propriétés bâties (CFPB) La CFPB est assise sur le revenu net de la propriété. Le revenu net se définit comme étant la valeur locative à laquelle on applique une déduction de 50% pour les usines et 40% pour les autres bâtiments
+                                    </font>
+                                </font>
+                            </p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group">
+                                    <a href="{{ path('liste_impot') }}" class="btn btn-sm btn-outline-primary"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Voir la liste</font></font></a>
+                                    <a href="{{ path('edit_impot') }}" class="btn btn-sm btn-outline-primary"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Ajouter CFPB</font></font></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block title %}
+{% endblock %}
+{% block PageTitre %}
+    Les Impots Directe
+{% endblock %}
+
