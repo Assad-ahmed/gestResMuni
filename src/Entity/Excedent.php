@@ -76,7 +76,7 @@ class Excedent
     public function setMontantJournalier(string $montantJournalier): static
     {
         $this->montantJournalier = $montantJournalier;
-
+        $this->calculateMontantMensuelAnnuel();
         return $this;
     }
 
@@ -126,5 +126,14 @@ class Excedent
         $this->sites->removeElement($site);
 
         return $this;
+    }
+
+    private function calculateMontantMensuelAnnuel(): void
+    {
+        if ($this->montantJournalier !== null) {
+            $montantJournalier = floatval($this->montantJournalier);
+            $this->montantMensuel = number_format($montantJournalier * 30, 3, '.', '');
+            $this->montantAnnuel = number_format($montantJournalier * 365, 3, '.', '');
+        }
     }
 }

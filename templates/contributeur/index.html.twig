@@ -7,18 +7,23 @@
     {% endblock %}
 
     {% block body %}
+     <div class="container">
+         <div class="d-grid gap-7 col-2 mx-xxl-6">
+             <a href="{{ path('edit_contributeur') }}" class="btn bg-info" ><strong>AjouterContributeur</strong></a>
+         </div>
+     </div>
+ <div class=" m-3">
         <table class="table table-bordered">
-            <thead class="text-center" style="background-color: rgb(130, 106, 251);color:#fff;">
+            <thead class="text-center px-sm-0" style="background-color: rgb(130, 106, 251);color:#fff;">
             <tr>
-                <th scope="col" >Id</th>
                 <th scope="col">Nom </th>
                 <th scope="col">prenom</th>
                 <th scope="col">Adresse</th>
                 <th scope="col">Téléphone</th>
+                <th scope="col">Date</th>
                 <th scope="col">MontantJ</th>
                 <th scope="col">MontantM</th>
                 <th scope="col">MontantA</th>
-                <th scope="col">Date</th>
                 <th scope="col">Sites</th>
                 <th scope="col">Details</th>
                 <th scope="col">Modifier</th>
@@ -28,15 +33,14 @@
             <tbody class="text-center">
             {% for contributeur in contributeurs %}
                 <tr>
-                    <th scope="row">{{ contributeur.id }}</th>
                     <td>{{ contributeur.nom}}</td>
                     <td>{{contributeur.prenom}}</td>
                     <td>{{ contributeur.adresse }}</td>
                     <td>{{ contributeur.telephone }}</td>
-                    <td>{{contributeur.montantJournalier }}</td>
-                    <td>{{ contributeur.montantMensuel}}</td>
-                    <td>{{ contributeur.montantAnnuel}}</td>
                     <td>{{ contributeur.datePaye|date('Y-m-d') }}</td>
+                    <td>{{contributeur.montantJournalier }}FCFA</td>
+                    <td>{{ contributeur.montantMensuel}}FCFA</td>
+                    <td>{{ contributeur.montantAnnuel}}FCFA</td>
                     <td>{% for site in contributeur.sites %}
                             {{ site.nom}}
                         {% endfor %}
@@ -48,6 +52,7 @@
             {% endfor %}
             </tbody>
         </table>
+ </div>
         {% if isPaginated %}
             <div class="row mt-3">
                 <nav aria-label="Page navigation example">

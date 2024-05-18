@@ -5,7 +5,7 @@
 {% block body %}
     <div class="container">
         <div class="d-grid gap-7 col-2 mx-xxl-6">
-            <a href="{{ path('edit_recette_non_fiscale') }}"  ><strong>Ajouter impot</strong></a>
+            <a href="{{ path('edit_excedent') }}" class="btn bg-info" ><strong>Ajouter RNF</strong></a>
         </div>
     </div>
     <div class=" m-3">
@@ -29,9 +29,9 @@
                 <tr>
                     <td>{{ recettenonfiscale.nom }}</td>
                     <td>{{ recettenonfiscale.date|date('d/m/y ') }}</td>
-                    <td>{{ recettenonfiscale.montantJournalier }}</td>
-                    <td>{{ recettenonfiscale.montantMensuel }}</td>
-                    <td>{{ recettenonfiscale.montantAnnuel }}</td>
+                    <td>{{ recettenonfiscale.montantJournalier }}FCFA</td>
+                    <td>{{ recettenonfiscale.montantMensuel }}FCFA</td>
+                    <td>{{ recettenonfiscale.montantAnnuel }}FCFA</td>
                     <td>{% for site in recettenonfiscale.sites %}
                             {{ site.nom }}
                         {% endfor %}

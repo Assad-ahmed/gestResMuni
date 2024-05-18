@@ -1,0 +1,63 @@
+
+{% extends '/template.html.twig' %}
+
+{% block title %}
+
+{% endblock %}
+
+{% block body %}
+    <table class="table table-bordered">
+        <thead class="text-center " style="background-color: rgb(130, 106, 251);color:#fff;">
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Nom </th>
+            <th scope="col">valeurLocative</th>
+            <th scope="col">Region</th>
+            <th scope="col">Taux</th>
+            <th scope="col" >MontantTaxe</th>
+            <th scope="col">Details</th>
+            <th scope="col">Modifier</th>
+            <th scope="col">Supprimer</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for tom in toms %}
+
+            <tr>
+                <th scope="row">{{ tom.id }}</th>
+                <td>{{ tom.nomP }}</td>
+                <td>{{ tom.valeurLocative }}</td>
+                <td>{{ tom.region }}</td>
+                <td>{{ tom.taux }}</td>
+                <td>{{ tom.calculerMontantTaxe }}</td>
+                <td><a href="#" class="btn btn-primary mt-2"><i class="fa-solid fa-circle-info"></i></a></td>
+                <td><a href="{{ path('tom_new',{id: tom.id}) }}" class="btn btn-primary "> <i class="fa-solid fa-user-pen"></i></a></td>
+                <td><a href="{{ path('delete_tom',{id: tom.id}) }}" class="btn btn-danger "><i class="fa-solid fa-trash"></i></a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% if isPaginated %}
+        <div class="row mt-3">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    {% if page != 1 %}
+                        <li class="page-item"><a class="page-link" style="background-color: rgb(130, 106, 251);color:#fff;" href="{{ path('cfpnb_list',{page: page-1, nbre:nbre}) }}">Previous</a></li>
+                    {% endif %}
+                    {% for i in range(1, nbrePage) %}
+                        <li class="page-item"><a class="page-link" href="{{ path('tom_list',{page: i, nbre:nbre}) }}">{{ i }}</a></li>
+                    {% endfor %}
+                    {% if page !=nbre %}
+                        <li class="page-item"><a class="page-link" style="background-color: rgb(130, 106, 251);color:#fff;" href="{{ path('tom_list',{page: page+1, nbre:nbre}) }}">Next</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+    {% endif %}
+{% endblock %}
+{% block PageTitre %}
+    <h2>Liste TOM </h2>
+{% endblock %}
+
+
+

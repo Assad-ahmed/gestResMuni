@@ -1,9 +1,11 @@
 {% extends 'template.html.twig' %}
 
 {% block title %}
+   Agent
+{% endblock %}
+{% block PageTitre %}
     Editer d'un agent
 {% endblock %}
-
 {% block body %}
     {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
     <div class="row">
@@ -13,8 +15,7 @@
     </div>
     <div class="row">
         <div class="col">{{ form_row(form.montantJournalier) }}</div>
-        <div class="col">{{ form_row(form.montantMensuel) }}</div>
-        <div class="col">{{ form_row(form.montantAnnule) }}</div>
+        <div class="col">{{ form_row(form.date) }}</div>
     </div>
     {{ form_rest(form) }}
 {% endblock %}

@@ -5,7 +5,7 @@
 {% block body %}
     <div class="container">
         <div class="d-grid gap-7 col-2 mx-xxl-6">
-            <a href="{{ path('edit_ristourne') }}" class="btn bg-info" ><strong>Ajouter impot</strong></a>
+            <a href="{{ path('edit_ristourne') }}" class="btn bg-info" ><strong>AjouterRistourne</strong></a>
         </div>
     </div>
     <div class=" m-3">
@@ -28,9 +28,9 @@
                 <tr>
                     <td>{{  ristourne.nom}}</td>
                     <td>{{ristourne .date|date('d/m/y ') }}</td>
-                    <td>{{ ristourne.montantJournalier }}</td>
-                    <td>{{ ristourne.montantMensuel }}</td>
-                    <td>{{ ristourne.montantAnnuel }}</td>
+                    <td>{{ ristourne.montantJournalier }}FCFA</td>
+                    <td>{{ ristourne.montantMensuel }}FCFA</td>
+                    <td>{{ ristourne.montantAnnuel }}FCFA</td>
                     <td>{% for site in ristourne.sites %}
                             {{ site.nom }}
                         {% endfor %}

@@ -34,9 +34,6 @@ class SiteCollecte
     #[ORM\ManyToMany(targetEntity: Contributeurs::class, mappedBy: 'sites')]
     private Collection $contributeurs;
 
-    #[ORM\ManyToMany(targetEntity: Recettefiscale::class, mappedBy: 'sites')]
-    private Collection $recettefiscales;
-
     #[ORM\ManyToMany(targetEntity: RecetteNonFiscale::class, mappedBy: 'sites')]
     private Collection $recetteNonFiscales;
 
@@ -106,7 +103,7 @@ class SiteCollecte
     public function setMontantJournalier(string $montantJournalier): static
     {
         $this->montantJournalier = $montantJournalier;
-
+        $this->calculateMontantMensuelAnnuel();
         return $this;
     }
 
@@ -166,32 +163,6 @@ class SiteCollecte
     }
 
 
-    /**
-     * @return Collection<int, Recettefiscale>
-     */
-    public function getRecettefiscales(): Collection
-    {
-        return $this->recettefiscales;
-    }
-
-    public function addRecettefiscale(Recettefiscale $recettefiscale): static
-    {
-        if (!$this->recettefiscales->contains($recettefiscale)) {
-            $this->recettefiscales->add($recettefiscale);
-            $recettefiscale->addSite($this);
-        }
-
-        return $this;
-    }
-
-    public function removeRecettefiscale(Recettefiscale $recettefiscale): static
-    {
-        if ($this->recettefiscales->removeElement($recettefiscale)) {
-            $recettefiscale->removeSite($this);
-        }
-
-        return $this;
-    }
 
     /**
      * @return Collection<int, RecetteNonFiscale>
@@ -355,7 +326,14 @@ class SiteCollecte
         return $this;
     }
 
-
+    private function calculateMontantMensuelAnnuel(): void
+    {
+        if ($this->montantJournalier !== null) {
+            $montantJournalier = floatval($this->montantJournalier);
+            $this->montantMensuel = number_format($montantJournalier * 30, 3, '.', '');
+            $this->montantAnnuel = number_format($montantJournalier * 365, 3, '.', '');
+        }
+    }
 
 }
 

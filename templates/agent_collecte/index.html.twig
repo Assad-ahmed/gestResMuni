@@ -7,17 +7,22 @@
 {% endblock %}
 
 {% block body %}
+    <div class="container">
+        <div class="d-grid gap-7 col-2 mx-xxl-6">
+            <a href="{{ path('edit_agent') }}" class="btn bg-info" ><strong>Ajouter Agent</strong></a>
+        </div>
+    </div>
+<div class=" m-3">
     <table class="table table-bordered">
         <thead class="text-center" style="background-color: rgb(130, 106, 251);color:#fff;">
         <tr>
-            <th scope="col" >Id</th>
             <th scope="col">Nom </th>
             <th scope="col">prenom</th>
             <th scope="col">Téléphone</th>
+            <th scope="col">Date</th>
             <th scope="col">MontantJ</th>
             <th scope="col">MontantM</th>
             <th scope="col">Montant</th>
-            <th scope="col">Date</th>
             <th scope="col">Sites</th>
             <th scope="col">Details</th>
             <th scope="col">Modifier</th>
@@ -27,14 +32,13 @@
         <tbody class="text-center">
         {% for agentCollecte in agentCollectes %}
             <tr>
-                <th scope="row">{{ agentCollecte.id }}</th>
                 <td>{{ agentCollecte.nom }}</td>
                 <td>{{ agentCollecte.prenom }}</td>
                 <td>{{ agentCollecte.telephone }}</td>
-                <td>{{ agentCollecte.montantJournalier }}</td>
-                <td>{{ agentCollecte.montantMensuel }}</td>
-                <td>{{ agentCollecte.montantAnnule }}</td>
                 <td>{{ agentCollecte.date|date('Y-m-d') }}</td>
+                <td>{{ agentCollecte.montantJournalier}}FCFA</td>
+                <td>{{agentCollecte.montantMensuel}}FCFA</td>
+                <td>{{ agentCollecte.montantAnnuel }}FCFA</td>
                 <td>{% for site in agentCollecte.sites %}
                       {{ site.nom }}
                     {% endfor %}
@@ -46,6 +50,7 @@
         {% endfor %}
         </tbody>
     </table>
+</div>
     {% if isPaginated %}
         <div class="row mt-3">
             <nav aria-label="Page navigation example">

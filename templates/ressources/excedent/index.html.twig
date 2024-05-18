@@ -5,7 +5,7 @@
 {% block body %}
     <div class="container">
         <div class="d-grid gap-7 col-2 mx-xxl-6">
-            <a href="{{ path('edit_excedent') }}" class="btn bg-info" ><strong>Ajouter impot</strong></a>
+            <a href="{{ path('edit_excedent') }}" class="btn bg-info" ><strong>Ajouter Excedent</strong></a>
         </div>
     </div>
     <div class=" m-3">
@@ -28,9 +28,9 @@
                 <tr>
                     <td>{{ excedent.nom }}</td>
                     <td>{{ excedent.date|date('d/m/y ') }}</td>
-                    <td>{{ excedent.montantJournalier }}</td>
-                    <td>{{ excedent.montantMensuel }}</td>
-                    <td>{{ excedent.montantAnnuel }}</td>
+                    <td>{{ excedent.montantJournalier }}FCFA</td>
+                    <td>{{ excedent.montantMensuel }}FCFA</td>
+                    <td>{{ excedent.montantAnnuel }}FCFA</td>
                     <td>{% for site in excedent.sites %}
                             {{ site.nom }}
                         {% endfor %}

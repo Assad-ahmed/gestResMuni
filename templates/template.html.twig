@@ -46,10 +46,12 @@
         <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
             <div class="sb-sidenav-menu">
                 <div class="nav">
+                    <div class="sb-sidenav-menu-heading">Core</div>
                     <a class="nav-link" href="{{ path('app_home') }}">
                         <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                         Page d'accueil
                     </a>
+
                     <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
                         <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
                         Ressource propre
@@ -63,12 +65,11 @@
                             </a>
                             <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="{{ path('detail_impot') }}">IDirecte</a>
-                                    <a class="nav-link" href="{{ path('detail_contribution_patente') }}">IProfessionnel</a>
-                                    <a class="nav-link" href="{{ path('detail_impot_capitation') }}">ICapitation</a>
+                                    <a class="nav-link" href="{{ path('cfpnb_serve') }}">IDirecte</a>
+                                    <a class="nav-link" href="{{ path('taxeIndirecte_serve') }}">IIndirecte</a>
                                 </nav>
                             </div>
-                                <a class="nav-link" href="{{ path('list_recettefiscale') }}">Recette non fiscale</a>
+                                <a class="nav-link" href="{{ path('liste_recette_non_fiscale') }}">Recette non fiscale</a>
                                 <a class="nav-link" href="{{ path('liste_ristourne') }}">Ristourne</a>
                                 <a class="nav-link" href="{{ path('liste_excedent') }}">Excedent</a>
                         </nav>
@@ -81,7 +82,7 @@
                     </a>
                     <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                         <nav class="sb-sidenav-menu-nested nav">
-                            <a class="nav-link" href="{{ path('edit_agent') }}">Créér Agent</a>
+                            <a class="nav-link" href="{{ path('edit_agent') }}">Nouvel Agent</a>
                             <a class="nav-link" href="{{ path('list_agent') }}">liste d'agents</a>
                         </nav>
                     </div>
@@ -93,7 +94,7 @@
                     </a>
                     <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                         <nav class="sb-sidenav-menu-nested nav">
-                            <a class="nav-link" href="{{ path('edit_contributeur') }}">Créér contributeur</a>
+                            <a class="nav-link" href="{{ path('edit_contributeur') }}">Creer contributeur</a>
                             <a class="nav-link" href="{{ path('liste_contributeur') }}">Liste contributeur</a>
                         </nav>
                     </div>
@@ -105,7 +106,7 @@
                     </a>
                     <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                         <nav class="sb-sidenav-menu-nested nav">
-                            <a class="nav-link" href="{{ path('edit_site_collecte') }}">Créér site</a>
+                            <a class="nav-link" href="{{ path('edit_site_collecte') }}"> Creer site</a>
                             <a class="nav-link" href="{{ path('liste_site_collecte') }}">Liste site</a>
                         </nav>
                     </div>

@@ -2,11 +2,8 @@
 
 namespace App\Controller;
 
-use App\Entity\AgentCollecte;
 use App\Entity\Contributeurs;
-use App\Entity\SiteCollecte;
 use App\Form\ContributeurType;
-use App\Form\SiteCollecteType;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -59,10 +56,12 @@ class ContributeurController extends AbstractController
             }
             $this->addFlash('success', $contributeurs->getNom().$message);
             return $this->redirectToRoute('liste_contributeur');
+        }else{
+            return $this->render('contributeur/add.html.twig', [
+                'form' => $form->createView(),
+            ]);
         }
-        return $this->render('contributeur/add.html.twig', [
-            'form' => $form->createView(),
-        ]);
+
     }
 
     #[Route('/delete/{id}', name: 'delete_contributeur')]

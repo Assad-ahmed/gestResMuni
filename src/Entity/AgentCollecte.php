@@ -39,7 +39,7 @@ class AgentCollecte
     private ?string $montantMensuel = null;
 
     #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 3)]
-    private ?string $montantAnnule = null;
+    private ?string $montantAnnuel = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $date = null;
@@ -101,7 +101,7 @@ class AgentCollecte
     public function setMontantJournalier(string $montantJournalier): static
     {
         $this->montantJournalier = $montantJournalier;
-
+        $this->calculateMontantMensuelAnnuel();
         return $this;
     }
 
@@ -117,14 +117,14 @@ class AgentCollecte
         return $this;
     }
 
-    public function getMontantAnnule(): ?string
+    public function getMontantAnnuel(): ?string
     {
-        return $this->montantAnnule;
+        return $this->montantAnnuel;
     }
 
-    public function setMontantAnnule(string $montantAnnule): static
+    public function setMontantAnnuel(string $montantAnnuel): static
     {
-        $this->montantAnnule = $montantAnnule;
+        $this->montantAnnuele = $montantAnnuel;
 
         return $this;
     }
@@ -163,6 +163,14 @@ class AgentCollecte
         $this->sites->removeElement($site);
 
         return $this;
+    }
+    private function calculateMontantMensuelAnnuel(): void
+    {
+        if ($this->montantJournalier !== null) {
+            $montantJournalier = floatval($this->montantJournalier);
+            $this->montantMensuel = number_format($montantJournalier * 30, 3, '.', '');
+            $this->montantAnnuel = number_format($montantJournalier * 365, 3, '.', '');
+        }
     }
 
 }

@@ -3,6 +3,12 @@
 {% block title %}Hello SiteCollecteController!{% endblock %}
 
 {% block body %}
+<div class="container">
+    <div class="d-grid gap-7 col-2 mx-xxl-6">
+        <a href="{{ path('edit_site_collecte') }}" class="btn bg-info" ><strong>Ajouter Site</strong></a>
+    </div>
+</div>
+<div class=" m-3">
     <table class="table table-bordered">
         <thead class="text-center " style="background-color: rgb(130, 106, 251);color:#fff;">
         <tr>
@@ -24,9 +30,9 @@
                 <th scope="row">{{ siteCollecte.id }}</th>
                 <td>{{siteCollecte.nom}}</td>
                 <td>{{ siteCollecte.adresse}}</td>
-                <td>{{ siteCollecte.montantJournalier }}</td>
-                <td>{{ siteCollecte.montantMensuel }}</td>
-                <td>{{ siteCollecte.montantAnnuel}}</td>
+                <td>{{ siteCollecte.montantJournalier }}FCFA</td>
+                <td>{{ siteCollecte.montantMensuel }}FCFA</td>
+                <td>{{ siteCollecte.montantAnnuel}}FCFA</td>
                 <td><a href="#" class="btn btn-primary mt-2"><i class="fa-solid fa-circle-info"></i></a></td>
                 <td><a href="{{ path('edit_site_collecte',{id: siteCollecte.id}) }}" class="btn btn-primary "> <i class="fa-solid fa-user-pen"></i></a></td>
                 <td><a href="{{ path('delete_site',{id: siteCollecte.id}) }}" class="btn btn-danger "><i class="fa-solid fa-trash"></i></a></td>
@@ -34,6 +40,7 @@
         {% endfor %}
         </tbody>
     </table>
+</div>
     {% if isPaginated %}
         <div class="row mt-3">
             <nav aria-label="Page navigation example">

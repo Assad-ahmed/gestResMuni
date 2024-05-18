@@ -1,0 +1,72 @@
+
+{% extends 'template.html.twig' %}
+
+{% block title %}
+
+{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="d-grid gap-7 col-2 mx-xxl-6">
+        <a href="{{ path('taxeIndirecte_new') }}" class="btn bg-info" ><strong>Ajouter ImpInd</strong></a>
+    </div>
+</div>
+<div class=" m-3">
+    <table class="table table-bordered">
+        <thead class="text-center " style="background-color: rgb(130, 106, 251);color:#fff;">
+        <tr>
+            <th scope="col">Code</th>
+            <th scope="col">Type </th>
+            <th scope="col">Description</th>
+            <th scope="col">Date</th>
+            <th scope="col">MontantJ </th>
+            <th scope="col">MontantM </th>
+            <th scope="col">MontantA </th>
+            <th scope="col">Details</th>
+            <th scope="col">Modifier</th>
+            <th scope="col">Supprimer</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for taxeIndirecte in taxeIndirectes %}
+
+            <tr>
+                <td>{{ taxeIndirecte.codeArticle }}</td>
+                <td>{{ taxeIndirecte.typeTaxe }}</td>
+                <td>{{ taxeIndirecte.description }}</td>
+                <td>{{ taxeIndirecte.date|date('Y-m-d')  }}</td>
+                <td>{{ taxeIndirecte.montantJournalier}}FCFA</td>
+                <td>{{ taxeIndirecte.montantMensuel}}FCFA</td>
+                <td>{{ taxeIndirecte.montantAnnuel}}FCFA</td>
+                <td><a href="#" class="btn btn-primary mt-2"><i class="fa-solid fa-circle-info"></i></a></td>
+                <td><a href="{{ path('taxeIndirecte_new',{id: taxeIndirecte.id}) }}" class="btn btn-primary "> <i class="fa-solid fa-user-pen"></i></a></td>
+                <td><a href="{{ path('delete_indirecte',{id: taxeIndirecte.id}) }}" class="btn btn-danger "><i class="fa-solid fa-trash"></i></a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+    {% if isPaginated %}
+        <div class="row mt-3">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    {% if page != 1 %}
+                        <li class="page-item"><a class="page-link" style="background-color: rgb(130, 106, 251);color:#fff;" href="{{ path('taxeindirecte_list',{page: page-1, nbre:nbre}) }}">Previous</a></li>
+                    {% endif %}
+                    {% for i in range(1, nbrePage) %}
+                        <li class="page-item"><a class="page-link" href="{{ path('taxeindirecte_list',{page: i, nbre:nbre}) }}">{{ i }}</a></li>
+                    {% endfor %}
+                    {% if page !=nbre %}
+                        <li class="page-item"><a class="page-link" style="background-color: rgb(130, 106, 251);color:#fff;" href="{{ path('taxeindirecte_list',{page: page+1, nbre:nbre}) }}">Next</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+    {% endif %}
+{% endblock %}
+{% block PageTitre %}
+    <h1>Liste Impot indirecte </h1>
+{% endblock %}
+
+
+
