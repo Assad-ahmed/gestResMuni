@@ -3,44 +3,22 @@
 namespace App\Form;
 
 use App\Entity\Propriete;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class ProprieteType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('type',ChoiceType::class, [
-                'choices' => [
-                    'Usine' => 'usine',
-                    'Autre' => 'autre',
-                ],
-                'label' => 'Type de propriété',])
-            ->add('valeurVenale')
-            ->add('valeurLocative')
-            ->add('region',ChoiceType::class,[
-                'choices' => [
-                    'Dakar' => 'Dakar',
-                    'Ziguinchor' => 'Ziguinchor',
-                    'Thiès'=>'Thiès',
-                    'Kaolack, Kolda'=>' Kaolack, Kolda'
-
-                ],
-                  'label' => 'Région',
-            ])
-            ->add('revenuNet',ChoiceType::class, [
-                'choices' => [
-                    '0.15' => '0.15',
-                    '0.05' => '0.05',
-                    '0.06' => '0.06',
-                    '0.04'=>'0.04'
-                ],
-              ])
-            ->add('Enregistre', SubmitType::class)
+            ->add('nom')
+            ->add('prenom')
+            ->add('telephone')
+            ->add('adresse')
+            ->add('Enrigistre',SubmitType::class)
         ;
     }
 

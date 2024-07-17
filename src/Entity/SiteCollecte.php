@@ -46,23 +46,18 @@ class SiteCollecte
     #[ORM\ManyToMany(targetEntity: Impot::class, mappedBy: 'site')]
     private Collection $impots;
 
-    #[ORM\ManyToMany(targetEntity: ContributionPatente::class, mappedBy: 'site')]
-    private Collection $contributionPatentes;
 
-    #[ORM\ManyToMany(targetEntity: ImpotCapitation::class, mappedBy: 'site')]
-    private Collection $impotCapitations;
 
     public function __construct()
     {
         $this->contributeurs = new ArrayCollection();
         $this->yes = new ArrayCollection();
-        $this->recettefiscales = new ArrayCollection();
+
         $this->recetteNonFiscales = new ArrayCollection();
         $this->ristournes = new ArrayCollection();
         $this->excedents = new ArrayCollection();
         $this->impots = new ArrayCollection();
-        $this->contributionPatentes = new ArrayCollection();
-        $this->impotCapitations = new ArrayCollection();
+
 
     }
 
@@ -272,59 +267,13 @@ class SiteCollecte
         return $this;
     }
 
-    /**
-     * @return Collection<int, ContributionPatente>
-     */
-    public function getContributionPatentes(): Collection
-    {
-        return $this->contributionPatentes;
-    }
 
-    public function addContributionPatente(ContributionPatente $contributionPatente): static
-    {
-        if (!$this->contributionPatentes->contains($contributionPatente)) {
-            $this->contributionPatentes->add($contributionPatente);
-            $contributionPatente->addSite($this);
-        }
 
-        return $this;
-    }
 
-    public function removeContributionPatente(ContributionPatente $contributionPatente): static
-    {
-        if ($this->contributionPatentes->removeElement($contributionPatente)) {
-            $contributionPatente->removeSite($this);
-        }
 
-        return $this;
-    }
 
-    /**
-     * @return Collection<int, ImpotCapitation>
-     */
-    public function getImpotCapitations(): Collection
-    {
-        return $this->impotCapitations;
-    }
 
-    public function addImpotCapitation(ImpotCapitation $impotCapitation): static
-    {
-        if (!$this->impotCapitations->contains($impotCapitation)) {
-            $this->impotCapitations->add($impotCapitation);
-            $impotCapitation->addSite($this);
-        }
 
-        return $this;
-    }
-
-    public function removeImpotCapitation(ImpotCapitation $impotCapitation): static
-    {
-        if ($this->impotCapitations->removeElement($impotCapitation)) {
-            $impotCapitation->removeSite($this);
-        }
-
-        return $this;
-    }
 
     private function calculateMontantMensuelAnnuel(): void
     {

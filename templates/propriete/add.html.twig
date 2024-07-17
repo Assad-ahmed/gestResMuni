@@ -1,20 +1,27 @@
 {% extends 'template.html.twig' %}
 
 {% block body %}
-    {{ form_start(form,{'attr': {'novalidate': 'novalidate'}}) }}
+    {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
     <div class="row">
-        <div class="col">{{ form_row(form.type) }}</div>
-        <div class="col">{{ form_row(form.region) }}</div>
+        <div class="col">{{ form_row(form.nom) }}</div>
+        <div class="col">{{ form_row(form.prenom) }}</div>
     </div>
     <div class="row">
-        <div class="col">{{ form_row(form.revenuNet) }}</div>
-        <div class="col">{{ form_row(form.valeurVenale) }}</div>
-        <div class="col">{{ form_row(form.valeurLocative) }}</div>
+        <div class="col">{{ form_row(form.telephone) }}</div>
+        <div class="col">{{ form_row(form.adresse) }}</div>
     </div>
     {{ form_rest(form) }}
 {% endblock %}
 
 {% block title %}
 
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        $(document).ready(function() {
+            $('.select2').select2();
+        });
+    </script>
 {% endblock %}
 

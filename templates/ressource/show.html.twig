@@ -1,0 +1,20 @@
+{% extends 'template.html.twig' %}
+
+{% block title %}Détails de la Ressource {{ ressource.nom }}{% endblock %}
+
+{% block body %}
+    <h1>Détails de la Ressource {{ ressource.nom }}</h1>
+
+    <p><strong>Nom :</strong> {{ ressource.nom }}</p>
+
+
+    <h2>Types d'Impôts Associés :</h2>
+    <ul>
+        {% for taxType in taxTypes %}
+            <li>{{ taxType.nom }}</li>
+            {# Ajoutez ici d'autres détails si nécessaire #}
+        {% endfor %}
+    </ul>
+
+    {# Ajoutez ici d'autres informations ou fonctionnalités #}
+{% endblock %}

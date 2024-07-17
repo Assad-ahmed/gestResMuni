@@ -3,7 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ProprieteRepository;
-use Doctrine\DBAL\Types\Types;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ProprieteRepository::class)]
@@ -15,82 +16,110 @@ class Propriete
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $type = null;
-
-    #[ORM\Column(type: Types::DECIMAL, precision: 12, scale: 3)]
-    private ?string $valeurVenale = null;
-
-    #[ORM\Column(type: Types::DECIMAL, precision: 12, scale: 3)]
-    private ?string $valeurLocative = null;
+    private ?string $nom = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $region = null;
+    private ?string $prenom = null;
 
-    #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 3)]
-    private ?string $revenuNet = null;
+    #[ORM\Column(length: 255)]
+    private ?string $telephone = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $adresse = null;
+
+    #[ORM\OneToMany(mappedBy: 'propriete', targetEntity: ImpotTOM::class)]
+    private Collection $impotTOMs;
+
+    public function __construct()
+    {
+        $this->impotTOMs = new ArrayCollection();
+    }
+
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getType(): ?string
+    public function getNom(): ?string
     {
-        return $this->type;
+        return $this->nom;
     }
 
-    public function setType(string $type): static
+    public function setNom(string $nom): static
     {
-        $this->type = $type;
+        $this->nom = $nom;
 
         return $this;
     }
 
-    public function getValeurVenale(): ?string
+    public function getPrenom(): ?string
     {
-        return $this->valeurVenale;
+        return $this->prenom;
     }
 
-    public function setValeurVenale(string $valeurVenale): static
+    public function setPrenom(string $prenom): static
     {
-        $this->valeurVenale = $valeurVenale;
+        $this->prenom = $prenom;
 
         return $this;
     }
 
-    public function getValeurLocative(): ?string
+    public function getTelephone(): ?string
     {
-        return $this->valeurLocative;
+        return $this->telephone;
     }
 
-    public function setValeurLocative(string $valeurLocative): static
+    public function setTelephone(string $telephone): static
     {
-        $this->valeurLocative = $valeurLocative;
+        $this->telephone = $telephone;
 
         return $this;
     }
 
-    public function getRegion(): ?string
+    public function getAdresse(): ?string
     {
-        return $this->region;
+        return $this->adresse;
     }
 
-    public function setRegion(string $region): static
+    public function setAdresse(string $adresse): static
     {
-        $this->region = $region;
+        $this->adresse = $adresse;
 
         return $this;
     }
 
-    public function getRevenuNet(): ?string
+    /**
+     * @return Collection<int, ImpotTOM>
+     */
+    public function getImpotTOMs(): Collection
     {
-        return $this->revenuNet;
+        return $this->impotTOMs;
     }
 
-    public function setRevenuNet(string $revenuNet): static
+    public function addImpotTOM(ImpotTOM $impotTOM): static
     {
-        $this->revenuNet = $revenuNet;
+        if (!$this->impotTOMs->contains($impotTOM)) {
+            $this->impotTOMs->add($impotTOM);
+            $impotTOM->setPropriete($this);
+        }
 
         return $this;
     }
+
+    public function removeImpotTOM(ImpotTOM $impotTOM): static
+    {
+        if ($this->impotTOMs->removeElement($impotTOM)) {
+            // set the owning side to null (unless already changed)
+            if ($impotTOM->getPropriete() === $this) {
+                $impotTOM->setPropriete(null);
+            }
+        }
+
+        return $this;
+    }
+
+
+
+
 }

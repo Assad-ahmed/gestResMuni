@@ -1,45 +1,31 @@
 {% extends 'template.html.twig' %}
 
-{% block title %}Les propriete!{% endblock %}
+{% block title %}Propriete!{% endblock %}
 
 {% block body %}
-    <div class="container">
-        <div class="d-grid gap-7 col-2 mx-xxl-6">
-            <a href="{{ path('edit_propriete') }}" class="btn bg-info" ><strong>Ajouter impotcapitation</strong></a>
-        </div>
+    <div class="btn-group m-l-4 ]"   >
+       /# <a href="{{ path('add_propriete') }}" class="btn btn-primary" >Ajouter Impot</a>#
     </div>
-    <div class=" m-3">
-        <table class="table table-bordered">
-            <thead class="text-center " style="background-color: rgb(130, 106, 251);color:#fff;">
+    <div class="row m-3">
+    <table class="table table-bordered">
+        <thead class="text-center " style="background-color: rgb(130, 106, 251);color:#fff;">
+        <tr>
+            <th scope="col">Nom </th>
+            <th scope="col">Prénom</th>
+            <th scope="col">Telephone</th>
+            <th scope="col">Adresse</th>
+        </tr>
+        </thead>
+        <tbody class="text-center">
+        {% for propriete in proprietes %}
             <tr>
-                <th scope="col">Type</th>
-                <th scope="col">Region</th>
-                <th scope="col">Valeur Locative</th>
-                <th scope="col">Valeur Venale</th>
-                <th scope="col">Revenut Net</th>
-                <th scope="col">Details</th>
-                <th scope="col">Modifier</th>
-                <th scope="col">Supprimer</th>
+                <td>{{ propriete.nom }}</td>
+                <td>{{ propriete.prenom }}</td>
+                <td>{{ propriete.telephone }}</td>
+                <td>{{ adresse.adresse }}</td>
             </tr>
-            </thead>
-            <tbody class="text-center">
-            {% for propriete in proprietes %}
-                <tr>
-                    <td>{{ propriete.type }}</td>
-                    <td>{{ propriete.region }}</td>
-                    <td>{{ propriete.revenuNet }}</td>
-                    <td>{{ propriete.valeurLocative }}</td>
-                    <td>{{ propriete.valeurVenale }}</td>
-                    <td><a href="{{ path('calculate_cfpb', {id: propriete.id})}}" class="btn btn-primary mt-2"><i class="fa-solid fa-circle-info"></i></a></td>
-                    <td><a href="{{ path('edit_propriete', {id:propriete.id }) }}" class="btn btn-primary mt-2"> <i class="fa-solid fa-user-pen"></i></a></td>
-                    <td><a href="{{ path('delete_propriete',{id:propriete.id}) }}" class="btn btn-danger mt-2"><i class="fa-solid fa-trash"></i></a></td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
+        {% endfor %}
+        </tbody>
+    </table>
     </div>
 {% endblock %}
-{% block PageTitre %}
-    La liste des impots capitations
-{% endblock %}
-
