@@ -21,6 +21,15 @@ class ImpotCFPBRepository extends ServiceEntityRepository
         parent::__construct($registry, ImpotCFPB::class);
     }
 
+    public function calculerSommeMontants(): float
+    {
+        $qb = $this->createQueryBuilder('i')
+            ->select('SUM(i.montant) as totalMontant')
+            ->getQuery();
+
+        return (float) $qb->getSingleScalarResult();
+    }
+
 //    /**
 //     * @return ImpotCFPB[] Returns an array of ImpotCFPB objects
 //     */

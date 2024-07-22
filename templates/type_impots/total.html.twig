@@ -1,0 +1,68 @@
+
+{% extends 'template.html.twig' %}
+
+{% block title %}Les différents types de recettes fiscales{% endblock %}
+
+{% block body %}
+    <div class="d-flex justify-content-center mb-3 ">
+        <a href="{{ path('list_propriete') }}" class="btn btn-primary btn-lg p-2">Voir la  liste des proprietaire</a>
+    </div>
+    <div class="row m-2">
+        <div class="col-sm-6">
+            <div class="card shadow-sm">
+                <div class="card-body text-center">
+                    <h3 class="card-title mb-4">Impôts Assis sur Valeur Foncière</h3>
+                    <p class="fa-2x font-weight-bold">Montant Cumule:</p>
+                    <p class="display-6">{{ totalAllTaxes|number_format(0, ',', ' ') }} Fcfa</p>
+                    <a href="{{ path('liste_impots') }}" class="btn btn-primary mt-3">
+                        <i class='bx bx-detail'></i> Détails
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="card shadow-sm">
+                <div class="card-body text-center">
+                    <h3 class="card-title mb-4">Contribution Patente</h3>
+                    <p class="fa-2x font-weight-bold">Montant Cumule:</p>
+                    <p class="display-6">{{ totalPatentes|number_format(0, ',', ' ') }} Fcfa</p>
+                    <a href="{{ path('liste_patentes') }}" class="btn btn-primary mt-3">
+                        <i class='bx bx-detail'></i> Détails
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row m-2">
+        <div class="col-sm-6">
+            <div class="card shadow-sm">
+                <div class="card-body text-center">
+                    <h3 class="card-title mb-4">Impôt Capitation</h3>
+                    <p class="fa-2x font-weight-bold">Montant Cumule:</p>
+                    <p class="display-6">{{ totalTaxIndirecte|number_format(0, ',', ' ') }} Fcfa</p>
+                    <a href="{{ path('liste_impots') }}" class="btn btn-primary mt-3">
+                        <i class='bx bx-detail'></i> Détails
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="card shadow-sm">
+                <div class="card-body text-center">
+                    <h3 class="card-title mb-4">Impôt indirect</h3>
+                    <p class="fa-2x font-weight-bold">Montant Cumule:</p>
+                    <p class="display-6">{{ totalTaxIndirecte|number_format(0, ',', ' ') }} Fcfa</p>
+                    <a href="{{ path('liste_taxindirecte') }}" class="btn btn-primary mt-3">
+                        <i class='bx bx-detail'></i> Détails
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+ {% block PageTitre%}
+     Les différents types de recettes fiscales
+ {% endblock %}
+
+

@@ -1,0 +1,25 @@
+
+{% extends 'template.html.twig' %}
+
+{% block title %}Les excedents{% endblock %}
+
+{% block body %}
+    <div class="row m-2">
+        <div class="col-sm-6 mx-auto">
+            <div class="card shadow-sm">
+                <div class="card-body text-center">
+                    <h3 class="card-title mb-4">Les excedents</h3>
+                    <p class="fa-2x font-weight-bold">Montant Cumule:</p>
+                    <p class="display-6">{{ totalexcedents|number_format(0, ',', ' ') }} Fcfa</p>
+                    <a href="{{ path('liste_excedents') }}" class="btn btn-primary mt-3">
+                        <i class='bx bx-detail'></i> Détails
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+ {% block PageTitre%}
+     Les excedents
+ {% endblock %}

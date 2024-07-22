@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\AgentCollecte;
 use App\Entity\ImpotCFNPB;
 use App\Entity\ImpotCFPB;
 use App\Form\ImpotCFNPBType;
@@ -24,10 +25,16 @@ class ImpotCFNPBController extends AbstractController
         ]);
     }
 
-    #[Route('/impot/cfnpb/calculer', name: 'impot_cfnpb_calculer')]
-    public function new(Request $request,EntityManagerInterface $entityManager): Response
+    #[Route('/impot/cfnpb/edit{id?0}', name: 'edit_impot_cfnpb')]
+    public function editImpotCFNPB(ImpotCFNPB $impotCFNPB=null,Request $request,EntityManagerInterface $entityManager): Response
     {
-        $impotCFNPB= new ImpotCFNPB();
+        $new = false;
+        if (!$impotCFNPB)
+        {
+            $new = true;
+            $impotCFNPB= new ImpotCFNPB();
+        }
+
         $form = $this->createForm(ImpotCFNPBType::class, $impotCFNPB);
         $form->handleRequest($request);
 
@@ -36,12 +43,38 @@ class ImpotCFNPBController extends AbstractController
             $impotCFNPB->calculerImpotCFPNB();
             $entityManager->persist($impotCFNPB);
             $entityManager->flush();
+            if ($new=true)
+            {
+                $message=" a été mis à jour avec success";
+            }else
+            {
+                $message= " a été ajouté avec succes";
+            }
+            //$this->addFlash('success',$impotCFNPB->getPropriete().$message);
 
             return $this->redirectToRoute('liste_impot_cfnpb');
-        }
+        }else
+        {
 
-        return $this->render('impot_cfnpb/formulaire.html.twig', [
-            'form' => $form->createView(),
-        ]);
+                return $this->render('impot_cfnpb/formulaire.html.twig', [
+                    'form' => $form->createView(),
+                ]);
+            }
+    }
+
+    #[Route('/delete/{id}', name: 'delete_impot_cfnpb')]
+    public function deleteImpotCFNPB(ImpotCFNPB $impotCFNPB= null, ManagerRegistry $registry):Response
+    {
+        if($impotCFNPB)
+        {
+            $manager=$registry->getManager();
+            $manager->remove($impotCFNPB);
+            $manager->flush();
+            $this->addFlash('success', "l'impot CFNPB a été supprimé avec success ");
+        }else
+        {
+            $this->addFlash('errer', "l'impot CFNPB  est innexistante ");
+        }
+        return $this->redirectToRoute('liste_impot_cfnpb');
     }
 }

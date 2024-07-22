@@ -30,9 +30,42 @@ class Propriete
     #[ORM\OneToMany(mappedBy: 'propriete', targetEntity: ImpotTOM::class)]
     private Collection $impotTOMs;
 
+    #[ORM\OneToMany(mappedBy: 'propriete', targetEntity: ImpotCFPB::class)]
+    private Collection $impotCFPBs;
+
+    #[ORM\OneToMany(mappedBy: 'propriete', targetEntity: ImpotCFNPB::class)]
+    private Collection $impotCFNPBs;
+
+    #[ORM\OneToMany(mappedBy: 'propriete', targetEntity: TaxIndirecte::class)]
+    private Collection $taxIndirectes;
+
+    #[ORM\OneToMany(mappedBy: 'propriete', targetEntity: Recette::class)]
+    private Collection $recettes;
+
+    #[ORM\OneToMany(mappedBy: 'propriete', targetEntity: Ristournes::class)]
+    private Collection $ristournes;
+
+    #[ORM\OneToMany(mappedBy: 'propriete', targetEntity: Excedents::class)]
+    private Collection $excedents;
+
+    #[ORM\OneToMany(mappedBy: 'propriete', targetEntity: Patente::class)]
+    private Collection $patentes;
+
+
+
     public function __construct()
     {
         $this->impotTOMs = new ArrayCollection();
+        $this->impotCFPBs = new ArrayCollection();
+        $this->impotCFNPBs = new ArrayCollection();
+        $this->taxIndirectes = new ArrayCollection();
+        $this->recettes = new ArrayCollection();
+        $this->ristournes = new ArrayCollection();
+        $this->excedents = new ArrayCollection();
+        $this->patentes = new ArrayCollection();
+
+
+
     }
 
 
@@ -118,6 +151,226 @@ class Propriete
 
         return $this;
     }
+
+    /**
+     * @return Collection<int, ImpotCFPB>
+     */
+    public function getImpotCFPBs(): Collection
+    {
+        return $this->impotCFPBs;
+    }
+
+    public function addImpotCFPB(ImpotCFPB $impotCFPB): static
+    {
+        if (!$this->impotCFPBs->contains($impotCFPB)) {
+            $this->impotCFPBs->add($impotCFPB);
+            $impotCFPB->setPropriete($this);
+        }
+
+        return $this;
+    }
+
+    public function removeImpotCFPB(ImpotCFPB $impotCFPB): static
+    {
+        if ($this->impotCFPBs->removeElement($impotCFPB)) {
+            // set the owning side to null (unless already changed)
+            if ($impotCFPB->getPropriete() === $this) {
+                $impotCFPB->setPropriete(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ImpotCFNPB>
+     */
+    public function getImpotCFNPBs(): Collection
+    {
+        return $this->impotCFNPBs;
+    }
+
+    public function addImpotCFNPB(ImpotCFNPB $impotCFNPB): static
+    {
+        if (!$this->impotCFNPBs->contains($impotCFNPB)) {
+            $this->impotCFNPBs->add($impotCFNPB);
+            $impotCFNPB->setPropriete($this);
+        }
+
+        return $this;
+    }
+
+    public function removeImpotCFNPB(ImpotCFNPB $impotCFNPB): static
+    {
+        if ($this->impotCFNPBs->removeElement($impotCFNPB)) {
+            // set the owning side to null (unless already changed)
+            if ($impotCFNPB->getPropriete() === $this) {
+                $impotCFNPB->setPropriete(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, TaxIndirecte>
+     */
+    public function getTaxIndirectes(): Collection
+    {
+        return $this->taxIndirectes;
+    }
+
+    public function addTaxIndirecte(TaxIndirecte $taxIndirecte): static
+    {
+        if (!$this->taxIndirectes->contains($taxIndirecte)) {
+            $this->taxIndirectes->add($taxIndirecte);
+            $taxIndirecte->setPropriete($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTaxIndirecte(TaxIndirecte $taxIndirecte): static
+    {
+        if ($this->taxIndirectes->removeElement($taxIndirecte)) {
+            // set the owning side to null (unless already changed)
+            if ($taxIndirecte->getPropriete() === $this) {
+                $taxIndirecte->setPropriete(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Recette>
+     */
+    public function getRecettes(): Collection
+    {
+        return $this->recettes;
+    }
+
+    public function addRecette(Recette $recette): static
+    {
+        if (!$this->recettes->contains($recette)) {
+            $this->recettes->add($recette);
+            $recette->setPropriete($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRecette(Recette $recette): static
+    {
+        if ($this->recettes->removeElement($recette)) {
+            // set the owning side to null (unless already changed)
+            if ($recette->getPropriete() === $this) {
+                $recette->setPropriete(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Ristournes>
+     */
+    public function getRistournes(): Collection
+    {
+        return $this->ristournes;
+    }
+
+    public function addRistourne(Ristournes $ristourne): static
+    {
+        if (!$this->ristournes->contains($ristourne)) {
+            $this->ristournes->add($ristourne);
+            $ristourne->setPropriete($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRistourne(Ristournes $ristourne): static
+    {
+        if ($this->ristournes->removeElement($ristourne)) {
+            // set the owning side to null (unless already changed)
+            if ($ristourne->getPropriete() === $this) {
+                $ristourne->setPropriete(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Excedents>
+     */
+    public function getExcedents(): Collection
+    {
+        return $this->excedents;
+    }
+
+    public function addExcedent(Excedents $excedent): static
+    {
+        if (!$this->excedents->contains($excedent)) {
+            $this->excedents->add($excedent);
+            $excedent->setPropriete($this);
+        }
+
+        return $this;
+    }
+
+    public function removeExcedent(Excedents $excedent): static
+    {
+        if ($this->excedents->removeElement($excedent)) {
+            // set the owning side to null (unless already changed)
+            if ($excedent->getPropriete() === $this) {
+                $excedent->setPropriete(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Patente>
+     */
+    public function getPatentes(): Collection
+    {
+        return $this->patentes;
+    }
+
+    public function addPatente(Patente $patente): static
+    {
+        if (!$this->patentes->contains($patente)) {
+            $this->patentes->add($patente);
+            $patente->setPropriete($this);
+        }
+
+        return $this;
+    }
+
+    public function removePatente(Patente $patente): static
+    {
+        if ($this->patentes->removeElement($patente)) {
+            // set the owning side to null (unless already changed)
+            if ($patente->getPropriete() === $this) {
+                $patente->setPropriete(null);
+            }
+        }
+
+        return $this;
+    }
+
+
+
+
+
+
+
+
+
+
 
 
 

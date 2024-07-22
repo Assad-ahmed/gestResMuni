@@ -34,30 +34,10 @@ class SiteCollecte
     #[ORM\ManyToMany(targetEntity: Contributeurs::class, mappedBy: 'sites')]
     private Collection $contributeurs;
 
-    #[ORM\ManyToMany(targetEntity: RecetteNonFiscale::class, mappedBy: 'sites')]
-    private Collection $recetteNonFiscales;
-
-    #[ORM\ManyToMany(targetEntity: Ristourne::class, mappedBy: 'sites')]
-    private Collection $ristournes;
-
-    #[ORM\ManyToMany(targetEntity: Excedent::class, mappedBy: 'sites')]
-    private Collection $excedents;
-
-    #[ORM\ManyToMany(targetEntity: Impot::class, mappedBy: 'site')]
-    private Collection $impots;
-
-
-
     public function __construct()
     {
         $this->contributeurs = new ArrayCollection();
         $this->yes = new ArrayCollection();
-
-        $this->recetteNonFiscales = new ArrayCollection();
-        $this->ristournes = new ArrayCollection();
-        $this->excedents = new ArrayCollection();
-        $this->impots = new ArrayCollection();
-
 
     }
 
@@ -156,124 +136,6 @@ class SiteCollecte
 
         return $this;
     }
-
-
-
-    /**
-     * @return Collection<int, RecetteNonFiscale>
-     */
-    public function getRecetteNonFiscales(): Collection
-    {
-        return $this->recetteNonFiscales;
-    }
-
-    public function addRecetteNonFiscale(RecetteNonFiscale $recetteNonFiscale): static
-    {
-        if (!$this->recetteNonFiscales->contains($recetteNonFiscale)) {
-            $this->recetteNonFiscales->add($recetteNonFiscale);
-            $recetteNonFiscale->addSite($this);
-        }
-
-        return $this;
-    }
-
-    public function removeRecetteNonFiscale(RecetteNonFiscale $recetteNonFiscale): static
-    {
-        if ($this->recetteNonFiscales->removeElement($recetteNonFiscale)) {
-            $recetteNonFiscale->removeSite($this);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Ristourne>
-     */
-    public function getRistournes(): Collection
-    {
-        return $this->ristournes;
-    }
-
-    public function addRistourne(Ristourne $ristourne): static
-    {
-        if (!$this->ristournes->contains($ristourne)) {
-            $this->ristournes->add($ristourne);
-            $ristourne->addSite($this);
-        }
-
-        return $this;
-    }
-
-    public function removeRistourne(Ristourne $ristourne): static
-    {
-        if ($this->ristournes->removeElement($ristourne)) {
-            $ristourne->removeSite($this);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Excedent>
-     */
-    public function getExcedents(): Collection
-    {
-        return $this->excedents;
-    }
-
-    public function addExcedent(Excedent $excedent): static
-    {
-        if (!$this->excedents->contains($excedent)) {
-            $this->excedents->add($excedent);
-            $excedent->addSite($this);
-        }
-
-        return $this;
-    }
-
-    public function removeExcedent(Excedent $excedent): static
-    {
-        if ($this->excedents->removeElement($excedent)) {
-            $excedent->removeSite($this);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Impot>
-     */
-    public function getImpots(): Collection
-    {
-        return $this->impots;
-    }
-
-    public function addImpot(Impot $impot): static
-    {
-        if (!$this->impots->contains($impot)) {
-            $this->impots->add($impot);
-            $impot->addSite($this);
-        }
-
-        return $this;
-    }
-
-    public function removeImpot(Impot $impot): static
-    {
-        if ($this->impots->removeElement($impot)) {
-            $impot->removeSite($this);
-        }
-
-        return $this;
-    }
-
-
-
-
-
-
-
-
 
     private function calculateMontantMensuelAnnuel(): void
     {

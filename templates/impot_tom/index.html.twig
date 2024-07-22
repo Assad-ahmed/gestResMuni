@@ -9,7 +9,7 @@
         <table class="table table-bordered">
             <thead class="text-center " style="background-color: rgb(130, 106, 251);color:#fff;">
             <tr>
-                <th scope="col">Propriete</th>
+                <th scope="col">Proprietaire</th>
                 <th scope="col">Region</th>
                 <th scope="col">Valeur Locative</th>
                 <th scope="col">Taux</th>
@@ -24,27 +24,23 @@
             {% for impotTOM in impotTOMs %}
                 <tr>
 
-                    <td>{% for propriete in impotTOM.propriete %}
-                            {{ propriete.nom }}
-                        {% endfor %}
-                    </td>
+                    <td>{{ impotTOM.propriete ? impotTOM.propriete.nom : 'N/A' }}</td>
                     <td>{{ impotTOM.region }}</td>
                     <td>{{ impotTOM.valeurLocative }}FCFA</td>
                     <td>{{ impotTOM.taux }}</td>
                     <td>{{ impotTOM.montant }}</td>
                     <td>{{ impotTOM.date|date('d/m/y ') }}</td>
                     <td><a href="#" class="btn btn-primary mt-2"><i class="fa-solid fa-circle-info"></i></a></td>
-                    <td><a href=#" class="btn btn-primary mt-2"> <i class="fa-solid fa-user-pen"></i></a></td>
-                    <td><a href="#" class="btn btn-danger mt-2"><i class="fa-solid fa-trash"></i></a></td>
+                    <td><a href="{{ path('edit_impot_tom',{id: impotTOM.id}) }}" class="btn btn-primary mt-2"> <i class="fa-solid fa-user-pen"></i></a></td>
+                    <td><a href="{{ path('delete_impot_tom', {id: impotTOM.id}) }}" class="btn btn-danger mt-2"><i class="fa-solid fa-trash"></i></a></td>
                 </tr>
             {% endfor %}
             </tbody>
         </table>
     </div>
 
-    <a href="{{ path('calculer_somme_impots_cfpb') }}">Montant Cumule </a>
 {% endblock %}
 {% block PageTitre %}
-    Type d' Impot TOM
+    La liste d'impot TOM
 {% endblock %}
 

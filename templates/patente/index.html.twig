@@ -1,0 +1,48 @@
+
+{% extends 'template.html.twig' %}
+
+{% block title %}Impot Tom!{% endblock %}
+
+{% block body %}
+
+    <div class=" m-3">
+        <table class="table table-bordered">
+            <thead class="text-center " style="background-color: rgb(130, 106, 251);color:#fff;">
+            <tr>
+                <th scope="col">Proprietaire</th>
+                <th scope="col">Droit Fixe</th>
+                <th scope="col">Droit Proportionnel</th>
+                <th scope="col">Taux</th>
+                <th scope="col">Valeur locative</th>
+                <th scope="col">Date</th>
+                <th scope="col">Montant</th>
+                <th scope="col">Details</th>
+                <th scope="col">Modifier</th>
+                <th scope="col">Supprimer</th>
+            </tr>
+            </thead>
+            <tbody class="text-center">
+            {% for patente in patentes %}
+                <tr>
+
+                    <td>{{ patente.propriete ? patente.propriete.nom : 'N/A' }}</td>
+                    <td>{{ patente.droitFixe }}</td>
+                    <td>{{ patente.droitProportionnel }}</td>
+                    <td>{{ patente.tauValeurLocative }}</td>
+                    <td>{{ patente.valeurLocative }}</td>
+                    <td>{{ patente.date|date('d/m/y ') }}</td>
+                    <td>{{ patente.montant }}</td>
+                    <td><a href="#" class="btn btn-primary mt-2"><i class="fa-solid fa-circle-info"></i></a></td>
+                    <td><a href="{{ path('edit_patente',{id: patente.id}) }}" class="btn btn-primary mt-2"> <i class="fa-solid fa-user-pen"></i></a></td>
+                    <td><a href="{{ path('delete_patente', {id: patente.id}) }}" class="btn btn-danger mt-2"><i class="fa-solid fa-trash"></i></a></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+{% endblock %}
+{% block PageTitre %}
+    La liste de contribution de patente
+{% endblock %}
+

@@ -1,15 +1,14 @@
 
 {% extends 'template.html.twig' %}
 
-{% block title %}recette Non Fisscale!{% endblock %}
+{% block title %}Liste Impot CFNPB{% endblock %}
 
 {% block body %}
-    <div class="container">
-    </div>
     <div class=" m-3">
         <table class="table table-bordered">
             <thead class="text-center " style="background-color: rgb(130, 106, 251);color:#fff;">
             <tr>
+                <th scope="col">proprietaire</th>
                 <th scope="col">Valeur Venale</th>
                 <th scope="col">Date</th>
                 <th scope="col">Montant</th>
@@ -19,23 +18,23 @@
             </tr>
             </thead>
             <tbody class="text-center">
-            {% for impotCFNPB in impotCFNPBs %}
-                <tr>
-                    <td>{{ impotCFNPB.valeurVenale }}</td>
-                    <<td>{{ impotCFNPB.date|date('d/m/y ') }}</td>
-                    <td>{{ impotCFNPB.montant }}FCFA</td>
-                    <td><a href="#" class="btn btn-primary mt-2"><i class="fa-solid fa-circle-info"></i></a></td>
-                    <td><a href=#" class="btn btn-primary mt-2"> <i class="fa-solid fa-user-pen"></i></a></td>
-                    <td><a href="#" class="btn btn-danger mt-2"><i class="fa-solid fa-trash"></i></a></td>
-                </tr>
-            {% endfor %}
+                {% for impotCFNPB in impotCFNPBs %}
+                    <tr>
+                        <td>{{ impotCFNPB.propriete ? impotCFNPB.propriete.nom : 'N/A' }}</td>
+                        <td>{{ impotCFNPB.valeurVenale }}</td>
+                        <<td>{{ impotCFNPB.date|date('d/m/y ') }}</td>
+                        <td>{{ impotCFNPB.montant }}FCFA</td>
+                        <td><a href="#" class="btn btn-primary mt-2"><i class="fa-solid fa-circle-info"></i></a></td>
+                        <td><a href="{{ path('edit_impot_cfnpb',{id: impotCFNPB.id}) }}" class="btn btn-primary mt-2"> <i class="fa-solid fa-user-pen"></i></a></td>
+                        <td><a href="{{ path('delete_impot_cfnpb',{id: impotCFNPB.id}) }}" class="btn btn-danger mt-2"><i class="fa-solid fa-trash"></i></a></td>
+                    </tr>
+                {% endfor %}
             </tbody>
         </table>
     </div>
 
-    <a href="{{ path('calculer_somme_impots_cfpb') }}">Montant Cumule </a>
 {% endblock %}
 {% block PageTitre %}
-    Type d' Impot CFNPB
+    La liste d' Impot CFNPB
 {% endblock %}
 

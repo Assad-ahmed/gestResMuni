@@ -26,18 +26,20 @@ class ImpotTOMType extends AbstractType
                 'choices' => [
                     'Dakar' => 'Dakar',
                     'Thies' => 'Thies'
-                ]
+                ],
+                'placeholder' => 'Choisir une region',
             ])
             ->add('montant',MoneyType::class, [
                 'label' => 'Montant',
-                'currency' => 'EUR',
+                'currency' => 'Fcfa',
             ])
             ->add('taux', ChoiceType::class, [
                 'label' => 'Taux',
                 'choices' => [
                     '6%' => '6%',
                     '5%' => '5%'
-                ]
+                ],
+                'placeholder' => 'Choisir une taux',
             ])
             ->add('date', DateType::class, [
                 'label' => 'Date de paiement',
@@ -62,8 +64,6 @@ class ImpotTOMType extends AbstractType
 
             ->add('Enregistre', SubmitType::class);
 
-
-        ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void

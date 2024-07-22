@@ -9,7 +9,7 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-#[UniqueEntity(fields: ['email'], message: 'il y a déjà un compte avec email')]
+#[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -29,11 +29,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?string $password = null;
 
-    #[ORM\Column(length: 180)]
-    private ?string $nickname = null;
+    #[ORM\Column(length: 255)]
+    private ?string $firstName = null;
 
-    #[ORM\Column]
-    private ?bool $isVerified = false;
+    #[ORM\Column(length: 255)]
+    private ?string $lastName = null;
 
     public function getId(): ?int
     {
@@ -105,26 +105,26 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         // $this->plainPassword = null;
     }
 
-    public function getNickname(): ?string
+    public function getFirstName(): ?string
     {
-        return $this->nickname;
+        return $this->firstName;
     }
 
-    public function setNickname(string $nickname): static
+    public function setFirstName(string $firstName): static
     {
-        $this->nickname = $nickname;
+        $this->firstName = $firstName;
 
         return $this;
     }
 
-    public function isIsVerified(): ?bool
+    public function getLastName(): ?string
     {
-        return $this->isVerified;
+        return $this->lastName;
     }
 
-    public function setIsVerified(bool $isVerified): static
+    public function setLastName(string $lastName): static
     {
-        $this->isVerified = $isVerified;
+        $this->lastName = $lastName;
 
         return $this;
     }

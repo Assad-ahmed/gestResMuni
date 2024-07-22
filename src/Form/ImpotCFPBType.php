@@ -3,6 +3,10 @@
 namespace App\Form;
 
 use App\Entity\ImpotCFPB;
+use App\Entity\Propriete;
+use App\Entity\SiteCollecte;
+use Doctrine\ORM\EntityRepository;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -25,6 +29,7 @@ class ImpotCFPBType extends AbstractType
                 'placeholder' => 'Choisir un type de bâtiment',
                 'required' => false,
 
+
             ])
             ->add('valeurLocative', NumberType::class, [
                 'label' => 'Valeur locative',
@@ -40,6 +45,21 @@ class ImpotCFPBType extends AbstractType
                 'required' => false,
 
             ])
+            ->add('propriete', EntityType::class,[
+                'expanded'=>false,
+
+                'class'=>Propriete::class,
+                'multiple'=>false,
+                'query_builder' => function (EntityRepository $er){
+                    return $er->createQueryBuilder('e')
+                        ->orderBy('e.nom', 'ASC');
+                },
+                'choice_label' => 'nom',
+
+                'attr' => [
+                    'class'=> 'select2'
+                ]
+                ])
 
             ->add('Enregistre', SubmitType::class);
         ;

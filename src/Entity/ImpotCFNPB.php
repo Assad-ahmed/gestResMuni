@@ -26,6 +26,9 @@ class ImpotCFNPB
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $date = null;
 
+    #[ORM\ManyToOne(inversedBy: 'impotCFNPBs')]
+    private ?Propriete $propriete = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -92,6 +95,18 @@ class ImpotCFNPB
     public function setDate(\DateTimeInterface $date): static
     {
         $this->date = $date;
+
+        return $this;
+    }
+
+    public function getPropriete(): ?Propriete
+    {
+        return $this->propriete;
+    }
+
+    public function setPropriete(?Propriete $propriete): static
+    {
+        $this->propriete = $propriete;
 
         return $this;
     }

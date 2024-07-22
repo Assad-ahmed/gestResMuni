@@ -1,0 +1,27 @@
+{% extends 'template.html.twig' %}
+
+{% block title %}
+
+{% endblock %}
+
+{% block body %}
+
+    <div class="list-group m-3 mx-auto" style="max-width: 90%;">
+        <a href="#" class="list-group-item list-group-item-action active m-lg-2" style="width: 90%" aria-current="true">
+            <div class="d-flex w-100 justify-content-between">
+                <h4 class="mb-1">  Ristourne</h4>
+            </div>
+            <p class="mb-1 fs-4">Montant Cumule : {{ totalRistourne|number_format(0, ',', ' ') }} Fcfa</p>
+        </a>
+    </div>
+
+    <div class="d-flex justify-content-center mt-3 ">
+        <a href="{{ path('edit_ristournes') }}" class="btn btn-primary btn-lg p-2">Ajouter Ristourne</a>
+    </div>
+
+{% endblock %}
+
+{% block PageTitre %}
+    Les ristournes
+{% endblock %}
+

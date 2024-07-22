@@ -3,8 +3,8 @@
 {% block title %}Propriete!{% endblock %}
 
 {% block body %}
-    <div class="btn-group m-l-4 ]"   >
-       /# <a href="{{ path('add_propriete') }}" class="btn btn-primary" >Ajouter Impot</a>#
+    <div class="d-flex justify-content-center  ">
+        <a href="{{ path('edit_propriete') }}" class="btn btn-primary btn-lg p-2"> Ajouter un proprietaire</a>
     </div>
     <div class="row m-3">
     <table class="table table-bordered">
@@ -14,18 +14,47 @@
             <th scope="col">Prénom</th>
             <th scope="col">Telephone</th>
             <th scope="col">Adresse</th>
+            <th scope="col">Details</th>
+            <th scope="col">Modifier</th>
+            <th scope="col">Supprimer</th>
         </tr>
         </thead>
         <tbody class="text-center">
-        {% for propriete in proprietes %}
+        {% for propriete in prorietes %}
             <tr>
                 <td>{{ propriete.nom }}</td>
                 <td>{{ propriete.prenom }}</td>
                 <td>{{ propriete.telephone }}</td>
-                <td>{{ adresse.adresse }}</td>
+                <td>{{ propriete.adresse }}</td>
+                <td><a href="#" class="btn btn-primary mt-2"><i class="fa-solid fa-circle-info"></i></a></td>
+                <td><a href="{{ path('edit_propriete', {id:propriete.id }) }}" class="btn btn-primary mt-2"> <i class="fa-solid fa-user-pen"></i></a></td>
+                <td><a href="{{ path('delete_propriete',{id:propriete.id}) }}" class="btn btn-danger mt-2"><i class="fa-solid fa-trash"></i></a></td>
+
             </tr>
         {% endfor %}
         </tbody>
     </table>
     </div>
+
+    {% if isPaginated %}
+    <div class="row mt-3">
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                {% if page != 1 %}
+                    <li class="page-item"><a class="page-link" style="background-color: rgb(130, 106, 251);color:#fff; " href="{{ path('list_propriete',{page: page-1, nbre:nbre}) }}">Previous</a></li>
+                {% endif %}
+                {% for i in range(1, nbrePage) %}
+                    <li class="page-item"><a class="page-link" href="{{ path('list_propriete',{page: i, nbre:nbre}) }}">{{ i }}</a></li>
+                {% endfor %}
+                {% if page !=nbre %}
+                    <li class="page-item"><a class="page-link"  style="background-color: rgb(130, 106, 251);color:#fff; " href="{{ path('list_propriete',{page: page+1, nbre:nbre}) }}">Next</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+    {% endif %}
+{% endblock %}
+
+{% block PageTitre %}
+    La liste des proprietes
 {% endblock %}

@@ -29,6 +29,9 @@ class ImpotCFPB
     #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: '0')]
     private ?string $montant = null;
 
+    #[ORM\ManyToOne(inversedBy: 'impotCFPBs')]
+    private ?Propriete $propriete = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -90,6 +93,18 @@ class ImpotCFPB
     public function setMontant(string $montant): static
     {
         $this->montant = $montant;
+
+        return $this;
+    }
+
+    public function getPropriete(): ?Propriete
+    {
+        return $this->propriete;
+    }
+
+    public function setPropriete(?Propriete $propriete): static
+    {
+        $this->propriete = $propriete;
 
         return $this;
     }

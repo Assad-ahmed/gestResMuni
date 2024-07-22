@@ -4,15 +4,12 @@
 {% block title %}recette Non Fisscale!{% endblock %}
 
 {% block body %}
-    <div class="container">
-        <div class="d-grid gap-7 col-2 mx-xxl-6">
-            <a href="{{ path('impot_cfpb_calculer') }}" class="btn bg-info" ><strong>Ajouter ImpotCFPB</strong></a>
-        </div>
-    </div>
+
     <div class=" m-3">
         <table class="table table-bordered">
             <thead class="text-center " style="background-color: rgb(130, 106, 251);color:#fff;">
             <tr>
+                <th scope="col">Proprietaire</th>
                 <th scope="col">Type Batiment</th>
                 <th scope="col">Valeur Locative</th>
                 <th scope="col">Montant</th>
@@ -25,22 +22,22 @@
             <tbody class="text-center">
             {% for impotCFPB in impotCFPBs %}
                 <tr>
+                    <td>{{ impotCFPB.propriete ? impotCFPB.propriete.nom : 'N/A' }}</td>
                     <td>{{ impotCFPB.typeBatiment }}</td>
                     <td>{{ impotCFPB.valeurLocative }}FCFA</td>
                     <td>{{ impotCFPB.montant }}FCFA</td>
                     <td>{{ impotCFPB.date|date('d/m/y ') }}</td>
                     <td><a href="#" class="btn btn-primary mt-2"><i class="fa-solid fa-circle-info"></i></a></td>
-                    <td><a href=#" class="btn btn-primary mt-2"> <i class="fa-solid fa-user-pen"></i></a></td>
-                    <td><a href="#" class="btn btn-danger mt-2"><i class="fa-solid fa-trash"></i></a></td>
+                    <td><a href="{{ path('edit_impot_cfpb',{id: impotCFPB.id}) }}" class="btn btn-primary mt-2"> <i class="fa-solid fa-user-pen"></i></a></td>
+                    <td><a href="{{ path('delete_impot_cfpb',{id: impotCFPB.id}) }}" class="btn btn-danger mt-2"><i class="fa-solid fa-trash"></i></a></td>
                 </tr>
             {% endfor %}
             </tbody>
         </table>
     </div>
 
-<a href="{{ path('calculer_somme_impots_cfpb') }}">Montant Cumule </a>
 {% endblock %}
 {% block PageTitre %}
-   Type d' Impot CFPB
+   La liste d'impot CFPB
 {% endblock %}
 

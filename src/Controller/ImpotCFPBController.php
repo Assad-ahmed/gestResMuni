@@ -2,10 +2,12 @@
 
 namespace App\Controller;
 
+use App\Entity\ImpotCFNPB;
 use App\Entity\ImpotCFPB;
 use App\Form\ImpotCFPBType;
-use App\service\CalculService;
-use App\service\ImpotCFPBService;
+use App\Repository\ImpotCFPBRepository;
+use App\Service\CalculService;
+use App\Service\ImpotCFPBService;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -24,11 +26,16 @@ class ImpotCFPBController extends AbstractController
             'impotCFPBs' => $impotCFPBs,
         ]);
     }
-    #[Route('/impot/cfpb/calculer', name: 'impot_cfpb_calculer')]
+    #[Route('/impot/cfpb/edit{id?0}', name: 'edit_impot_cfpb')]
 
-    public function calculerImpot(Request $request,EntityManagerInterface $entityManager): Response
+    public function editImpotCFPB(ImpotCFPB $impotCFPB=null,Request $request,EntityManagerInterface $entityManager): Response
     {
-        $impotCFPB = new ImpotCFPB();
+        $new = false;
+        if (!$impotCFPB)
+        {
+            $new = true;
+            $impotCFPB= new ImpotCFPB();
+        }
         $form = $this->createForm(ImpotCFPBType::class, $impotCFPB);
         $form->handleRequest($request);
 
@@ -56,44 +63,43 @@ class ImpotCFPBController extends AbstractController
             // Enregistrer l'objet en base de données ou effectuer d'autres traitements nécessaires
             $entityManager->persist($impotCFPB);
             $entityManager->flush();
+            if ($new=true)
+            {
+                $message=" a été mis à jour avec success";
+            }else
+            {
+                $message= " a été ajouté avec succes";
+            }
+            $this->addFlash('success',$impotCFPB->getTypeBatiment().$message);
+
             return $this->redirectToRoute('liste_impot_cfpb', [
                 'id' => $impotCFPB->getId(),
             ]);
+        }else
+        {
+            return $this->render('impot_cfpb/formulaire.html.twig', [
+                'form' => $form->createView(),
+            ]);
         }
 
-        return $this->render('impot_cfpb/formulaire.html.twig', [
-            'form' => $form->createView(),
-        ]);
+
     }
 
-    private $calculService;
-
-    public function __construct(CalculService $calculService)
+    #[Route('/delete/{id}', name: 'delete_impot_cfpb')]
+    public function deleteImpotCFPB(ImpotCFPB $impotCFPB= null, ManagerRegistry $registry):Response
     {
-        $this->calculService = $calculService;
+        if($impotCFPB)
+        {
+            $manager=$registry->getManager();
+            $manager->remove($impotCFPB);
+            $manager->flush();
+            $this->addFlash('success', "l'impot CFPB a été supprimé avec success ");
+        }else
+        {
+            $this->addFlash('errer', "l'impot CFPB  est innexistante ");
+        }
+        return $this->redirectToRoute('liste_impot_cfpb');
     }
 
-    #[Route('/impots', name: 'liste_impotcfpb')]
 
-    public function listeImpots(): Response
-    {
-        $impotCFPBs = $this->calculService->obtenirListeImpots();
-
-        return $this->render('impot_cfpb/liste.html.twig', [
-            'impotCFPBs' => $impotCFPBs,
-        ]);
-    }
-    #[Route('/calculer-somme-impots-cfpb', name: 'calculer_somme_impots_cfpb')]
-    /**
-     * @Route("/calculer-somme-impots-cfpb", name="calculer_somme_impots_cfpb")
-     */
-    public function calculerSommeImpotsCFPB(): Response
-    {
-        $sommeImpots = $this->calculService->obtenirSommeImpots();
-
-        // Redirige ou affiche le résultat selon vos besoins
-        return $this->render('impot_cfpb/resultat.html.twig', [
-            'sommeImpots' => $sommeImpots,
-        ]);
-    }
 }
