@@ -6,32 +6,35 @@
 {% block body %}
 
     <div class=" m-3">
-        <table class="table table-bordered">
+        <table class="table table-striped">
             <thead class="text-center " style="background-color: rgb(130, 106, 251);color:#fff;">
             <tr>
                 <th scope="col">Proprietaire</th>
-                <th scope="col">Type Taxe</th>
-                <th scope="col">Code d'article</th>
+                <th scope="col">Nom</th>
                 <th scope="col">Montant</th>
                 <th scope="col">Date</th>
-                <th scope="col">Description</th>
                 <th scope="col">Details</th>
                 <th scope="col">Modifier</th>
+                {% if is_granted('ROLE_SUPER_ADMIN') %}
                 <th scope="col">Supprimer</th>
+                {% endif  %}
+
             </tr>
             </thead>
             <tbody class="text-center">
             {% for taxindirecte in taxindirectes %}
                 <tr>
-                    <td>{{ taxindirecte.propriete ? taxindirecte.propriete.nom : 'N/A' }}</td>
-                    <td>{{ taxindirecte.typeTaxe }}</td>
-                    <td>{{ taxindirecte.codeArticle }}FCFA</td>
-                    <td>{{ taxindirecte.montant }}FCFA</td>
+                    <td>{{ taxindirecte.propriete ? taxindirecte.propriete.nom  }} {{ taxindirecte.propriete ? taxindirecte.propriete.prenom  }}</td>
+                    <td>{{ taxindirecte.nom }}</td>
+                    <td>{{ taxindirecte.montant|number_format(0, ',', ' ') }} fcfa</td>
                     <td>{{ taxindirecte.date|date('d/m/y ') }}</td>
-                    <td>{{ taxindirecte.description }}</td>
-                    <td><a href="#" class="btn btn-primary mt-2"><i class="fa-solid fa-circle-info"></i></a></td>
-                    <td><a href="{{ path('delete_impot_indirecte',{id: taxindirecte.id}) }}" class="btn btn-primary mt-2"> <i class="fa-solid fa-user-pen"></i></a></td>
-                    <td><a href="{{ path('delete_impot_indirecte',{id: taxindirecte.id}) }}" class="btn btn-danger mt-2"><i class="fa-solid fa-trash"></i></a></td>
+                    <td><a href="{{path('detail_taxe_indirecte', {propriete_id: taxindirecte.propriete.id})}}" class="btn btn-primary mt-2"><i class="fa-solid fa-circle-info"></i></a></td>
+                    <td><a href="{{ path('edit_impot_indirecte',{id: taxindirecte.id}) }}" class="btn btn-primary mt-2"> <i class="fa-solid fa-user-pen"></i></a></td>
+                    {% if is_granted('ROLE_SUPER_ADMIN') %}
+                     <td><a href="{{ path('delete_impot_indirecte',{id: taxindirecte.id}) }}" class="btn btn-danger mt-2" class="btn btn-danger mt-2"
+                     onclick="return confirm('Etes-vous sur de suprimer cette taxe indirecte')">
+                    <i class="fa-solid fa-trash"></i></a></td>
+                    {% endif  %}
                 </tr>
             {% endfor %}
             </tbody>

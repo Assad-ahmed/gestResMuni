@@ -6,6 +6,7 @@ namespace App\Controller;
 use App\Entity\SiteCollecte;
 use App\Form\SiteCollecteType;
 use Doctrine\Persistence\ManagerRegistry;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -40,7 +41,7 @@ class SiteCollecteController extends AbstractController
         }
         $form=$this->createForm(SiteCollecteType::class,$siteCollecte);
         $form->handleRequest($request);
-        if ($form->isSubmitted())
+        if ($form->isSubmitted() && $form->isValid())
         {
             $manager=$registry->getManager();
             $manager->persist($siteCollecte);
@@ -60,7 +61,10 @@ class SiteCollecteController extends AbstractController
         ]);
     }
 
-    #[Route('/delete/{id}', name: 'delete_site')]
+    #[
+        Route('/delete/{id}', name: 'delete_site'),
+        IsGranted('ROLE_CONTROLEUR_CENTRALE')
+        ]
     public function deleteSite(SiteCollecte $siteCollecte=null, ManagerRegistry $registry):Response
     {
         if($siteCollecte)

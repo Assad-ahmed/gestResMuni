@@ -38,7 +38,7 @@ class ImpotType extends AbstractType
 
 
             ])
-            ->add('Enrgistre',SubmitType::class)
+            ->add('Valider', SubmitType::class);
         ;
     }
 

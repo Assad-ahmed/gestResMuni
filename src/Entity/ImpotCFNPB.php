@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\ImpotCFNPBRepository;
 use Doctrine\DBAL\Types\Types;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ImpotCFNPBRepository::class)]
@@ -15,12 +16,6 @@ class ImpotCFNPB
     private ?int $id = null;
 
     #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 3)]
-    private ?string $valeurVenale = null;
-
-    #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 3)]
-    private ?string $revenuNet = null;
-
-    #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 3)]
     private ?string $montant = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
@@ -29,36 +24,15 @@ class ImpotCFNPB
     #[ORM\ManyToOne(inversedBy: 'impotCFNPBs')]
     private ?Propriete $propriete = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $nom = null;
+
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getValeurVenale(): ?string
-    {
-        return $this->valeurVenale;
-    }
-
-    public function setValeurVenale(string $valeurVenale): static
-    {
-        $this->valeurVenale = $valeurVenale;
-
-        return $this;
-    }
-
-    public function getRevenuNet(): ?string
-    {
-        return $this->revenuNet;
-    }
-
-    public function setRevenuNet(string $revenuNet): static
-    {
-        $this->revenuNet = $revenuNet;
-
-        return $this;
-    }
-
-    public function getMontant(): ?string
+       public function getMontant(): ?string
     {
         return $this->montant;
     }
@@ -69,23 +43,7 @@ class ImpotCFNPB
 
         return $this;
     }
-    public function calculerRevenuNet(): self
-    {
-        // Pour cet exemple, supposons que le revenu net est 10% de la valeur vénale
-        $this->revenuNet = $this->valeurVenale * 0.1;
-
-        return $this;
-    }
-
-    public function calculerImpotCFPNB(): self
-    {
-        if ($this->revenuNet === null) {
-            $this->calculerRevenuNet();
-        }
-        $this->montant = $this->revenuNet * 0.05;
-
-        return $this;
-    }
+  
 
     public function getDate(): ?\DateTimeInterface
     {
@@ -107,6 +65,18 @@ class ImpotCFNPB
     public function setPropriete(?Propriete $propriete): static
     {
         $this->propriete = $propriete;
+
+        return $this;
+    }
+
+    public function getNom(): ?string
+    {
+        return $this->nom;
+    }
+
+    public function setNom(string $nom): static
+    {
+        $this->nom = $nom;
 
         return $this;
     }

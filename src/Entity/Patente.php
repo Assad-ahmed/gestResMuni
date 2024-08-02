@@ -5,6 +5,8 @@ namespace App\Entity;
 use App\Repository\PatenteRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 
 #[ORM\Entity(repositoryClass: PatenteRepository::class)]
@@ -16,71 +18,23 @@ class Patente
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column]
-    private ?float $droitFixe = null;
-
-    #[ORM\Column]
-    private ?float $droitProportionnel = null;
-
-    #[ORM\Column]
-    private ?float $tauValeurLocative = null;
-
-
-
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $date = null;
 
     #[ORM\ManyToOne(inversedBy: 'patentes')]
     private ?Propriete $propriete = null;
 
-    #[ORM\Column]
-    private ?float $valeurLocative = null;
+    #[ORM\Column(length: 255)]
+    private ?string $nom = null;
 
-    #[ORM\Column]
-    private ?float $montant = 0.0;
-
-
+    #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 3)]
+    private ?string $montant = null;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getDroitFixe(): ?float
-    {
-        return $this->droitFixe;
-    }
-
-    public function setDroitFixe(float $droitFixe): static
-    {
-        $this->droitFixe = $droitFixe;
-
-        return $this;
-    }
-
-    public function getDroitProportionnel(): ?float
-    {
-        return $this->droitProportionnel;
-    }
-
-    public function setDroitProportionnel(float $droitProportionnel): static
-    {
-        $this->droitProportionnel = $droitProportionnel;
-
-        return $this;
-    }
-
-    public function getTauValeurLocative(): ?float
-    {
-        return $this->tauValeurLocative;
-    }
-
-    public function setTauValeurLocative(float $tauValeurLocative): static
-    {
-        $this->tauValeurLocative = $tauValeurLocative;
-
-        return $this;
-    }
 
     public function getDate(): ?\DateTimeInterface
     {
@@ -106,55 +60,28 @@ class Patente
         return $this;
     }
 
-
-    public function getValeurLocative(): ?float
+    public function getNom(): ?string
     {
-        return $this->valeurLocative;
+        return $this->nom;
     }
 
-    public function setValeurLocative(float $valeurLocative): static
+    public function setNom(string $nom): static
     {
-        $this->valeurLocative = $valeurLocative;
+        $this->nom = $nom;
 
         return $this;
     }
 
-    public function getMontant(): ?float
+    public function getMontant(): ?string
     {
         return $this->montant;
     }
 
-    public function setMontant(float $montant): static
+    public function setMontant(string $montant): static
     {
         $this->montant = $montant;
 
         return $this;
     }
-
-    public  function getTotalDroitProportionnel(): float
-    {
-        return $this->valeurLocative* ($this->droitProportionnel/100);
-    }
-
-    public  function getTaxeValeurLocative(): float
-    {
-        return $this->valeurLocative* ($this->tauValeurLocative/100);
-    }
-
-    public  function calculMontant(): float
-    {
-        return $this->droitFixe+ $this->getTotalDroitProportionnel() +$this->getTaxeValeurLocative();
-    }
-
-/**
- * @ORM\PrePersit
- * @ORM\PreUpdate
- */
-
-public function updateMontant(): void
-{
-    $this->montant = $this->calculMontant();
-
-}
 
 }

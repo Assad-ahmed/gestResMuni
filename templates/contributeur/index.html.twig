@@ -7,23 +7,19 @@
     {% endblock %}
 
     {% block body %}
-     <div class="container">
-         <div class="d-grid gap-7 col-2 mx-xxl-6">
-             <a href="{{ path('edit_contributeur') }}" class="btn bg-info" ><strong>AjouterContributeur</strong></a>
-         </div>
-     </div>
- <div class=" m-3">
-        <table class="table table-bordered">
+    <div class="d-flex justify-content-center ">
+      <a href="{{ path('edit_contributeur') }}" class="btn btn-primary btn-lg ms-2"><strong>Ajouter un contributeur</strong></a>
+    </div>
+ <div class=" m-3 mt-3">
+        <table class="table table-striped">
             <thead class="text-center px-sm-0" style="background-color: rgb(130, 106, 251);color:#fff;">
             <tr>
+               <th scope="col">Numero</th>
                 <th scope="col">Nom </th>
                 <th scope="col">prenom</th>
-                <th scope="col">Adresse</th>
-                <th scope="col">Téléphone</th>
                 <th scope="col">Date</th>
-                <th scope="col">MontantJ</th>
-                <th scope="col">MontantM</th>
-                <th scope="col">MontantA</th>
+                <th scope="col">MontantJour</th>
+                <th scope="col">MontantMois</th>
                 <th scope="col">Sites</th>
                 <th scope="col">Details</th>
                 <th scope="col">Modifier</th>
@@ -33,21 +29,16 @@
             <tbody class="text-center">
             {% for contributeur in contributeurs %}
                 <tr>
+                    <td>{{ contributeur.numeroEtablissement}}</td>
                     <td>{{ contributeur.nom}}</td>
                     <td>{{contributeur.prenom}}</td>
-                    <td>{{ contributeur.adresse }}</td>
-                    <td>{{ contributeur.telephone }}</td>
                     <td>{{ contributeur.datePaye|date('Y-m-d') }}</td>
-                    <td>{{contributeur.montantJournalier }}FCFA</td>
-                    <td>{{ contributeur.montantMensuel}}FCFA</td>
-                    <td>{{ contributeur.montantAnnuel}}FCFA</td>
-                    <td>{% for site in contributeur.sites %}
-                            {{ site.nom}}
-                        {% endfor %}
-                    </td>
+                    <td>{{contributeur.montantJour }}FCFA</td>
+                    <td>{{ contributeur.montantMois}}FCFA</td>
+                    <td>{{ contributeur.sitecollecte ? contributeur.sitecollecte.nom : 'N/A' }}</td>
                     <td><a href="#" class="btn btn-primary mt-2"><i class="fa-solid fa-circle-info"></i></a></td>
                     <td><a href="{{ path('edit_contributeur',{id: contributeur.id}) }}" class="btn btn-primary "> <i class="fa-solid fa-user-pen"></i></a></td>
-                    <td><a href="{{ path('delete_contributeur',{id: contributeur.id}) }}" class="btn btn-danger "><i class="fa-solid fa-trash"></i></a></td>
+                    <td><a href="{{ path('delete_contributeur',{id: contributeur.id}) }}" class="btn btn-danger " onclick="return confirm('Etes-vous sur de suprimer ce contributeur')"><i class="fa-solid fa-trash"></i></a></td>
                 </tr>
             {% endfor %}
             </tbody>

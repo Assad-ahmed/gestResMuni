@@ -2,10 +2,9 @@
 
 namespace App\Controller;
 use App\Entity\Propriete;
-use App\Entity\Recette;
-use App\Entity\Ristournes;
 use App\Form\ProprieteType;
 use Doctrine\Persistence\ManagerRegistry;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -33,6 +32,8 @@ class ProprieteController extends AbstractController
     #[Route('/edit{id?}', name: 'edit_propriete')]
     public function addPropriete(Propriete $propriete=null,ManagerRegistry $registry, Request $request): Response
     {
+        $manager = $registry->getRepository(Propriete::class);
+        $prorietes=$manager->findAll();
         $new=false;
         if (!$propriete)
         {
@@ -42,7 +43,7 @@ class ProprieteController extends AbstractController
 
         $form=$this->createForm(ProprieteType::class,$propriete);
         $form->handleRequest($request);
-        if ($form->isSubmitted())
+        if ($form->isSubmitted() && $form->isValid())
         {
             $manager=$registry->getManager();
             $manager->persist($propriete);
@@ -54,15 +55,19 @@ class ProprieteController extends AbstractController
             else{
                 $message= " le propriete  est inexisantante";
             }
-            $this->addFlash('success',$propriete->getNom(),$message);
-            return $this->redirectToRoute('list_propriete');
+            $this->addFlash('success',$propriete->getNom().$message);
+            return $this->redirectToRoute('edit_propriete');
         }
         return $this->render('propriete/formulaire.html.twig', [
             'form' => $form->createView(),
+            'prorietes'=>$prorietes,
         ]);
     }
 
-    #[Route('/delete/{id}', name: 'delete_propriete')]
+    #[
+        Route('/delete/{id}', name: 'delete_propriete'),
+        IsGranted('ROLE_CONTROLEUR_CENTRALE')
+    ]
     public function deletePropriete(Propriete $propriete=null, ManagerRegistry $registry):Response
     {
         if($propriete)

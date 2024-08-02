@@ -1,0 +1,33 @@
+{% extends 'template.html.twig' %}
+
+{% block title %}Liste des impôts{% endblock %}
+
+{% block body %}
+    <div class="list-group m-3 ms-auto" style="width: 90%;">
+
+        <a href="#" class="list-group-item list-group-item-action bg-warning m-lg-2" style="width: 90%">
+            <div class="d-flex w-100 justify-content-between">
+                <h4 class="mb-1"> Impôt du minimum fiscal (IMF)</h4>
+            </div>
+            <p class="mb-1 fs-4">Montant Cumule : {{ totalImpotMinFiscal|number_format(0, ',', ' ') }} Fcfa</p>
+        </a>
+
+        <a href="#" class="list-group-item list-group-item-action bg-info m-lg-2" style="width: 90%">
+            <div class="d-flex w-100 justify-content-between">
+                <h4 class="mb-1">  Taxe rurale</h4>
+            </div>
+            <p class="mb-1 fs-4">Montant Cumule :{{ totalTaxeRurale|number_format(0, ',', ' ') }} Fcfa</p>
+        </a>
+    </div>
+
+    <div class="d-flex justify-content-center">
+        <a href="{{ path('edit_impot_mini_fiscal') }}" class="btn btn-warning btn-lg p-2 m-2">Ajouter ImpotMinFiscale</a>
+        <a href="{{ path('liste_impot_mini_fiscal') }}" class="btn btn-primary btn-lg p-2 m-2">Liste ImpotMinFiscale</a>
+        <a href="{{ path('edit_taxe_rurale') }}" type="button" class="btn btn-info btn-lg p-2 m-2">Ajouter une Taxe rurale</a>
+       <a href="{{ path('liste_taxe_rurale') }}" class="btn btn-primary btn-lg p-2 m-2">Liste une Taxe rurale</a>
+    </div>
+{% endblock %}
+
+{% block PageTitre %}
+    Les impôts assis sur la valeur foncière et immobilière
+{% endblock %}

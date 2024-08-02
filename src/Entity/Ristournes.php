@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\RistournesRepository;
 use Doctrine\DBAL\Types\Types;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: RistournesRepository::class)]
@@ -14,34 +15,24 @@ class Ristournes
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $typeRecette = null;
 
     #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 3)]
     private ?string $montant = null;
-
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $date = null;
 
     #[ORM\ManyToOne(inversedBy: 'ristournes')]
     private ?Propriete $propriete = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $nom = null;
+
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getTypeRecette(): ?string
-    {
-        return $this->typeRecette;
-    }
 
-    public function setTypeRecette(string $typeRecette): static
-    {
-        $this->typeRecette = $typeRecette;
-
-        return $this;
-    }
 
     public function getMontant(): ?string
     {
@@ -75,6 +66,18 @@ class Ristournes
     public function setPropriete(?Propriete $propriete): static
     {
         $this->propriete = $propriete;
+
+        return $this;
+    }
+
+    public function getNom(): ?string
+    {
+        return $this->nom;
+    }
+
+    public function setNom(string $nom): static
+    {
+        $this->nom = $nom;
 
         return $this;
     }

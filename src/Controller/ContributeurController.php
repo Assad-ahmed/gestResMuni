@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Contributeurs;
+use App\Entity\SiteCollecte;
+use App\Form\ContributeursType;
 use App\Form\ContributeurType;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -40,7 +42,7 @@ class ContributeurController extends AbstractController
         }
 
 
-        $form=$this->createForm(ContributeurType::class,$contributeurs);
+        $form=$this->createForm(ContributeursType::class,$contributeurs);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid())
         {
@@ -79,4 +81,8 @@ class ContributeurController extends AbstractController
         }
         return $this->redirectToRoute('liste_contributeur');
     }
+
+
+     
+
 }

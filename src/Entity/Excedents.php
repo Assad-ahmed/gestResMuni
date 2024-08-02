@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Repository\ExcedentsRepository;
 use Doctrine\DBAL\Types\Types;
+use Symfony\Component\Validator\Constraints as Assert;
+
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ExcedentsRepository::class)]
@@ -14,9 +16,6 @@ class Excedents
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $typeRecette = null;
-
     #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 3)]
     private ?string $montant = null;
 
@@ -26,22 +25,15 @@ class Excedents
     #[ORM\ManyToOne(inversedBy: 'excedents')]
     private ?Propriete $propriete = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $nom = null;
+
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getTypeRecette(): ?string
-    {
-        return $this->typeRecette;
-    }
-
-    public function setTypeRecette(string $typeRecette): static
-    {
-        $this->typeRecette = $typeRecette;
-
-        return $this;
-    }
+   
 
     public function getMontant(): ?string
     {
@@ -75,6 +67,18 @@ class Excedents
     public function setPropriete(?Propriete $propriete): static
     {
         $this->propriete = $propriete;
+
+        return $this;
+    }
+
+    public function getNom(): ?string
+    {
+        return $this->nom;
+    }
+
+    public function setNom(string $nom): static
+    {
+        $this->nom = $nom;
 
         return $this;
     }

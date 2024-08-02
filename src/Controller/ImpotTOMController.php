@@ -6,8 +6,10 @@ use App\Entity\ImpotCFNPB;
 use App\Entity\ImpotCFPB;
 use App\Entity\ImpotTOM;
 use App\Form\ImpotTOMType;
+use App\Service\Ressources\TomService;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -37,8 +39,7 @@ class ImpotTOMController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $impotTOM->calculerImpotTOM();
-
+            
             $entityManager->persist($impotTOM);
             $entityManager->flush();
             if ($new = true) {
@@ -46,7 +47,7 @@ class ImpotTOMController extends AbstractController
             } else {
                 $message = " a été ajouté avec succes";
             }
-            $this->addFlash('success', $impotTOM->getRegion() . $message);
+            $this->addFlash('success', $impotTOM->getNom() .$message);
 
             return $this->redirectToRoute('liste_impot_tom');
         } else
@@ -60,7 +61,11 @@ class ImpotTOMController extends AbstractController
 
     }
 
-    #[Route('/delete/{id}', name: 'delete_impot_tom')]
+    #[
+        Route('/delete/{id}', name: 'delete_impot_tom'),
+        IsGranted('ROLE_SUPER_ADMIN')
+        
+        ]
     public function deleteImpotTOM(ImpotTOM $impotTOM= null, ManagerRegistry $registry):Response
     {
         if($impotTOM)
@@ -74,5 +79,25 @@ class ImpotTOMController extends AbstractController
             $this->addFlash('errer', "l'impot tom  est innexistante ");
         }
         return $this->redirectToRoute('liste_impot_tom');
+    }
+
+    public function __construct(private TomService $tomService)
+    {
+        $this->tomService = $tomService;
+    }
+  
+
+    #[Route('/detaitTom/{propriete_id}', name: 'detail_impot_tom')]
+    public function detailImpotTOM(int $propriete_id): Response
+    {
+        $data = $this->tomService->calculateMonthlyTom($propriete_id);
+        return $this->render('impot_tom/detail.html.twig', [
+            'monthlyAmounts' => $data['monthlyAmounts'],
+            'yearlyAmounts' => $data['yearlyAmounts'],
+            'dates' => $data['dates'],
+            'totalMensuelGlobal' => $data['totalMensuelGlobal'],
+            'totalAnnuelGlobal' => $data['totalAnnuelGlobal'],
+            'propertyName' => $data['propertyName'],
+        ]);
     }
 }

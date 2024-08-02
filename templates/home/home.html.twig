@@ -9,7 +9,7 @@
                     <div class="card bg-success text-white mb-4">
                         <div class="card-body text-bg-success fs-4">Montant Journalier</div>
                         <div class="card-footer  justify-content-between">
-                            <h4 class="text-center" >View Details</h4>
+                            <h4 class="text-center" >{{ totalMontantJournalier|number_format(0, ' ', ' ', ) }} Fcfa</h4>
                         </div>
                     </div>
                 </div>
@@ -17,7 +17,7 @@
                     <div class="card bg-success text-white mb-4">
                         <div class="card-body text-bg-success fs-4">Montant Mensuel</div>
                         <div class="card-footer  justify-content-between">
-                            <h4 class="text-center" >View Details</h4>
+                            <h4 class="text-center" >{{ totalMontantMensuel|number_format(0, ' ', ' ', ) }} Fcfa</h4>
                         </div>
                     </div>
                 </div>
@@ -25,7 +25,7 @@
                     <div class="card bg-success text-white mb-4">
                         <div class="card-body text-bg-success fs-4">Montant annuel</div>
                         <div class="card-footer  justify-content-between">
-                            <h4 class="text-center" >View Details</h4>
+                            <h4 class="text-center" >{{ totalAnnualMontant|number_format(0, ' ', ' ', ) }} Fcfa</h4>
                         </div>
                     </div>
                 </div>

@@ -83,4 +83,22 @@ class TaxCalculator
 
         return (float) $qb->getQuery()->getSingleScalarResult();
     }
+
+    public function calculateImpotMiniFiscal(): float
+    {
+        $qb = $this->entityManager->createQueryBuilder();
+        $qb->select('SUM(i.montant)')
+            ->from('App\Entity\ImpotMiniFiscal', 'i');
+
+        return (float) $qb->getQuery()->getSingleScalarResult();
+    }
+
+    public function calculateTaxeRurale(): float
+    {
+        $qb = $this->entityManager->createQueryBuilder();
+        $qb->select('SUM(t.montant)')
+            ->from('App\Entity\TaxeRurale', 't');
+
+        return (float) $qb->getQuery()->getSingleScalarResult();
+    }
 }

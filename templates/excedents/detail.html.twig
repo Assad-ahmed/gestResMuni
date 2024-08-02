@@ -1,0 +1,54 @@
+
+{% extends 'template.html.twig' %}
+
+{% block body %}
+<table class="table table-striped">
+    <thead  style="background-color: rgb(130, 106, 251);color:#fff;">
+        <tr>
+            <th>Dates</th>
+            <th>Année</th>
+            <th>Mois</th> 
+            <th>Montant Mensuel</th>
+            <th>Montant Annuel</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for year, months in monthlyAmounts %}
+            {% for month, data in months %}
+                <tr>
+                    <td>
+                        {% for date in dates[year][month] %}
+                            {{ date|date('d-m-Y') }}<br>
+                        {% endfor %}
+                    </td>
+                    <td>{{ year }}</td>
+                    <td>{{ month }}</td>
+                    <td>{{ data.total|number_format(0, ',', ' ') }} fcfa</td>
+                    {% if loop.index0 == 0 %}
+                        <td rowspan="{{ months|length }}">
+                            {{ yearlyAmounts[year]|number_format(0, ',', ' ') }} fcfa
+                        </td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+        {% endfor %}
+    </tbody>
+    <tfoot >
+        <tr style="background-color: rgb(100, 009, 091);color:#fff;">
+            <th colspan="3" >Total Mensuel </th>
+            <th>{{ totalMensuelGlobal|number_format(0, ',', ' ') }} fcfa</th>
+            <th></th>
+        </tr>
+        <tr style="background-color: rgb(130, 106, 251);color:#fff;">
+            <th colspan="3">Total Annuel </th>
+            <th></th>
+            <th>{{ totalAnnuelGlobal|number_format(0, ',', ' ') }} fcfa</th>
+        </tr>
+    </tfoot>
+</table>
+
+{% endblock %}
+
+{% block PageTitre %}
+Montants mensuels et annuels  : {{ propertyName }}
+{% endblock %}

@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\ProprieteRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ProprieteRepository::class)]
@@ -16,15 +17,30 @@ class Propriete
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: "Veuillez renseigner un nom")]
+    #[Assert\Length(min:2, max:35, minMessage: "Le nom doit contenir au moins {{ limit }} caractères", maxMessage: "Le nom ne peut pas dépasser {{ limit }} caractères")]
+    #[Assert\Regex(pattern:"/^[a-zA-ZÀ-ÿ\s'-]+$/", message:"Le nom ne peut contenir que des lettres et des espaces")]
     private ?string $nom = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: "Veuillez renseigner un prenom")]
+    #[Assert\Length(min:2, max:35, minMessage: "Le prenom doit contenir au moins {{ limit }} caractères", maxMessage: "Le prenom ne peut pas dépasser {{ limit }} caractères")]
+    #[Assert\Regex(pattern:"/^[a-zA-ZÀ-ÿ\s'-]+$/", message:"Le prenom ne peut contenir que des lettres et des espaces")]
     private ?string $prenom = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: "Veuillez renseigner un numero de telephone")]
+    #[Assert\Length(min:9,max: 12,
+        minMessage: "Le numéro de téléphone doit contenir au moins {{ limit }} caractères",
+        maxMessage: "Le numéro de téléphone ne peut pas dépasser {{ limit }} caractères"
+    )]
+    #[Assert\Regex(pattern: "/^\d+$/", message: "Le numéro de téléphone ne peut contenir que des chiffres")]
     private ?string $telephone = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: "Veuillez renseigner un adresse")]
+    #[Assert\Length(min:2, max:35, minMessage: "L'adresse doit contenir au moins {{ limit }} caractères", maxMessage: "L'adresse ne peut pas dépasser {{ limit }} caractères")]
+    #[Assert\Regex(pattern:"/^[a-zA-ZÀ-ÿ\s'-]+$/", message:"L'adresse ne peut contenir que des lettres et des espaces")]
     private ?string $adresse = null;
 
     #[ORM\OneToMany(mappedBy: 'propriete', targetEntity: ImpotTOM::class)]
@@ -51,6 +67,12 @@ class Propriete
     #[ORM\OneToMany(mappedBy: 'propriete', targetEntity: Patente::class)]
     private Collection $patentes;
 
+    #[ORM\OneToMany(mappedBy: 'propriete', targetEntity: TaxeRurale::class)]
+    private Collection $taxeRurales;
+
+    #[ORM\OneToMany(mappedBy: 'propriete', targetEntity: ImpotMiniFiscal::class)]
+    private Collection $impotMiniFiscals;
+
 
 
     public function __construct()
@@ -63,6 +85,8 @@ class Propriete
         $this->ristournes = new ArrayCollection();
         $this->excedents = new ArrayCollection();
         $this->patentes = new ArrayCollection();
+        $this->taxeRurales = new ArrayCollection();
+        $this->impotMiniFiscals = new ArrayCollection();
 
 
 
@@ -356,6 +380,66 @@ class Propriete
             // set the owning side to null (unless already changed)
             if ($patente->getPropriete() === $this) {
                 $patente->setPropriete(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, TaxeRurale>
+     */
+    public function getTaxeRurales(): Collection
+    {
+        return $this->taxeRurales;
+    }
+
+    public function addTaxeRurale(TaxeRurale $taxeRurale): static
+    {
+        if (!$this->taxeRurales->contains($taxeRurale)) {
+            $this->taxeRurales->add($taxeRurale);
+            $taxeRurale->setPropriete($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTaxeRurale(TaxeRurale $taxeRurale): static
+    {
+        if ($this->taxeRurales->removeElement($taxeRurale)) {
+            // set the owning side to null (unless already changed)
+            if ($taxeRurale->getPropriete() === $this) {
+                $taxeRurale->setPropriete(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ImpotMiniFiscal>
+     */
+    public function getImpotMiniFiscals(): Collection
+    {
+        return $this->impotMiniFiscals;
+    }
+
+    public function addImpotMiniFiscal(ImpotMiniFiscal $impotMiniFiscal): static
+    {
+        if (!$this->impotMiniFiscals->contains($impotMiniFiscal)) {
+            $this->impotMiniFiscals->add($impotMiniFiscal);
+            $impotMiniFiscal->setPropriete($this);
+        }
+
+        return $this;
+    }
+
+    public function removeImpotMiniFiscal(ImpotMiniFiscal $impotMiniFiscal): static
+    {
+        if ($this->impotMiniFiscals->removeElement($impotMiniFiscal)) {
+            // set the owning side to null (unless already changed)
+            if ($impotMiniFiscal->getPropriete() === $this) {
+                $impotMiniFiscal->setPropriete(null);
             }
         }
 

@@ -42,6 +42,8 @@ class AgentCollecte
     private ?string $montantAnnuel = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[Assert\NotNull(message: "Veuillez renseigner une date.")]
+    #[Assert\DateTime(message: "Veuillez entrer une date et heure valide.")]
     private ?\DateTimeInterface $date = null;
 
     #[ORM\ManyToMany(targetEntity: SiteCollecte::class)]

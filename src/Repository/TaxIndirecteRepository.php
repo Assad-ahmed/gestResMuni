@@ -21,6 +21,41 @@ class TaxIndirecteRepository extends ServiceEntityRepository
         parent::__construct($registry, TaxIndirecte::class);
     }
 
+    public function findByDate(\DateTime $date)
+    {
+        return $this->createQueryBuilder('t')
+            ->where('t.date = :date')
+            ->setParameter('date', $date->format('Y-m-d'))
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findByMonth(\DateTime $date)
+    {
+        $startDate = (clone $date)->modify('first day of this month')->setTime(0, 0, 0);
+        $endDate = (clone $date)->modify('last day of this month')->setTime(23, 59, 59);
+
+        return $this->createQueryBuilder('t')
+            ->where('t.date BETWEEN :start AND :end')
+            ->setParameter('start', $startDate)
+            ->setParameter('end', $endDate)
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findByYear(\DateTime $date)
+    {
+        $startDate = (clone $date)->setDate($date->format('Y'), 1, 1)->setTime(0, 0, 0);
+        $endDate = (clone $date)->setDate($date->format('Y'), 12, 31)->setTime(23, 59, 59);
+
+        return $this->createQueryBuilder('t')
+            ->where('t.date BETWEEN :start AND :end')
+            ->setParameter('start', $startDate)
+            ->setParameter('end', $endDate)
+            ->getQuery()
+            ->getResult();
+    }
+
 //    /**
 //     * @return TaxIndirecte[] Returns an array of TaxIndirecte objects
 //     */

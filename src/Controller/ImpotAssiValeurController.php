@@ -2,16 +2,8 @@
 
 namespace App\Controller;
 
-use App\Entity\ImpotAssiValeur;
-use App\Entity\ImpotCFPB;
-use App\Entity\Ressource;
-use App\Entity\TypeImpots;
-use App\Form\ImpotAssiValeurType;
 use App\Service\TaxCalculator;
-use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -88,6 +80,18 @@ class ImpotAssiValeurController extends AbstractController
 
         ]);
     }
+
+    #[Route('/list-impotCapitation', name: 'liste_impot_capitation')]
+    public function listImpotCapitation(): Response
+    {
+        $totalImpotMinFiscal = $this->taxCalculator->calculateImpotMiniFiscal();
+        $totalTaxeRurale = $this->taxCalculator->calculateTaxeRurale();
+        return $this->render('impot_assi_valeur/listImpotCapitation.html.twig', [
+            'totalImpotMinFiscal' => $totalImpotMinFiscal,
+           'totalTaxeRurale'=>$totalTaxeRurale
+        ]);
+    }
+
 
 
 }

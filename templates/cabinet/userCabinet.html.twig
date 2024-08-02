@@ -1,0 +1,40 @@
+{% extends 'template.html.twig' %}
+
+{% block body %}
+    <table id="users" class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Email</th>
+            <th scope="col">Roles</th>
+            <th scope="col">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+            <tr>
+                <td>{{ user.id }}</td>
+                <td>{{ user.email }}</td>
+                <td>
+                    {% for role in user.roles %}
+                        {% if role=="ROLE_USER" %}
+                            Utilisateur
+                        {% elseif role=="ROLE_CONTROLEUR_CENTRALE" %}
+                            Adimistrateur
+                        {% elseif role =="ROLE_SUPER_ADMIN" %}
+                            Super_Adimistrateur
+                        {% endif %}
+                    {% endfor %}
+                </td>
+                <td> <a href="{{ path('edit_cabinet',{id: user.id}) }}" class="btn btn-dark">Modifier</a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
+
+{% block title %}
+
+{% endblock %}
+
+

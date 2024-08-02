@@ -3,13 +3,70 @@
 
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
-parameters:
+parameters:    
 
 services:
+    App\Service\Ressources\TaxIndirecteService:
+        arguments:
+            $entityManager: '@doctrine.orm.entity_manager'
+            
+    App\Service\Ressources\PatenteService:
+        arguments:
+            $entityManager: '@doctrine.orm.entity_manager'
+    App\Service\RistournesService:
+        arguments:
+            $entityManager: '@doctrine.orm.entity_manager'
+
+    App\Service\RecetteService:
+        arguments:
+            $entityManager: '@doctrine.orm.entity_manager'
+
+    App\Service\ImpotCapitation\ImpotMiniFiscalService:
+        arguments:
+            $entityManager: '@doctrine.orm.entity_manager'
+
+    App\Service\ImpotCapitation\TaxeRuraleService:
+        arguments:
+            $entityManager: '@doctrine.orm.entity_manager'
+
+    App\Service\Ressources\TomService:
+        arguments:
+            $entityManager: '@doctrine.orm.entity_manager'
+
+    App\Service\Ressources\CfpbService:
+        arguments:
+            $entityManager: '@doctrine.orm.entity_manager'
+
+    App\Service\Ressources\CfnpbService:
+        arguments:
+            $entityManager: '@doctrine.orm.entity_manager'
+            
+
+    App\Service\ExcedentsService:
+        arguments:
+            $entityManager: '@doctrine.orm.entity_manager'
+            
 
     App\Service\TaxCalculator:
         arguments:
             $entityManager: '@doctrine.orm.entity_manager'
+
+    App\Service\ImpotService:
+        arguments:
+            $entityManager: '@doctrine.orm.entity_manager'
+            $impotCFNPBRepository: '@App\Repository\ImpotCFNPBRepository'
+
+    App\Service\CalculTaxeMunicipal:
+        arguments:
+            $impotCFNPBRepository: '@App\Repository\ImpotCFNPBRepository'
+            $impotCFPBRepository: '@App\Repository\ImpotCFPBRepository'
+            $impotTOMRepository: '@App\Repository\ImpotTOMRepository'
+            $recetteRepository: '@App\Repository\RecetteRepository'
+            $ristournesRepository: '@App\Repository\RistournesRepository'
+            $excedentsRepository: '@App\Repository\ExcedentsRepository'
+            $patenteRepository: '@App\Repository\PatenteRepository'
+            $taxIndirectRepository: '@App\Repository\TaxIndirecteRepository'
+
     # default configuration for services in *this* file
     _defaults:
         autowire: true      # Automatically injects dependencies in your services.

@@ -1,0 +1,49 @@
+{% extends 'template.html.twig' %}
+
+{% block body %}
+    <table id="users" class="table table-striped">
+        <thead  style="background-color: rgb(130, 106, 251);color:#fff;">
+        <tr>
+            <th scope="col">Proprietaire</th>
+            <th scope="col">Nom</th>
+            <th scope="col">Montant</th>
+            <th scope="col">Date</th>
+            <th scope="col">Detail</th>
+            <th scope="col">Modifier</th>
+            {% if is_granted('ROLE_SUPER_ADMIN')%}
+                 <th scope="col">Supprimer</th>
+            {% endif %}
+        </tr>
+        </thead>
+        <tbody>
+        {% for taxeRurale in taxeRurales %}
+            <tr>
+                <td>{{ taxeRurale.propriete ? taxeRurale.propriete.nom }} {{taxeRurale.propriete ? taxeRurale.propriete.prenom  }}</td>
+                <td> {{taxeRurale.nom }}</td>
+                <td> {{taxeRurale.montant|number_format(0, ',', ' ') }} fcfa</td>
+                <td> {{taxeRurale.date|date('d/m/y ') }}</td>
+                <td><a href="{{path('detail_taxe_rurale',{propriete_id: taxeRurale.propriete.id })}}" class="btn btn-primary mt-2"><i class="fa-solid fa-circle-info"></i></a></td>
+                 
+                  <td><a href="{{ path('edit_taxe_rurale', {id:taxeRurale.id }) }}" class="btn btn-primary mt-2"> <i class="fa-solid fa-user-pen"></i></a></td>
+               
+                {% if is_granted('ROLE_SUPER_ADMIN') %}  
+                <td><a href="{{ path('delete_taxe_rurale',{id:taxeRurale.id}) }}"  class="btn btn-danger mt-2"
+                 onclick="return confirm('Etes-vous sur de suprimer cette taxe rurale')">
+                <i class="fa-solid fa-trash"></i></a></td>
+                {% endif %}
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}
+
+{% block title %}
+    Liste des taxes rurales
+{% endblock %}
+
+{% block PageTitre %}
+    Liste des taxes rurles
+{% endblock %}
+
+

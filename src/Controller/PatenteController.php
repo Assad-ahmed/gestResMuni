@@ -6,8 +6,10 @@ use App\Entity\ImpotCFNPB;
 use App\Entity\Patente;
 use App\Form\ImpotCFNPBType;
 use App\Form\PatenteType;
+use App\Service\Ressources\PatenteService;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -40,7 +42,6 @@ class PatenteController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $patente->updateMontant();
             $entityManager->persist($patente);
             $entityManager->flush();
             if ($new=true)
@@ -50,7 +51,7 @@ class PatenteController extends AbstractController
             {
                 $message= " a été ajouté avec succes";
             }
-            //$this->addFlash('success',$patente->get.$message);
+            $this->addFlash('success',$patente->getNom().$message);
 
             return $this->redirectToRoute('liste_patente');
         }else
@@ -63,7 +64,10 @@ class PatenteController extends AbstractController
         }
     }
 
-    #[Route('/delete/{id}', name: 'delete_patente')]
+    #[
+        Route('/delete/{id}', name: 'delete_patente'),
+        IsGranted('ROLE_SUPER_ADMIN')
+        ]
     public function deletePatente(Patente $patente= null, ManagerRegistry $registry):Response
     {
         if($patente)
@@ -77,5 +81,26 @@ class PatenteController extends AbstractController
             $this->addFlash('errer', "la contribution de patente  est innexistante ");
         }
         return $this->redirectToRoute('liste_patente');
+    }
+
+    
+    public function __construct(private PatenteService $patenteService)
+    {
+       
+    }
+  
+
+    #[Route('/detaitCfpb/{propriete_id}', name: 'detail_patente')]
+    public function detailPatente(int $propriete_id): Response
+    {
+        $data = $this->patenteService->calculateMonthlyPatente($propriete_id);
+        return $this->render('patente/detail.html.twig', [
+            'monthlyAmounts' => $data['monthlyAmounts'],
+            'yearlyAmounts' => $data['yearlyAmounts'],
+            'dates' => $data['dates'],
+            'totalMensuelGlobal' => $data['totalMensuelGlobal'],
+            'totalAnnuelGlobal' => $data['totalAnnuelGlobal'],
+            'propertyName' => $data['propertyName'],
+        ]);
     }
 }

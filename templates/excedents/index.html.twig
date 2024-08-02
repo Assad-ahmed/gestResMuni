@@ -4,29 +4,35 @@
 
 {% block body %}
     <div class=" m-3">
-        <table class="table table-bordered">
+        <table class="table table-striped">
             <thead class="text-center " style="background-color: rgb(130, 106, 251);color:#fff;">
             <tr>
                 <th scope="col">Propriete</th>
-                <th scope="col">Type d'Excedent </th>
+                <th scope="col">Nom </th>
                 <th scope="col">Montant </th>
                 <th scope="col">Date</th>
                 <th scope="col">Details</th>
                 <th scope="col">Modifier</th>
-                <th scope="col">Supprimer</th>
+                {% if is_granted('ROLE_SUPER_ADMIN') %} 
+                 <th scope="col">Supprimer</th>
+                {% endif %} 
 
             </tr>
             </thead>
             <tbody class="text-center">
             {% for excedent in excedents %}
                 <tr>
-                    <td>{{  excedent.propriete ?  excedent.propriete.nom : 'N/A' }}</td>
-                    <td>{{ excedent.typeRecette }}</td>
+                    <td>{{  excedent.propriete ?  excedent.propriete.nom }} {{  excedent.propriete ?  excedent.propriete.prenom }}</td>
+                    <td>{{ excedent.nom }}</td>
                     <td>{{ excedent.montant }}cf</td>
                     <td>{{  excedent.date|date('d/m/y ') }}</td>
-                    <td><a href="#" class="btn btn-primary mt-2"><i class="fa-solid fa-circle-info"></i></a></td>
+                    <td><a href="{{path('detail_excedents', {propriete_id:excedent.propriete.id })}}" class="btn btn-primary mt-2"><i class="fa-solid fa-circle-info"></i></a></td>
                     <td><a href="{{ path('edit_excedents', {id:excedent.id }) }}" class="btn btn-primary mt-2"> <i class="fa-solid fa-user-pen"></i></a></td>
-                    <td><a href="{{ path('delete_excedents',{id:excedent.id}) }}" class="btn btn-danger mt-2"><i class="fa-solid fa-trash"></i></a></td>
+                    {% if is_granted('ROLE_SUPER_ADMIN') %} 
+                     <td><a href="{{ path('delete_excedents',{id:excedent.id}) }}" class="btn btn-danger mt-2" 
+                     onclick="return confirm('Etes-vous sur de suprimer cet excedents')">
+                     <i class="fa-solid fa-trash"></i></a></td>
+                    {% endif %}
 
                 </tr>
             {% endfor %}

@@ -1,0 +1,20 @@
+
+
+.sb-sidenav .nav-link {
+    color: white;
+}
+
+.sb-sidenav .nav-link:hover {
+    background-color: #0056b3; /* Couleur plus foncée au survol */
+    color: white;
+}
+
+.sb-sidenav .sb-sidenav-menu-heading {
+    color: #e3e3e3; /* Couleur légèrement différente pour les en-têtes */
+    font-weight: bold;
+}
+
+.sb-sidenav-footer {
+    background-color: #004085; /* Couleur plus foncée pour le pied de page */
+    color: white;
+}

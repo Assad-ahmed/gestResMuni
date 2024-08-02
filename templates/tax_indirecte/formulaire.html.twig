@@ -4,15 +4,11 @@
 {% block body %}
     {{ form_start(form,{'attr': {'novalidate': 'novalidate'}}) }}
     <div class="row">
-        <div class="col">{{ form_row(form.typeTaxe) }}</div>
-        <div class="col">{{ form_row(form.codeArticle) }}</div>
+        <div class="col">{{ form_row(form.nom) }}</div>
+        <div class="col">{{ form_row(form.montant) }}</div>
     </div>
     <div class="row">
-        <div class="col">{{ form_row(form.montant )}}</div>
         <div class="col">{{ form_row(form.date) }}</div>
-    </div>
-    <div class="row">
-        <div class="col">{{ form_row(form.description )}}</div>
     </div>
     {{ form_rest(form) }}
 {% endblock %}

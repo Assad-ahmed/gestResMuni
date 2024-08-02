@@ -4,7 +4,9 @@ namespace App\Controller;
 
 use App\Entity\Ristournes;
 use App\Form\RistournesType;
+use App\Service\RistournesService;
 use Doctrine\Persistence\ManagerRegistry;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,7 +20,7 @@ class RistournesController extends AbstractController
         $manager = $registry->getRepository(Ristournes::class);
         $nbreRistourne = $manager->count([]);
         $nbrePage = ceil($nbreRistourne / $nbre);
-        $ristournes=$manager->findBy([],['typeRecette'=>'ASC']);
+        $ristournes=$manager->findBy([],['nom'=>'ASC']);
         return $this->render('ristournes/index.html.twig', [
             'ristournes' => $ristournes,
             'isPaginated'=>true,
@@ -40,7 +42,7 @@ class RistournesController extends AbstractController
 
         $form = $this->createForm(RistournesType::class,$ristournes);
         $form->handleRequest($request);
-        if ($form->isSubmitted())
+        if ($form->isSubmitted() && $form->isValid())
         {
             $manager = $registry->getManager();
             $manager->persist($ristournes);
@@ -53,7 +55,7 @@ class RistournesController extends AbstractController
                 $massage = " a été ajouté avec success";
             }
 
-            $this->addFlash('success', $ristournes->getTypeRecette().$massage);
+            $this->addFlash('success', $ristournes->getNom().$massage);
             return  $this->redirectToRoute('list_ristournes');
         }else{
 
@@ -64,7 +66,10 @@ class RistournesController extends AbstractController
 
     }
 
-    #[Route('/delete/{id}', name: 'delete_ristournes')]
+    #[
+        Route('/delete/{id}', name: 'delete_ristournes'),
+        IsGranted('ROLE_SUPER_ADMIN && ROLE_ADMIN')
+        ]
     public function deleteRistournes(Ristournes $ristournes=null, ManagerRegistry $registry):Response
     {
         if($ristournes)
@@ -77,6 +82,25 @@ class RistournesController extends AbstractController
         {
             $this->addFlash('errer', "le ristourne est innexistante ");
         }
-        return $this->redirectToRoute('liste_ristournes');
+        return $this->redirectToRoute('list_ristournes');
+    }
+
+    public function __construct(private RistournesService $ristournesService)
+    {
+        
+    }
+
+    #[Route('/{propriete_id}', name: 'detail_ristournes')]
+    public function detailRistournes(int $propriete_id): Response
+    {
+        $data = $this->ristournesService->calculateMonthlyAndYearlyAmounts($propriete_id);
+        return $this->render('ristournes/detail.html.twig', [
+            'monthlyAmounts' => $data['monthlyAmounts'],
+            'yearlyAmounts' => $data['yearlyAmounts'],
+            'dates' => $data['dates'],
+            'totalMensuelGlobal' => $data['totalMensuelGlobal'],
+            'totalAnnuelGlobal' => $data['totalAnnuelGlobal'],
+            'propertyName' => $data['propertyName'],
+        ]);
     }
 }

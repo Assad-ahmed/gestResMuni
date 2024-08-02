@@ -6,11 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>{% block titre %}Static Navigation - SB Admin{% endblock %}</title>
+    <title>{% block titre %}Gestion des ressources propres{% endblock %}</title>
     <link href="{{ asset('css/styles.css') }}" rel="stylesheet" />
-    <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/card.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/template.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link href="{{ asset('node_modules/@fortawesome/fontawesome-free/css/fontawesome.css') }}" rel="stylesheet" />
-    <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/card.css') }}">
     <link rel="stylesheet" href="{{ asset('node_modules/select2/dist/css/select2.min.css') }}">
     {% block stylesheets %}
     {% endblock %}
@@ -35,12 +37,16 @@
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                {% if is_granted('ROLE_SUPER_ADMIN') %}
+                    <li><a class="dropdown-item" href="{{ path('app_cabinet') }}">Administration</a></li>
+                {% endif %}
                 {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                 <li><a class="dropdown-item" href="{{ path('app_logout') }}">Déconnecter</a></li>
                  {% else %}
                 <li><a class="dropdown-item" href="{{ path('app_login') }}">Se connecter</a></li>
                 <li><a class="dropdown-item" href="{{ path('app_register') }}">M'inscrire</a></li>
                 {% endif %}
+
             </ul>
         </li>
     </ul>
@@ -48,11 +54,11 @@
 <div id="layoutSidenav">
     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
     <div id="layoutSidenav_nav">
-        <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+        <nav class="sb-sidenav accordion sb-sidenav-dark"  id="sidenavAccordion">
             <div class="sb-sidenav-menu">
                 <div class="nav">
                     <div class="sb-sidenav-menu-heading">Core</div>
-                    <a class="nav-link" href="{{ path('app_home') }}">
+                    <a class="nav-link"  href="{{ path('app_home') }}">
                         <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                         Page d'accueil
                     </a>
@@ -131,12 +137,27 @@
             <div class="container-fluid px-0">
                 <h1   class="mt-4 text-center">
                     {% block PageTitre %}
-                        Page d'accueil
+                       <h1 style =" color: #0c63e4; font-size: 2.5em;margin-top: 20px;font-weight: bold;" class="text-center">Bienvenu(é) à l'entreprise de Mor Dieng</h1>
                     {% endblock %}
                 </h1>
 
                 <div class="card mb-4">
                     <div class="card-body">
+                    {% for message in app.session.flashBag.get('info') %}
+                    <div class="alert alert-info">
+                        {{ message }}
+                    </div>
+                    {% endfor %}
+                    {% for message in app.session.flashBag.get('success') %}
+                        <div class="alert alert-success">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                    {% for message in app.session.flashBag.get('error') %}
+                        <div class="alert alert-danger">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
                         {% block body %}
                             tamplate body
                         {% endblock %}

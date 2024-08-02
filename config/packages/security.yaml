@@ -38,4 +38,15 @@ security:
             # https://symfony.com/doc/current/security.html#firewalls-authentication
 
             # https://symfony.com/doc/current/security/impersonating_user.html
+
             # switch_user: true
+    access_control:
+      # require ROLE_ADMIN for /admin*
+      - { path: '^/cabinet', roles: ROLE_SUPER_ADMIN }
+      - { path: '^/controleur/centrale', roles: ROLE_CONTROLEUR_CENTRALE }
+
+
+    role_hierarchy:
+        ROLE_AGENT: ROLE_USER
+        ROLE_CONTROLEUR_CENTRALE: [ROLE_AGENT]
+        ROLE_SUPER_ADMIN: [ ROLE_CABINET,  ROLE_CONTROLEUR_CENTRALE]

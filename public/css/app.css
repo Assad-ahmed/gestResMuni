@@ -1,0 +1,28 @@
+/* public/css/app.css */
+.container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.row {
+    display: flex;
+    width: 100%;
+}
+
+.col-md-4 {
+    width: 30%;
+    padding: 0.5rem;
+}
+
+.col-md-8 {
+    width: 70%;
+    padding: 0.5rem;
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.card {
+    margin-bottom: 1rem;
+}

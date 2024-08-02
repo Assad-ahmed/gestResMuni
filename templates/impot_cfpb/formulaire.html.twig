@@ -3,11 +3,11 @@
 {% block body %}
     {{ form_start(form,{'attr': {'novalidate': 'novalidate'}}) }}
     <div class="row">
-        <div class="col">{{ form_row(form.typeBatiment) }}</div>
-        <div class="col">{{ form_row(form.valeurLocative) }}</div>
+        <div class="col">{{ form_row(form.nom) }}</div>
+        <div class="col">{{ form_row(form.montant )}}</div>
     </div>
     <div class="row">
-        <div class="col">{{ form_row(form.montant )}}</div>
+        
         <div class="col">{{ form_row(form.date) }}</div>
     </div>
     {{ form_rest(form) }}

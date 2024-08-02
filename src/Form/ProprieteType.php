@@ -18,7 +18,7 @@ class ProprieteType extends AbstractType
             ->add('prenom')
             ->add('telephone')
             ->add('adresse')
-            ->add('Enrigistre',SubmitType::class)
+            ->add('Valider', SubmitType::class);
         ;
     }
 

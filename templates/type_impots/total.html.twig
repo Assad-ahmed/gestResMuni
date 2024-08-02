@@ -4,9 +4,7 @@
 {% block title %}Les différents types de recettes fiscales{% endblock %}
 
 {% block body %}
-    <div class="d-flex justify-content-center mb-3 ">
-        <a href="{{ path('list_propriete') }}" class="btn btn-primary btn-lg p-2">Voir la  liste des proprietaire</a>
-    </div>
+  
     <div class="row m-2">
         <div class="col-sm-6">
             <div class="card shadow-sm">
@@ -39,8 +37,8 @@
                 <div class="card-body text-center">
                     <h3 class="card-title mb-4">Impôt Capitation</h3>
                     <p class="fa-2x font-weight-bold">Montant Cumule:</p>
-                    <p class="display-6">{{ totalTaxIndirecte|number_format(0, ',', ' ') }} Fcfa</p>
-                    <a href="{{ path('liste_impots') }}" class="btn btn-primary mt-3">
+                    <p class="display-6">{{ totalAllImpotCapitation|number_format(0, ',', ' ') }} Fcfa</p>
+                    <a href="{{ path('liste_impot_capitation') }}" class="btn btn-primary mt-3">
                         <i class='bx bx-detail'></i> Détails
                     </a>
                 </div>
@@ -59,7 +57,9 @@
             </div>
         </div>
     </div>
-
+    <div class="d-flex justify-content-center mb-3 ">
+        <a href="{{ path('edit_propriete') }}" class="btn btn-primary btn-lg p-2">Voir les proprietaire</a>
+    </div>
 {% endblock %}
  {% block PageTitre%}
      Les différents types de recettes fiscales

@@ -54,7 +54,7 @@ class AgentCollecteType extends AbstractType
 
             ])
 
-            ->add('Enregistre', SubmitType::class)
+            ->add('Valider', SubmitType::class);
         ;
     }
 

@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Repository\ImpotCFPBRepository;
 use Doctrine\DBAL\Types\Types;
+use Symfony\Component\Validator\Constraints as Assert;
+
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ImpotCFPBRepository::class)]
@@ -14,64 +16,23 @@ class ImpotCFPB
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $typeBatiment = null;
-
-    #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: '0')]
-    private ?string $valeurLocative = null;
-
-    #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: '0')]
-    private ?string $revenuNet = null;
-
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $date = null;
 
-    #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: '0')]
+    #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: '3')]
     private ?string $montant = null;
 
     #[ORM\ManyToOne(inversedBy: 'impotCFPBs')]
     private ?Propriete $propriete = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $nom = null;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getTypeBatiment(): ?string
-    {
-        return $this->typeBatiment;
-    }
-
-    public function setTypeBatiment(string $typeBatiment): static
-    {
-        $this->typeBatiment = $typeBatiment;
-
-        return $this;
-    }
-
-    public function getValeurLocative(): ?string
-    {
-        return $this->valeurLocative;
-    }
-
-    public function setValeurLocative(string $valeurLocative): static
-    {
-        $this->valeurLocative = $valeurLocative;
-
-        return $this;
-    }
-
-    public function getRevenuNet(): ?string
-    {
-        return $this->revenuNet;
-    }
-
-    public function setRevenuNet(string $revenuNet): static
-    {
-        $this->revenuNet = $revenuNet;
-
-        return $this;
-    }
 
     public function getDate(): ?\DateTimeInterface
     {
@@ -105,6 +66,18 @@ class ImpotCFPB
     public function setPropriete(?Propriete $propriete): static
     {
         $this->propriete = $propriete;
+
+        return $this;
+    }
+
+    public function getNom(): ?string
+    {
+        return $this->nom;
+    }
+
+    public function setNom(string $nom): static
+    {
+        $this->nom = $nom;
 
         return $this;
     }

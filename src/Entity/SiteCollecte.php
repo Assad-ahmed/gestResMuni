@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\SiteCollecteRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -20,27 +21,17 @@ class SiteCollecte
     private ?string $nom = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $adresse = null;
+    private ?string $localisation = null;
 
-    #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 3)]
-    private ?string $montantJournalier = null;
-
-    #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 3)]
-    private ?string $montantMensuel = null;
-
-    #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 3)]
-    private ?string $montantAnnuel = null;
-
-    #[ORM\ManyToMany(targetEntity: Contributeurs::class, mappedBy: 'sites')]
+    #[ORM\OneToMany(mappedBy: 'siteCollecte', targetEntity: Contributeurs::class)]
     private Collection $contributeurs;
 
     public function __construct()
     {
         $this->contributeurs = new ArrayCollection();
-        $this->yes = new ArrayCollection();
-
     }
 
+ 
     public function getId(): ?int
     {
         return $this->id;
@@ -58,56 +49,16 @@ class SiteCollecte
         return $this;
     }
 
-    public function getAdresse(): ?string
+    public function getLocalisation(): ?string
     {
-        return $this->adresse;
+        return $this->localisation;
     }
 
-    public function setAdresse(string $adresse): static
+    public function setLocalisation(string $localisation): static
     {
-        $this->adresse = $adresse;
+        $this->localisation = $localisation;
 
         return $this;
-    }
-
-    public function getMontantJournalier(): ?string
-    {
-        return $this->montantJournalier;
-    }
-
-    public function setMontantJournalier(string $montantJournalier): static
-    {
-        $this->montantJournalier = $montantJournalier;
-        $this->calculateMontantMensuelAnnuel();
-        return $this;
-    }
-
-    public function getMontantMensuel(): ?string
-    {
-        return $this->montantMensuel;
-    }
-
-    public function setMontantMensuel(string $montantMensuel): static
-    {
-        $this->montantMensuel = $montantMensuel;
-
-        return $this;
-    }
-
-    public function getMontantAnnuel(): ?string
-    {
-        return $this->montantAnnuel;
-    }
-
-    public function setMontantAnnuel(string $montantAnnuel): static
-    {
-        $this->montantAnnuel = $montantAnnuel;
-
-        return $this;
-    }
-    public function __toString(): string
-    {
-        return $this->nom;
     }
 
     /**
@@ -122,7 +73,7 @@ class SiteCollecte
     {
         if (!$this->contributeurs->contains($contributeur)) {
             $this->contributeurs->add($contributeur);
-            $contributeur->addSite($this);
+            $contributeur->setSiteCollecte($this);
         }
 
         return $this;
@@ -131,21 +82,15 @@ class SiteCollecte
     public function removeContributeur(Contributeurs $contributeur): static
     {
         if ($this->contributeurs->removeElement($contributeur)) {
-            $contributeur->removeSite($this);
+            // set the owning side to null (unless already changed)
+            if ($contributeur->getSiteCollecte() === $this) {
+                $contributeur->setSiteCollecte(null);
+            }
         }
 
         return $this;
     }
-
-    private function calculateMontantMensuelAnnuel(): void
-    {
-        if ($this->montantJournalier !== null) {
-            $montantJournalier = floatval($this->montantJournalier);
-            $this->montantMensuel = number_format($montantJournalier * 30, 3, '.', '');
-            $this->montantAnnuel = number_format($montantJournalier * 365, 3, '.', '');
-        }
-    }
-
+   
 }
 
 

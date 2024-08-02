@@ -7,9 +7,10 @@ use App\Entity\ImpotCFPB;
 use App\Form\ImpotCFPBType;
 use App\Repository\ImpotCFPBRepository;
 use App\Service\CalculService;
-use App\Service\ImpotCFPBService;
+use App\Service\Ressources\CfpbService;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -40,27 +41,7 @@ class ImpotCFPBController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // Calculer le revenu net en fonction de la valeur locative et du type de bâtiment
-            $valeurLocative = $impotCFPB->getValeurLocative();
-            $typeBatiment = $impotCFPB->getTypeBatiment();
-
-            // Appliquer les déductions selon le type de bâtiment
-            if ($typeBatiment === 'usine') {
-                $deduction = 0.5;
-            } else {
-                $deduction = 0.4;
-            }
-
-            $revenuNet = $valeurLocative * (1 - $deduction);
-
-            // Calculer l'impôt CFPB basé sur le revenu net
-            $taux = 0.15;
-            $montant = $revenuNet * $taux;
-
-            $impotCFPB->setRevenuNet($revenuNet);
-            $impotCFPB->setMontant($montant);
-
-            // Enregistrer l'objet en base de données ou effectuer d'autres traitements nécessaires
+           
             $entityManager->persist($impotCFPB);
             $entityManager->flush();
             if ($new=true)
@@ -70,7 +51,7 @@ class ImpotCFPBController extends AbstractController
             {
                 $message= " a été ajouté avec succes";
             }
-            $this->addFlash('success',$impotCFPB->getTypeBatiment().$message);
+            $this->addFlash('success',$impotCFPB->getNom().$message);
 
             return $this->redirectToRoute('liste_impot_cfpb', [
                 'id' => $impotCFPB->getId(),
@@ -85,7 +66,10 @@ class ImpotCFPBController extends AbstractController
 
     }
 
-    #[Route('/delete/{id}', name: 'delete_impot_cfpb')]
+    #[
+        Route('/delete/{id}', name: 'delete_impot_cfpb'),
+        IsGranted('ROLE_SUPER_ADMIN')
+        ]
     public function deleteImpotCFPB(ImpotCFPB $impotCFPB= null, ManagerRegistry $registry):Response
     {
         if($impotCFPB)
@@ -101,5 +85,25 @@ class ImpotCFPBController extends AbstractController
         return $this->redirectToRoute('liste_impot_cfpb');
     }
 
+
+    public function __construct(private CfpbService $cfpbService)
+    {
+        $this->cfpbService = $cfpbService;
+    }
+  
+
+    #[Route('/detaitCfpb/{propriete_id}', name: 'detail_impot_cfpb')]
+    public function detailImpotCFPB(int $propriete_id): Response
+    {
+        $data = $this->cfpbService->calculateMonthlyCfpb($propriete_id);
+        return $this->render('impot_cfpb/detail.html.twig', [
+            'monthlyAmounts' => $data['monthlyAmounts'],
+            'yearlyAmounts' => $data['yearlyAmounts'],
+            'dates' => $data['dates'],
+            'totalMensuelGlobal' => $data['totalMensuelGlobal'],
+            'totalAnnuelGlobal' => $data['totalAnnuelGlobal'],
+            'propertyName' => $data['propertyName'],
+        ]);
+    }
 
 }

@@ -27,12 +27,19 @@ class TypeImpotsController extends AbstractController
     #[Route('/total-impots', name: 'total_impots')]
     public function totalTaxes(): Response
     {
+        //impot assi sur valeur fonciere
         $totalCFPB = $this->taxCalculator->calculateTotalCFPB();
         $totalCFPNB = $this->taxCalculator->calculateTotalCFPNB();
         $totalTOM = $this->taxCalculator->calculateTotalTOM();
         $totalAllTaxes = $totalCFPB + $totalCFPNB + $totalTOM;
+        //taxe indirecte
         $totalTaxIndirecte= $this->taxCalculator->calculateTotalTaxIndirecte();
+        // impot de contribution
         $totalPatentes= $this->taxCalculator->calculatePatente();
+        //impot de capitation
+        $totalImpotMiniFiscal= $this->taxCalculator->calculateImpotMiniFiscal();
+        $totalTaxeRurale= $this->taxCalculator->calculateTaxeRurale();
+        $totalAllImpotCapitation= $totalTaxeRurale+$totalImpotMiniFiscal;
 
 
         return $this->render('type_impots/total.html.twig', [
@@ -42,6 +49,9 @@ class TypeImpotsController extends AbstractController
             'totalTOM' => $totalTOM,
             'totalPatentes'=>$totalPatentes,
             'totalAllTaxes' => $totalAllTaxes,
+            'totalImpotMiniFiscal' => $totalImpotMiniFiscal,
+            'totalTaxeRurale' => $totalTaxeRurale,
+            'totalAllImpotCapitation' => $totalAllImpotCapitation,
         ]);
     }
 

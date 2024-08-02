@@ -5,3 +5,56 @@ controllers:
 kernel:
     resource: ../src/Kernel.php
     type: annotation
+detail_excedents:
+    path: /{propriete_id}
+    controller: App\Controller\ExcedentsController::detailExcedent
+    requirements:
+        propriete_id: '\d+'
+
+detail_impot_cfnpb:
+    path: /detail/{propriete_id}
+    controller: App\Controller\ImpotCFNPBController::detailImpotCFNPB
+    requirements:
+        propriete_id: '\d+'
+
+detail_impot_cfpb:
+    path: /detailCfpb/{propriete_id}
+    controller: App\Controller\ImpotCFPBController::detailImpotCFPB
+    requirements:
+        propriete_id: '\d+'
+
+detail_impot_tom:
+    path: /detailTom/{propriete_id}
+    controller: App\Controller\ImpotTOMController::detailImpotTOM
+    requirements:
+        propriete_id: '\d+'
+
+detail_taxe_rurale:
+    path: /detailTaxeRurale/{propriete_id}
+    controller: App\Controller\TaxeRuraleController::detailTaxeRurale
+    requirements:
+        propriete_id: '\d+'
+
+detail_impot_mini_fiscal:
+    path: /detailImpotMiniFiscal/{propriete_id}
+    controller: App\Controller\ImpotMiniFiscalController::detailImpotMiniFiscal
+    requirements:
+        propriete_id: '\d+'
+
+detail_recette:
+    path: /detailRecette/{propriete_id}
+    controller: App\Controller\RecetteController::detailRecette
+    requirements:
+        propriete_id: '\d+'
+
+detail_ristournes:
+    path: /detailRistournes/{propriete_id}
+    controller: App\Controller\RistournesController::detailRistournes
+    requirements:
+        propriete_id: '\d+'
+
+detail_patente:
+    path: /detailPatente/{propriete_id}
+    controller: App\Controller\PatenteController::detailPatente
+    requirements:
+        propriete_id: '\d+'

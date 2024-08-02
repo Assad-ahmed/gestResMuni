@@ -7,8 +7,10 @@ use App\Entity\TaxIndirecte;
 use App\Form\ImpotCFNPBType;
 use App\Form\TaxeIndirecteType;
 use App\Form\TaxIndirecteType;
+use App\Service\Ressources\TaxIndirecteService;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -50,7 +52,7 @@ class TaxIndirecteController extends AbstractController
             {
                 $message= " a été ajouté avec succes";
             }
-            $this->addFlash('success',$taxIndirecte->getTypeTaxe().$message);
+            $this->addFlash('success',$taxIndirecte->getNom().$message);
 
             return $this->redirectToRoute('liste_impot_indirecte');
         }else
@@ -62,7 +64,11 @@ class TaxIndirecteController extends AbstractController
         }
     }
 
-    #[Route('/delete/{id}', name: 'delete_impot_indirecte')]
+    #[
+        Route('/delete/{id}', name: 'delete_impot_indirecte'),
+        IsGranted('ROLE_SUPER_ADMIN')
+        
+        ]
     public function deleteImpotIndirecte(TaxIndirecte $taxIndirecte= null, ManagerRegistry $registry):Response
     {
         if($taxIndirecte)
@@ -76,5 +82,26 @@ class TaxIndirecteController extends AbstractController
             $this->addFlash('errer', "l'impot indirecte  est innexistante ");
         }
         return $this->redirectToRoute('liste_impot_indirecte');
+    }
+
+    
+    public function __construct(private TaxIndirecteService $taxIndirecteService)
+    {
+       
+    }
+  
+
+    #[Route('/detait/{propriete_id}', name: 'detail_taxe_indirecte')]
+    public function detailTaxIndirecte(int $propriete_id): Response
+    {
+        $data = $this->taxIndirecteService->calculateMonthlyTaxInd($propriete_id);
+        return $this->render('tax_indirecte/detail.html.twig', [
+            'monthlyAmounts' => $data['monthlyAmounts'],
+            'yearlyAmounts' => $data['yearlyAmounts'],
+            'dates' => $data['dates'],
+            'totalMensuelGlobal' => $data['totalMensuelGlobal'],
+            'totalAnnuelGlobal' => $data['totalAnnuelGlobal'],
+            'propertyName' => $data['propertyName'],
+        ]);
     }
 }

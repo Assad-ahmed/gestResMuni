@@ -4,8 +4,7 @@
     {{ form_start(form) }}
     <div class="row">
         <div class="col">{{ form_row(form.nom) }}</div>
-        <div class="col">{{ form_row(form.adresse) }}</div>
-        <div class="col">{{ form_row(form.montantJournalier) }}</div>
+        <div class="col">{{ form_row(form.localisation) }}</div>
     </div>
     {{ form_rest(form) }}
 {% endblock %}
@@ -15,6 +14,6 @@
 {% endblock %}
 
  {% block PageTitre %}
-     Creer un site
+     Editer Site de collecte
  {% endblock %}
 

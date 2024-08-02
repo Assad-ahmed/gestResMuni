@@ -4,7 +4,9 @@ namespace App\Controller;
 
 use App\Entity\Recette;
 use App\Form\RecetteType;
+use App\Service\RecetteService;
 use Doctrine\Persistence\ManagerRegistry;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,7 +20,7 @@ class RecetteController extends AbstractController
         $manager=$registry->getRepository(Recette::class);
         $nbrerecette = $manager->count([]);
         $nbrePage = ceil($nbrerecette / $nbre);
-        $recettes=$manager->findBy([],['typeRecette'=>'ASC']);
+        $recettes=$manager->findBy([],['nom'=>'ASC']);
         return $this->render('recette/index.html.twig', [
             'recettes' => $recettes,
             'isPaginated'=>true,
@@ -50,7 +52,7 @@ class RecetteController extends AbstractController
             else{
                 $message= " la recette non fiscale est inexisantante";
             }
-            $this->addFlash('success',$recette->getTypeRecette(),$message);
+            $this->addFlash('success',$recette->getNom().$message);
             return $this->redirectToRoute('liste_recette');
         }else
         {
@@ -61,7 +63,10 @@ class RecetteController extends AbstractController
         }
     }
 
-    #[Route('/delete/{id}', name: 'delete_recette')]
+    #[
+        Route('/delete/{id}', name: 'delete_recette'),
+        IsGranted('ROLE_SUPER_ADMIN')
+        ]
     public function deleteRecetteNon(Recette $recette=null, ManagerRegistry $registry):Response
     {
         if($recette)
@@ -75,5 +80,26 @@ class RecetteController extends AbstractController
             $this->addFlash('errer', "la recette non fiscale est innexistante ");
         }
         return $this->redirectToRoute('liste_recette');
+    }
+
+ 
+
+    public function __construct(private RecetteService $recetteService)
+    {
+        
+    }
+
+    #[Route('/{propriete_id}', name: 'detail_excedents')]
+    public function detailRecette(int $propriete_id): Response
+    {
+        $data = $this->recetteService->calculateMonthlyAndYearlyAmounts($propriete_id);
+        return $this->render('recette/detail.html.twig', [
+            'monthlyAmounts' => $data['monthlyAmounts'],
+            'yearlyAmounts' => $data['yearlyAmounts'],
+            'dates' => $data['dates'],
+            'totalMensuelGlobal' => $data['totalMensuelGlobal'],
+            'totalAnnuelGlobal' => $data['totalAnnuelGlobal'],
+            'propertyName' => $data['propertyName'],
+        ]);
     }
 }
