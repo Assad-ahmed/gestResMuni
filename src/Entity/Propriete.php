@@ -18,7 +18,8 @@ class Propriete
 
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank(message: "Veuillez renseigner un nom")]
-    #[Assert\Length(min:2, max:35, minMessage: "Le nom doit contenir au moins {{ limit }} caractères", maxMessage: "Le nom ne peut pas dépasser {{ limit }} caractères")]
+    #[Assert\Length(min:2, max:35, minMessage: "Le nom doit contenir au moins {{ limit }} caractères",
+        maxMessage: "Le nom ne peut pas dépasser {{ limit }} caractères")]
     #[Assert\Regex(pattern:"/^[a-zA-ZÀ-ÿ\s'-]+$/", message:"Le nom ne peut contenir que des lettres et des espaces")]
     private ?string $nom = null;
 

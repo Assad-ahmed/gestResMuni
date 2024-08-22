@@ -130,16 +130,12 @@ class __TwigTemplate_5555fa8fe8e615d4ff630bd77fc4885b extends Template
     <div class=\"row\">
         <div class=\"col\">";
         // line 17
-        echo $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(twig_get_attribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 17, $this->source); })()), "montantJournalier", [], "any", false, false, false, 17), 'row');
-        echo "</div>
-        <div class=\"col\">";
-        // line 18
-        echo $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(twig_get_attribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 18, $this->source); })()), "date", [], "any", false, false, false, 18), 'row');
+        echo $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(twig_get_attribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 17, $this->source); })()), "date", [], "any", false, false, false, 17), 'row');
         echo "</div>
     </div>
     ";
-        // line 20
-        echo $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock((isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 20, $this->source); })()), 'rest');
+        // line 19
+        echo $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock((isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 19, $this->source); })()), 'rest');
         echo "
 ";
         
@@ -150,7 +146,7 @@ class __TwigTemplate_5555fa8fe8e615d4ff630bd77fc4885b extends Template
 
     }
 
-    // line 23
+    // line 22
     public function block_javascripts($context, array $blocks = [])
     {
         $macros = $this->macros;
@@ -160,7 +156,7 @@ class __TwigTemplate_5555fa8fe8e615d4ff630bd77fc4885b extends Template
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "javascripts"));
 
-        // line 24
+        // line 23
         echo "    <script>
         \$(document).ready(function() {
             \$('.select2').select2();
@@ -196,7 +192,7 @@ class __TwigTemplate_5555fa8fe8e615d4ff630bd77fc4885b extends Template
      */
     public function getDebugInfo()
     {
-        return array (  164 => 24,  154 => 23,  142 => 20,  137 => 18,  133 => 17,  127 => 14,  123 => 13,  119 => 12,  113 => 10,  103 => 9,  92 => 7,  82 => 6,  71 => 4,  61 => 3,  38 => 1,);
+        return array (  160 => 23,  150 => 22,  138 => 19,  133 => 17,  127 => 14,  123 => 13,  119 => 12,  113 => 10,  103 => 9,  92 => 7,  82 => 6,  71 => 4,  61 => 3,  38 => 1,);
     }
 
     public function getSourceContext()
@@ -217,7 +213,6 @@ class __TwigTemplate_5555fa8fe8e615d4ff630bd77fc4885b extends Template
         <div class=\"col\">{{ form_row(form.telephone) }}</div>
     </div>
     <div class=\"row\">
-        <div class=\"col\">{{ form_row(form.montantJournalier) }}</div>
         <div class=\"col\">{{ form_row(form.date) }}</div>
     </div>
     {{ form_rest(form) }}

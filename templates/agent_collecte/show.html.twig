@@ -1,0 +1,40 @@
+{# templates/agent_collecte/contributeurs.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Contributeurs pour l'Agent {{ agentCollecte.nom }} {{ agentCollecte.prenom }}</h1>
+
+    {% for siteId, siteData in resultats %}
+        <h2>Site {{ siteData.site.nom }}</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th>Montant Journalier</th>
+                <th>Total Journalier</th>
+                <th>Total Mensuel</th>
+                <th>Total Annuel</th>
+                <th>Manque à Gagner Journalier</th>
+                <th>Manque à Gagner Mensuel</th>
+                <th>Manque à Gagner Annuel</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for contributeur in siteData.contributeurs %}
+                <tr>
+                    <td>{{ contributeur.nom }}</td>
+                    <td>{{ contributeur.prenom }}</td>
+                    <td>{{ contributeur.montant_journalier }} F CFA</td>
+                    <td>{{ contributeur.total_journalier }} F CFA</td>
+                    <td>{{ contributeur.total_mensuel }} F CFA</td>
+                    <td>{{ contributeur.total_annuel }} F CFA</td>
+                    <td>{{ contributeur.manque_a_gagner_journalier }} F CFA</td>
+                    <td>{{ contributeur.manque_a_gagner_mensuel }} F CFA</td>
+                    <td>{{ contributeur.manque_a_gagner_annuel }} F CFA</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% endfor %}
+{% endblock %}

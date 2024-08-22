@@ -23,15 +23,19 @@ class SiteCollecte
     #[ORM\Column(length: 255)]
     private ?string $localisation = null;
 
+
     #[ORM\OneToMany(mappedBy: 'siteCollecte', targetEntity: Contributeurs::class)]
     private Collection $contributeurs;
+
+    #[ORM\ManyToMany(targetEntity: AgentCollecte::class, inversedBy: 'siteCollectes')]
+    private Collection $agentCollecte;
 
     public function __construct()
     {
         $this->contributeurs = new ArrayCollection();
+        $this->agentCollecte = new ArrayCollection();
     }
 
- 
     public function getId(): ?int
     {
         return $this->id;
@@ -61,6 +65,7 @@ class SiteCollecte
         return $this;
     }
 
+
     /**
      * @return Collection<int, Contributeurs>
      */
@@ -82,11 +87,34 @@ class SiteCollecte
     public function removeContributeur(Contributeurs $contributeur): static
     {
         if ($this->contributeurs->removeElement($contributeur)) {
-            // set the owning side to null (unless already changed)
             if ($contributeur->getSiteCollecte() === $this) {
                 $contributeur->setSiteCollecte(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, AgentCollecte>
+     */
+    public function getAgentCollecte(): Collection
+    {
+        return $this->agentCollecte;
+    }
+
+    public function addAgentCollecte(AgentCollecte $agentCollecte): static
+    {
+        if (!$this->agentCollecte->contains($agentCollecte)) {
+            $this->agentCollecte->add($agentCollecte);
+        }
+
+        return $this;
+    }
+
+    public function removeAgentCollecte(AgentCollecte $agentCollecte): static
+    {
+        $this->agentCollecte->removeElement($agentCollecte);
 
         return $this;
     }

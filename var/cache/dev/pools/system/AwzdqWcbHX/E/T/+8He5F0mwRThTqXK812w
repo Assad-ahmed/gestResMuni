@@ -1,0 +1,3 @@
+<?php //App%255CEntity%255CContributeurs%2523getMontantCumuleParAnnee
+
+return [PHP_INT_MAX, []];

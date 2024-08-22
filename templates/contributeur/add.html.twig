@@ -8,17 +8,13 @@
 {% endblock %}
 
 {% block body %}
+
     {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
     <div class="row">
         <div class="col">{{ form_row(form.numeroEtablissement) }}</div>
         <div class="col">{{ form_row(form.nom) }}</div>
         <div class="col">{{ form_row(form.prenom) }}</div>
     </div>
-    <div class="row">
-         <div class="col">{{ form_row(form.date_paye) }}</div>
-        <div class="col">{{ form_row(form.montantJour) }}</div>
-        <div class="col">{{ form_row(form.montantMois) }}</div>
-    </div>-
     {{ form_rest(form) }}
 {% endblock %}
 

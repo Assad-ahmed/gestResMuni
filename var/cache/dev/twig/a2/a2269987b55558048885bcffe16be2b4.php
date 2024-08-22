@@ -121,9 +121,6 @@ class __TwigTemplate_7c93d5aa071eea27454a7d2afdfe0b9e extends Template
             <th scope=\"col\">prenom</th>
             <th scope=\"col\">Téléphone</th>
             <th scope=\"col\">Date</th>
-            <th scope=\"col\">MontantJ</th>
-            <th scope=\"col\">MontantM</th>
-            <th scope=\"col\">Montant</th>
             <th scope=\"col\">Sites</th>
             <th scope=\"col\">Details</th>
             <th scope=\"col\">Modifier</th>
@@ -132,64 +129,52 @@ class __TwigTemplate_7c93d5aa071eea27454a7d2afdfe0b9e extends Template
         </thead>
         <tbody class=\"text-center\">
         ";
-        // line 31
+        // line 28
         $context['_parent'] = $context;
-        $context['_seq'] = twig_ensure_traversable((isset($context["agentCollectes"]) || array_key_exists("agentCollectes", $context) ? $context["agentCollectes"] : (function () { throw new RuntimeError('Variable "agentCollectes" does not exist.', 31, $this->source); })()));
+        $context['_seq'] = twig_ensure_traversable((isset($context["agentCollectes"]) || array_key_exists("agentCollectes", $context) ? $context["agentCollectes"] : (function () { throw new RuntimeError('Variable "agentCollectes" does not exist.', 28, $this->source); })()));
         foreach ($context['_seq'] as $context["_key"] => $context["agentCollecte"]) {
-            // line 32
+            // line 29
             echo "            <tr>
                 <td>";
+            // line 30
+            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["agentCollecte"], "nom", [], "any", false, false, false, 30), "html", null, true);
+            echo "</td>
+                <td>";
+            // line 31
+            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["agentCollecte"], "prenom", [], "any", false, false, false, 31), "html", null, true);
+            echo "</td>
+                <td>";
+            // line 32
+            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["agentCollecte"], "telephone", [], "any", false, false, false, 32), "html", null, true);
+            echo "</td>
+                <td>";
             // line 33
-            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["agentCollecte"], "nom", [], "any", false, false, false, 33), "html", null, true);
+            echo twig_escape_filter($this->env, twig_date_format_filter($this->env, twig_get_attribute($this->env, $this->source, $context["agentCollecte"], "date", [], "any", false, false, false, 33), "Y-m-d"), "html", null, true);
             echo "</td>
                 <td>";
             // line 34
-            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["agentCollecte"], "prenom", [], "any", false, false, false, 34), "html", null, true);
-            echo "</td>
-                <td>";
-            // line 35
-            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["agentCollecte"], "telephone", [], "any", false, false, false, 35), "html", null, true);
-            echo "</td>
-                <td>";
-            // line 36
-            echo twig_escape_filter($this->env, twig_date_format_filter($this->env, twig_get_attribute($this->env, $this->source, $context["agentCollecte"], "date", [], "any", false, false, false, 36), "Y-m-d"), "html", null, true);
-            echo "</td>
-                <td>";
-            // line 37
-            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["agentCollecte"], "montantJournalier", [], "any", false, false, false, 37), "html", null, true);
-            echo " FCFA</td>
-                <td>";
-            // line 38
-            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["agentCollecte"], "montantMensuel", [], "any", false, false, false, 38), "html", null, true);
-            echo " FCFA</td>
-                <td>";
-            // line 39
-            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["agentCollecte"], "montantAnnuel", [], "any", false, false, false, 39), "html", null, true);
-            echo " FCFA</td>
-                <td>";
-            // line 40
             $context['_parent'] = $context;
-            $context['_seq'] = twig_ensure_traversable(twig_get_attribute($this->env, $this->source, $context["agentCollecte"], "sites", [], "any", false, false, false, 40));
+            $context['_seq'] = twig_ensure_traversable(twig_get_attribute($this->env, $this->source, $context["agentCollecte"], "sites", [], "any", false, false, false, 34));
             foreach ($context['_seq'] as $context["_key"] => $context["site"]) {
-                // line 41
+                // line 35
                 echo "                      ";
-                echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["site"], "nom", [], "any", false, false, false, 41), "html", null, true);
+                echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["site"], "nom", [], "any", false, false, false, 35), "html", null, true);
                 echo "
                     ";
             }
             $_parent = $context['_parent'];
             unset($context['_seq'], $context['_iterated'], $context['_key'], $context['site'], $context['_parent'], $context['loop']);
             $context = array_intersect_key($context, $_parent) + $_parent;
-            // line 43
+            // line 37
             echo "                </td>
                 <td><a href=\"#\" class=\"btn btn-primary mt-2\"><i class=\"fa-solid fa-circle-info\"></i></a></td>
                 <td><a href=\"";
-            // line 45
-            echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("edit_agent", ["id" => twig_get_attribute($this->env, $this->source, $context["agentCollecte"], "id", [], "any", false, false, false, 45)]), "html", null, true);
+            // line 39
+            echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("edit_agent", ["id" => twig_get_attribute($this->env, $this->source, $context["agentCollecte"], "id", [], "any", false, false, false, 39)]), "html", null, true);
             echo "\" class=\"btn btn-primary\"><i class=\"fa-solid fa-user-pen\"></i></a></td>
                 <td><a href=\"";
-            // line 46
-            echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("delete_agent", ["id" => twig_get_attribute($this->env, $this->source, $context["agentCollecte"], "id", [], "any", false, false, false, 46)]), "html", null, true);
+            // line 40
+            echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("delete_agent", ["id" => twig_get_attribute($this->env, $this->source, $context["agentCollecte"], "id", [], "any", false, false, false, 40)]), "html", null, true);
             echo "\" class=\"btn btn-danger\" onclick=\"return confirm('Etes-vous sur de suprimer cet agent')\"><i class=\"fa-solid fa-trash\"></i></a></td>
             </tr>
         ";
@@ -197,34 +182,34 @@ class __TwigTemplate_7c93d5aa071eea27454a7d2afdfe0b9e extends Template
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_iterated'], $context['_key'], $context['agentCollecte'], $context['_parent'], $context['loop']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 49
+        // line 43
         echo "        </tbody>
     </table>
 </div>
 ";
-        // line 52
-        if ((isset($context["isPaginated"]) || array_key_exists("isPaginated", $context) ? $context["isPaginated"] : (function () { throw new RuntimeError('Variable "isPaginated" does not exist.', 52, $this->source); })())) {
-            // line 53
+        // line 46
+        if ((isset($context["isPaginated"]) || array_key_exists("isPaginated", $context) ? $context["isPaginated"] : (function () { throw new RuntimeError('Variable "isPaginated" does not exist.', 46, $this->source); })())) {
+            // line 47
             echo "    <div class=\"row mt-3\">
         <nav aria-label=\"Page navigation example\">
             <ul class=\"pagination\">
                 ";
-            // line 56
-            if (((isset($context["page"]) || array_key_exists("page", $context) ? $context["page"] : (function () { throw new RuntimeError('Variable "page" does not exist.', 56, $this->source); })()) != 1)) {
-                // line 57
+            // line 50
+            if (((isset($context["page"]) || array_key_exists("page", $context) ? $context["page"] : (function () { throw new RuntimeError('Variable "page" does not exist.', 50, $this->source); })()) != 1)) {
+                // line 51
                 echo "                    <li class=\"page-item\"><a class=\"page-link\" style=\"background-color: rgb(130, 106, 251);color:#fff;\" href=\"";
-                echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("list_agent", ["page" => ((isset($context["page"]) || array_key_exists("page", $context) ? $context["page"] : (function () { throw new RuntimeError('Variable "page" does not exist.', 57, $this->source); })()) - 1), "nbre" => (isset($context["nbre"]) || array_key_exists("nbre", $context) ? $context["nbre"] : (function () { throw new RuntimeError('Variable "nbre" does not exist.', 57, $this->source); })())]), "html", null, true);
+                echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("list_agent", ["page" => ((isset($context["page"]) || array_key_exists("page", $context) ? $context["page"] : (function () { throw new RuntimeError('Variable "page" does not exist.', 51, $this->source); })()) - 1), "nbre" => (isset($context["nbre"]) || array_key_exists("nbre", $context) ? $context["nbre"] : (function () { throw new RuntimeError('Variable "nbre" does not exist.', 51, $this->source); })())]), "html", null, true);
                 echo "\">Previous</a></li>
                 ";
             }
-            // line 59
+            // line 53
             echo "                ";
             $context['_parent'] = $context;
-            $context['_seq'] = twig_ensure_traversable(range(1, (isset($context["nbrePage"]) || array_key_exists("nbrePage", $context) ? $context["nbrePage"] : (function () { throw new RuntimeError('Variable "nbrePage" does not exist.', 59, $this->source); })())));
+            $context['_seq'] = twig_ensure_traversable(range(1, (isset($context["nbrePage"]) || array_key_exists("nbrePage", $context) ? $context["nbrePage"] : (function () { throw new RuntimeError('Variable "nbrePage" does not exist.', 53, $this->source); })())));
             foreach ($context['_seq'] as $context["_key"] => $context["i"]) {
-                // line 60
+                // line 54
                 echo "                    <li class=\"page-item\"><a class=\"page-link\" href=\"";
-                echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("list_agent", ["page" => $context["i"], "nbre" => (isset($context["nbre"]) || array_key_exists("nbre", $context) ? $context["nbre"] : (function () { throw new RuntimeError('Variable "nbre" does not exist.', 60, $this->source); })())]), "html", null, true);
+                echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("list_agent", ["page" => $context["i"], "nbre" => (isset($context["nbre"]) || array_key_exists("nbre", $context) ? $context["nbre"] : (function () { throw new RuntimeError('Variable "nbre" does not exist.', 54, $this->source); })())]), "html", null, true);
                 echo "\">";
                 echo twig_escape_filter($this->env, $context["i"], "html", null, true);
                 echo "</a></li>
@@ -233,16 +218,16 @@ class __TwigTemplate_7c93d5aa071eea27454a7d2afdfe0b9e extends Template
             $_parent = $context['_parent'];
             unset($context['_seq'], $context['_iterated'], $context['_key'], $context['i'], $context['_parent'], $context['loop']);
             $context = array_intersect_key($context, $_parent) + $_parent;
-            // line 62
+            // line 56
             echo "                ";
-            if (((isset($context["page"]) || array_key_exists("page", $context) ? $context["page"] : (function () { throw new RuntimeError('Variable "page" does not exist.', 62, $this->source); })()) != (isset($context["nbre"]) || array_key_exists("nbre", $context) ? $context["nbre"] : (function () { throw new RuntimeError('Variable "nbre" does not exist.', 62, $this->source); })()))) {
-                // line 63
+            if (((isset($context["page"]) || array_key_exists("page", $context) ? $context["page"] : (function () { throw new RuntimeError('Variable "page" does not exist.', 56, $this->source); })()) != (isset($context["nbre"]) || array_key_exists("nbre", $context) ? $context["nbre"] : (function () { throw new RuntimeError('Variable "nbre" does not exist.', 56, $this->source); })()))) {
+                // line 57
                 echo "                    <li class=\"page-item\"><a class=\"page-link\" style=\"background-color: rgb(130, 106, 251);color:#fff;\" href=\"";
-                echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("list_agent", ["page" => ((isset($context["page"]) || array_key_exists("page", $context) ? $context["page"] : (function () { throw new RuntimeError('Variable "page" does not exist.', 63, $this->source); })()) + 1), "nbre" => (isset($context["nbre"]) || array_key_exists("nbre", $context) ? $context["nbre"] : (function () { throw new RuntimeError('Variable "nbre" does not exist.', 63, $this->source); })())]), "html", null, true);
+                echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("list_agent", ["page" => ((isset($context["page"]) || array_key_exists("page", $context) ? $context["page"] : (function () { throw new RuntimeError('Variable "page" does not exist.', 57, $this->source); })()) + 1), "nbre" => (isset($context["nbre"]) || array_key_exists("nbre", $context) ? $context["nbre"] : (function () { throw new RuntimeError('Variable "nbre" does not exist.', 57, $this->source); })())]), "html", null, true);
                 echo "\">Next</a></li>
                 ";
             }
-            // line 65
+            // line 59
             echo "            </ul>
         </nav>
     </div>
@@ -277,7 +262,7 @@ class __TwigTemplate_7c93d5aa071eea27454a7d2afdfe0b9e extends Template
      */
     public function getDebugInfo()
     {
-        return array (  246 => 65,  240 => 63,  237 => 62,  226 => 60,  221 => 59,  215 => 57,  213 => 56,  208 => 53,  206 => 52,  201 => 49,  192 => 46,  188 => 45,  184 => 43,  175 => 41,  171 => 40,  167 => 39,  163 => 38,  159 => 37,  155 => 36,  151 => 35,  147 => 34,  143 => 33,  140 => 32,  136 => 31,  113 => 11,  110 => 10,  100 => 9,  89 => 6,  79 => 5,  60 => 3,  37 => 1,);
+        return array (  231 => 59,  225 => 57,  222 => 56,  211 => 54,  206 => 53,  200 => 51,  198 => 50,  193 => 47,  191 => 46,  186 => 43,  177 => 40,  173 => 39,  169 => 37,  160 => 35,  156 => 34,  152 => 33,  148 => 32,  144 => 31,  140 => 30,  137 => 29,  133 => 28,  113 => 11,  110 => 10,  100 => 9,  89 => 6,  79 => 5,  60 => 3,  37 => 1,);
     }
 
     public function getSourceContext()
@@ -302,9 +287,6 @@ class __TwigTemplate_7c93d5aa071eea27454a7d2afdfe0b9e extends Template
             <th scope=\"col\">prenom</th>
             <th scope=\"col\">Téléphone</th>
             <th scope=\"col\">Date</th>
-            <th scope=\"col\">MontantJ</th>
-            <th scope=\"col\">MontantM</th>
-            <th scope=\"col\">Montant</th>
             <th scope=\"col\">Sites</th>
             <th scope=\"col\">Details</th>
             <th scope=\"col\">Modifier</th>
@@ -318,9 +300,6 @@ class __TwigTemplate_7c93d5aa071eea27454a7d2afdfe0b9e extends Template
                 <td>{{ agentCollecte.prenom }}</td>
                 <td>{{ agentCollecte.telephone }}</td>
                 <td>{{ agentCollecte.date|date('Y-m-d') }}</td>
-                <td>{{ agentCollecte.montantJournalier }} FCFA</td>
-                <td>{{ agentCollecte.montantMensuel }} FCFA</td>
-                <td>{{ agentCollecte.montantAnnuel }} FCFA</td>
                 <td>{% for site in agentCollecte.sites %}
                       {{ site.nom }}
                     {% endfor %}

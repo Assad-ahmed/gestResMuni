@@ -452,7 +452,7 @@ class __TwigTemplate_9bc37e23fa958eaccbfb62475c6ca2f1 extends Template
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "PageTitre"));
 
         // line 140
-        echo "                       <h1 style =\" color: #0c63e4; font-size: 2.5em;margin-top: 20px;font-weight: bold;\" class=\"text-center\">Bienvenu(é) à l'entreprise de Mor Dieng</h1>
+        echo "                       <h1 style =\" color: #0c63e4; font-size: 2.5em;margin-top: 20px;font-weight: bold;\" class=\"text-center\">Bienvenue au cabinet de Mor Dieng.</h1>
                     ";
         
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->leave($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof);
@@ -666,7 +666,7 @@ class __TwigTemplate_9bc37e23fa958eaccbfb62475c6ca2f1 extends Template
             <div class=\"container-fluid px-0\">
                 <h1   class=\"mt-4 text-center\">
                     {% block PageTitre %}
-                       <h1 style =\" color: #0c63e4; font-size: 2.5em;margin-top: 20px;font-weight: bold;\" class=\"text-center\">Bienvenu(é) à l'entreprise de Mor Dieng</h1>
+                       <h1 style =\" color: #0c63e4; font-size: 2.5em;margin-top: 20px;font-weight: bold;\" class=\"text-center\">Bienvenue au cabinet de Mor Dieng.</h1>
                     {% endblock %}
                 </h1>
 

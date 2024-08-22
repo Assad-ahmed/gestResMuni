@@ -91,7 +91,7 @@ class __TwigTemplate_84f19c4c2d46c00d50c66a70598a2be4 extends Template
             <div class=\"d-flex w-100 justify-content-between\">
                 <h4 class=\"mb-1\"> Contribution foncière des propriétés bâties (CFPB)</h4>
             </div>
-            <p class=\"mb-1 fs-4\">Montant Cumule : ";
+            <p class=\"mb-1 fs-4\">Montant Cumulé : ";
         // line 11
         echo twig_escape_filter($this->env, twig_number_format_filter($this->env, (isset($context["totalCFPB"]) || array_key_exists("totalCFPB", $context) ? $context["totalCFPB"] : (function () { throw new RuntimeError('Variable "totalCFPB" does not exist.', 11, $this->source); })()), 0, ",", " "), "html", null, true);
         echo " Fcfa</p>
@@ -101,7 +101,7 @@ class __TwigTemplate_84f19c4c2d46c00d50c66a70598a2be4 extends Template
             <div class=\"d-flex w-100 justify-content-between\">
                 <h4 class=\"mb-1\"> Contribution foncière des propriétés non bâties (CFPNB)</h4>
             </div>
-            <p class=\"mb-1 fs-4\">Montant Cumule : ";
+            <p class=\"mb-1 fs-4\">Montant Cumulé : ";
         // line 18
         echo twig_escape_filter($this->env, twig_number_format_filter($this->env, (isset($context["totalCFPNB"]) || array_key_exists("totalCFPNB", $context) ? $context["totalCFPNB"] : (function () { throw new RuntimeError('Variable "totalCFPNB" does not exist.', 18, $this->source); })()), 0, ",", " "), "html", null, true);
         echo " Fcfa</p>
@@ -111,7 +111,7 @@ class __TwigTemplate_84f19c4c2d46c00d50c66a70598a2be4 extends Template
             <div class=\"d-flex w-100 justify-content-between\">
                 <h4 class=\"mb-1\"> Taxe d'enlèvement des ordures ménagères (TOM)</h4>
             </div>
-            <p class=\"mb-1 fs-4\">Montant Cumule : ";
+            <p class=\"mb-1 fs-4\">Montant Cumulé : ";
         // line 25
         echo twig_escape_filter($this->env, twig_number_format_filter($this->env, (isset($context["totalTOM"]) || array_key_exists("totalTOM", $context) ? $context["totalTOM"] : (function () { throw new RuntimeError('Variable "totalTOM" does not exist.', 25, $this->source); })()), 0, ",", " "), "html", null, true);
         echo " Fcfa</p>
@@ -210,21 +210,21 @@ class __TwigTemplate_84f19c4c2d46c00d50c66a70598a2be4 extends Template
             <div class=\"d-flex w-100 justify-content-between\">
                 <h4 class=\"mb-1\"> Contribution foncière des propriétés bâties (CFPB)</h4>
             </div>
-            <p class=\"mb-1 fs-4\">Montant Cumule : {{ totalCFPB|number_format(0, ',', ' ') }} Fcfa</p>
+            <p class=\"mb-1 fs-4\">Montant Cumulé : {{ totalCFPB|number_format(0, ',', ' ') }} Fcfa</p>
         </a>
 
         <a href=\"#\" class=\"list-group-item list-group-item-action bg-warning m-lg-2\" style=\"width: 90%\">
             <div class=\"d-flex w-100 justify-content-between\">
                 <h4 class=\"mb-1\"> Contribution foncière des propriétés non bâties (CFPNB)</h4>
             </div>
-            <p class=\"mb-1 fs-4\">Montant Cumule : {{ totalCFPNB|number_format(0, ',', ' ') }} Fcfa</p>
+            <p class=\"mb-1 fs-4\">Montant Cumulé : {{ totalCFPNB|number_format(0, ',', ' ') }} Fcfa</p>
         </a>
 
         <a href=\"#\" class=\"list-group-item list-group-item-action bg-info m-lg-2\" style=\"width: 90%\">
             <div class=\"d-flex w-100 justify-content-between\">
                 <h4 class=\"mb-1\"> Taxe d'enlèvement des ordures ménagères (TOM)</h4>
             </div>
-            <p class=\"mb-1 fs-4\">Montant Cumule : {{ totalTOM|number_format(0, ',', ' ') }} Fcfa</p>
+            <p class=\"mb-1 fs-4\">Montant Cumulé : {{ totalTOM|number_format(0, ',', ' ') }} Fcfa</p>
         </a>
     </div>
 

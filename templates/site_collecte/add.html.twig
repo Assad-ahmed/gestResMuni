@@ -4,7 +4,7 @@
     {{ form_start(form) }}
     <div class="row">
         <div class="col">{{ form_row(form.nom) }}</div>
-        <div class="col">{{ form_row(form.localisation) }}</div>
+        <div class="col">{{ form_row(form.localisation) }}</div>v>
     </div>
     {{ form_rest(form) }}
 {% endblock %}
@@ -15,5 +15,13 @@
 
  {% block PageTitre %}
      Editer Site de collecte
+ {% endblock %}
+
+ {% block javascripts %}
+ <script>
+     $(document).ready(function() {
+         $('.select2').select2();
+     });
+ </script>
  {% endblock %}
 

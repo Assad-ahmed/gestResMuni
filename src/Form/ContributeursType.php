@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Entity\AgentCollecte;
 use App\Entity\Contributeurs;
 use App\Entity\SiteCollecte;
 use Doctrine\ORM\EntityRepository;
@@ -19,11 +20,7 @@ class ContributeursType extends AbstractType
         $builder
             ->add('nom')
             ->add('prenom')
-            ->add('date_paye')
             ->add('numeroEtablissement')
-            ->add('montantJour')
-            ->add('montantMois')
-            ->add('siteCollecte')
             ->add('siteCollecte', EntityType::class,[
                 'expanded'=>false,
     
@@ -37,9 +34,27 @@ class ContributeursType extends AbstractType
     
                 'attr' => [
                     'class'=> 'select2'
-                ]
+                ],
+                'placeholder'=>'Choisir une option'
             ])
-            ->add('Valider', SubmitType::class);
+
+            ->add('agentCollecte', EntityType::class,[
+                'expanded'=>false,
+
+                'class'=>AgentCollecte::class,
+                'multiple'=>false,
+                'query_builder' => function (EntityRepository $er){
+                    return $er->createQueryBuilder('a')
+                        ->orderBy('a.nom', 'ASC');
+                },
+                'choice_label' => 'nom',
+
+                'attr' => [
+                    'class'=> 'select2'
+                ],
+                'placeholder'=>'Choisir un agent'
+            ])
+            ->add('Valider', SubmitType::class)
         ;
     }
 

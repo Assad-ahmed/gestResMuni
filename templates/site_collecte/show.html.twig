@@ -1,0 +1,35 @@
+
+{% extends 'template.html.twig' %}
+{% block PageTitre %}
+    Les contributeurs pour le Site de Collecte: {{ siteCollecte.nom }}
+{% endblock %}
+{% block body %}
+    <table class="table-bordered">
+        <thead class="text-center " style="background-color: rgb(130, 106, 251);color:#fff;">
+        <tr>
+            <th>Numéro d'établissement</th>
+            <th>Nom du propriétaire</th>
+            <th>Prénom du propriétaire</th>
+            <th>Montant (Jour)</th>
+            <th>Montant (Mois)</th>
+            <th>Manque à gagner (Jour)</th>
+            <th>Manque à gagner (Mois)
+            <th>Total Collecté</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for contributeur in contributeurs %}
+            <tr>
+                <td>{{ contributeur.numeroEtablissement }}</td>
+                <td>{{ contributeur.nomProprietaire }}</td>
+                <td>{{ contributeur.prenomProprietaire }}</td>
+                <td>{{ contributeur.montantDuJour }}</td>
+                <td>{{ contributeur.montantDuMois }}</td>
+                <td>{{ contributeur.manqueAGagnerDuJour }}</td>
+                <td>{{ contributeur.manqueAGagnerDuMois }}</td>
+                <td>{{ contributeur.totalCollecte }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

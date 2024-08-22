@@ -28,6 +28,7 @@ class __TwigTemplate_0bd1edaf2cec0b95259970efd3539efd extends Template
             'body' => [$this, 'block_body'],
             'title' => [$this, 'block_title'],
             'PageTitre' => [$this, 'block_PageTitre'],
+            'javascripts' => [$this, 'block_javascripts'],
         ];
     }
 
@@ -78,7 +79,7 @@ class __TwigTemplate_0bd1edaf2cec0b95259970efd3539efd extends Template
         <div class=\"col\">";
         // line 7
         echo $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(twig_get_attribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 7, $this->source); })()), "localisation", [], "any", false, false, false, 7), 'row');
-        echo "</div>
+        echo "</div>v>
     </div>
     ";
         // line 9
@@ -135,6 +136,31 @@ class __TwigTemplate_0bd1edaf2cec0b95259970efd3539efd extends Template
 
     }
 
+    // line 20
+    public function block_javascripts($context, array $blocks = [])
+    {
+        $macros = $this->macros;
+        $__internal_5a27a8ba21ca79b61932376b2fa922d2 = $this->extensions["Symfony\\Bundle\\WebProfilerBundle\\Twig\\WebProfilerExtension"];
+        $__internal_5a27a8ba21ca79b61932376b2fa922d2->enter($__internal_5a27a8ba21ca79b61932376b2fa922d2_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "javascripts"));
+
+        $__internal_6f47bbe9983af81f1e7450e9a3e3768f = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
+        $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "javascripts"));
+
+        // line 21
+        echo " <script>
+     \$(document).ready(function() {
+         \$('.select2').select2();
+     });
+ </script>
+ ";
+        
+        $__internal_6f47bbe9983af81f1e7450e9a3e3768f->leave($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof);
+
+        
+        $__internal_5a27a8ba21ca79b61932376b2fa922d2->leave($__internal_5a27a8ba21ca79b61932376b2fa922d2_prof);
+
+    }
+
     /**
      * @codeCoverageIgnore
      */
@@ -156,7 +182,7 @@ class __TwigTemplate_0bd1edaf2cec0b95259970efd3539efd extends Template
      */
     public function getDebugInfo()
     {
-        return array (  128 => 17,  118 => 16,  107 => 13,  97 => 12,  85 => 9,  80 => 7,  76 => 6,  70 => 4,  60 => 3,  37 => 1,);
+        return array (  150 => 21,  140 => 20,  129 => 17,  119 => 16,  108 => 13,  98 => 12,  86 => 9,  81 => 7,  77 => 6,  71 => 4,  61 => 3,  38 => 1,);
     }
 
     public function getSourceContext()
@@ -167,7 +193,7 @@ class __TwigTemplate_0bd1edaf2cec0b95259970efd3539efd extends Template
     {{ form_start(form) }}
     <div class=\"row\">
         <div class=\"col\">{{ form_row(form.nom) }}</div>
-        <div class=\"col\">{{ form_row(form.localisation) }}</div>
+        <div class=\"col\">{{ form_row(form.localisation) }}</div>v>
     </div>
     {{ form_rest(form) }}
 {% endblock %}
@@ -178,6 +204,14 @@ class __TwigTemplate_0bd1edaf2cec0b95259970efd3539efd extends Template
 
  {% block PageTitre %}
      Editer Site de collecte
+ {% endblock %}
+
+ {% block javascripts %}
+ <script>
+     \$(document).ready(function() {
+         \$('.select2').select2();
+     });
+ </script>
  {% endblock %}
 
 ", "site_collecte/add.html.twig", "C:\\xampp7\\htdocs\\ProjetSymfony\\gestResMuni\\templates\\site_collecte\\add.html.twig");

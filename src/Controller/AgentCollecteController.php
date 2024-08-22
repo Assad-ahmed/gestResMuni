@@ -3,9 +3,12 @@
 namespace App\Controller;
 
 use App\Entity\AgentCollecte;
-use App\Entity\Ressource;
+
+use App\Entity\Contributeurs;
 use App\Entity\SiteCollecte;
 use App\Form\AgentCollecteType;
+use App\Repository\ContributeursRepository;
+use App\Service\CalculateurAgentContribuableSiteService;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -83,5 +86,22 @@ class AgentCollecteController extends AbstractController
             $this->addFlash('errer', "l'agent est innexistante ");
         }
         return $this->redirectToRoute('list_agent');
+    }
+
+
+
+    public function __construct( private CalculateurAgentContribuableSiteService $calculateurAgentContribuableSiteService)
+    {
+    }
+
+    #[Route('/{id}/collecte', name: 'app_agent_contributeurs')]
+    public function listContributeurs(AgentCollecte $agentCollecte=null): Response
+    {
+        $resultats = $this->calculateurAgentContribuableSiteService->obtenirDonneesParSitePourAgent($agentCollecte);
+
+        return $this->render('agent_collecte/show.html.twig', [
+            'agentCollecte' => $agentCollecte,
+            'resultats' => $resultats,
+        ]);
     }
 }

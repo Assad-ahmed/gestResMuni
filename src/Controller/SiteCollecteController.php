@@ -5,6 +5,8 @@ namespace App\Controller;
 
 use App\Entity\SiteCollecte;
 use App\Form\SiteCollecteType;
+use App\Repository\ContributeursRepository;
+use App\Repository\PaiementRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -79,4 +81,46 @@ class SiteCollecteController extends AbstractController
         }
         return $this->redirectToRoute('liste_site_collecte');
     }
+
+    #[Route('/site-collecte/{id}', name: 'site_collecte_contributeurs')]
+    public function siteCollecteContributeurs(SiteCollecte $siteCollecte=null, ContributeursRepository $contributeurRepo, PaiementRepository $paiementRepo): Response
+    {
+        $dateToday = new \DateTime('today');
+        $contributeurs = $contributeurRepo->findContributeursBySite($siteCollecte, $dateToday);
+
+        $data = [];
+        foreach ($contributeurs as $contributeur) {
+            $paiementsDuJour = $paiementRepo->findPaiementsByContributeurAndDate($contributeur, $dateToday);
+            $paiementsDuMois = $paiementRepo->findPaiementsByContributeurAndMonth($contributeur, $dateToday);
+
+            // Calculs des montants
+            $montantDuJour = array_reduce($paiementsDuJour, fn($sum, $paiement) => $sum + $paiement->getMontant(), 0);
+            $montantDuMois = array_reduce($paiementsDuMois, fn($sum, $paiement) => $sum + $paiement->getMontant(), 0);
+            $totalCollecte = array_reduce($paiementsDuMois, fn($sum, $paiement) => $sum + $paiement->getMontant(), 0); // Total collecté
+
+            // Montants attendus
+            $montantAttenduDuJour = 1000; // Remplacez par vos valeurs réelles
+            $montantAttenduDuMois = 3000; // Remplacez par vos valeurs réelles
+
+            $manqueAGagnerDuJour = $montantAttenduDuJour - $montantDuJour;
+            $manqueAGagnerDuMois = $montantAttenduDuMois - $montantDuMois;
+
+            $data[] = [
+                'numeroEtablissement' => $contributeur->getNumeroEtablissement(),
+                'nomProprietaire' => $contributeur->getNom(),
+                'prenomProprietaire' => $contributeur->getPrenom(),
+                'montantDuJour' => $montantDuJour ?: '0 F CFA',
+                'montantDuMois' => $montantDuMois,
+                'manqueAGagnerDuJour' => $manqueAGagnerDuJour,
+                'manqueAGagnerDuMois' => $manqueAGagnerDuMois,
+                'totalCollecte' => $totalCollecte,
+            ];
+        }
+
+        return $this->render('site_collecte/show.html.twig', [
+            'siteCollecte' => $siteCollecte,
+            'contributeurs' => $data,
+        ]);
+    }
+
 }

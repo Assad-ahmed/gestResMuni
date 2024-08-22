@@ -2,9 +2,7 @@
 
 namespace App\Controller;
 
-use App\Entity\ImpotCFNPB;
 use App\Entity\Patente;
-use App\Form\ImpotCFNPBType;
 use App\Form\PatenteType;
 use App\Service\Ressources\PatenteService;
 use Doctrine\ORM\EntityManagerInterface;

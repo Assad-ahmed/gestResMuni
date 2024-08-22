@@ -3,54 +3,60 @@
 {% block title %}Hello SiteCollecteController!{% endblock %}
 
 {% block body %}
-<div class="d-flex justify-content-center ">
-      <a href="{{ path('edit_site_collecte') }}" class="btn btn-primary btn-lg ms-2"><strong>Ajouter Site de collecte</strong></a>
-</div>
-<div class=" m-3 mt-3">
-    <table class="table table-striped">
-        <thead class="text-center " style="background-color: rgb(130, 106, 251);color:#fff;">
-        <tr>
-            <th scope="col" >Id</th>
-            <th scope="col">Nom </th>
-            <th scope="col">Localisation</th>
-            <th scope="col">Details</th>
-            <th scope="col">Modifier</th>
-            <th scope="col">Supprimer</th>
-
-        </tr>
-        </thead>
-        <tbody class="text-center">
-        {% for siteCollecte in siteCollectes %}
+    <div class="d-flex justify-content-center ">
+        <a href="{{ path('edit_site_collecte') }}" class="btn btn-primary btn-lg ms-2"><strong>Ajouter Site de collecte</strong></a>
+    </div>
+    <div class="m-3 mt-3">
+        <table class="table table-striped">
+            <thead class="text-center" style="background-color: rgb(130, 106, 251);color:#fff;">
             <tr>
-                <th scope="row">{{ siteCollecte.id }}</th>
-                <td>{{siteCollecte.nom}}</td>
-                <td>{{ siteCollecte.Localisation}}</td>
-                <td><a href="#" class="btn btn-primary mt-2"><i class="fa-solid fa-circle-info"></i></a></td>
-                <td><a href="{{ path('edit_site_collecte',{id: siteCollecte.id}) }}" class="btn btn-primary "> <i class="fa-solid fa-user-pen"></i></a></td>
-                <td><a href="{{ path('delete_site',{id: siteCollecte.id}) }}" class="btn btn-danger " class="btn btn-danger mt-2" onclick="return confirm('Etes-vous sur de suprimer ce site')"><i class="fa-solid fa-trash"></i></a></td>
+                <th scope="col">Id</th>
+                <th scope="col">Nom</th>
+                <th scope="col">Localisation</th>
+                <th scope="col">Agents</th>
+                <th scope="col">Details</th>
+                <th scope="col">Modifier</th>
+                <th scope="col">Supprimer</th>
             </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-</div>
+            </thead>
+            <tbody class="text-center">
+            {% for siteCollecte in siteCollectes %}
+                <tr>
+                    <th scope="row">{{ siteCollecte.id }}</th>
+                    <td>{{ siteCollecte.nom }}</td>
+                    <td>{{ siteCollecte.localisation }}</td>
+                  {#   <td>{% for agentCollecte in siteCollecte.agentCollectes %}
+                            {{ agentCollecte.nom }} {{ agentCollecte.prenom }}
+                        {% endfor %}
+                    </td>
+                    #}
+                    <td><a href="{{ path('site_collecte_contributeurs', {id: siteCollecte.id}) }}" class="btn btn-primary mt-2"><i class="fa-solid fa-circle-info"></i></a></td>
+                    <td><a href="{{ path('edit_site_collecte', {id: siteCollecte.id}) }}" class="btn btn-primary"><i class="fa-solid fa-user-pen"></i></a></td>
+                    <td><a href="{{ path('delete_site', {id: siteCollecte.id}) }}" class="btn btn-danger mt-2" onclick="return confirm('Etes-vous sur de supprimer ce site')"><i class="fa-solid fa-trash"></i></a></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
     {% if isPaginated %}
         <div class="row mt-3">
             <nav aria-label="Page navigation example">
                 <ul class="pagination">
                     {% if page != 1 %}
-                        <li class="page-item"><a class="page-link" style="background-color: rgb(130, 106, 251);color:#fff;" href="{{ path('liste_site_collecte',{page: page-1, nbre:nbre}) }}">Previous</a></li>
+                        <li class="page-item"><a class="page-link" style="background-color: rgb(130, 106, 251);color:#fff;" href="{{ path('liste_site_collecte', {page: page - 1, nbre: nbre}) }}">Previous</a></li>
                     {% endif %}
                     {% for i in range(1, nbrePage) %}
-                        <li class="page-item"><a class="page-link" href="{{ path('liste_site_collecte',{page: i, nbre:nbre}) }}">{{ i }}</a></li>
+                        <li class="page-item"><a class="page-link" href="{{ path('liste_site_collecte', {page: i, nbre: nbre}) }}">{{ i }}</a></li>
                     {% endfor %}
-                    {% if page !=nbre %}
-                        <li class="page-item"><a class="page-link" style="background-color: rgb(130, 106, 251);color:#fff;" href="{{ path('liste_site_collecte',{page: page+1, nbre:nbre}) }}">Next</a></li>
+                    {% if page != nbre %}
+                        <li class="page-item"><a class="page-link" style="background-color: rgb(130, 106, 251);color:#fff;" href="{{ path('liste_site_collecte', {page: page + 1, nbre: nbre}) }}">Next</a></li>
                     {% endif %}
                 </ul>
             </nav>
         </div>
     {% endif %}
 {% endblock %}
+
 {% block PageTitre %}
-   Liste des sites de collectes
+    Liste des sites de collecte
 {% endblock %}

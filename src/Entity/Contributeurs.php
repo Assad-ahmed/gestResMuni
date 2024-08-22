@@ -6,7 +6,6 @@ use App\Repository\ContributeursRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
-use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ContributeursRepository::class)]
@@ -23,34 +22,23 @@ class Contributeurs
     #[ORM\Column(length: 255)]
     private ?string $prenom = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $date_paye = null;
-
     #[ORM\ManyToOne(inversedBy: 'contributeurs')]
     private ?SiteCollecte $siteCollecte = null;
 
     #[ORM\Column(length: 255)]
     private ?string $numeroEtablissement = null;
 
-    #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 3)]
-    private ?string $montantJour = null;
+    #[ORM\OneToMany(mappedBy: 'contributeur', targetEntity: Paiement::class)]
+    private Collection $paiements;
 
-    #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 3)]
-    private ?string $montantMois = null;
+    #[ORM\ManyToOne(inversedBy: 'contributeurs')]
+    private ?AgentCollecte $agentCollecte = null;
 
-    #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 3)]
-    private ?string $manqueAGagnerJour = null;
+    public function __construct()
+    {
+        $this->paiements = new ArrayCollection();
+    }
 
-    #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 3)]
-    private ?string $manqueAGagnerMois = null;
-
-    #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 3)]
-    private ?string $totalCollecte = null;
-
-   
-
-
-  
     public function getId(): ?int
     {
         return $this->id;
@@ -80,18 +68,6 @@ class Contributeurs
         return $this;
     }
 
-   
-    public function getDatePaye(): ?\DateTimeInterface
-    {
-        return $this->date_paye;
-    }
-
-    public function setDatePaye(\DateTimeInterface $date_paye): static
-    {
-        $this->date_paye = $date_paye;
-
-        return $this;
-    }
 
     public function getSiteCollecte(): ?SiteCollecte
     {
@@ -117,66 +93,47 @@ class Contributeurs
         return $this;
     }
 
-    public function getMontantJour(): ?string
+    /**
+     * @return Collection<int, Paiement>
+     */
+    public function getPaiements(): Collection
     {
-        return $this->montantJour;
+        return $this->paiements;
     }
 
-    public function setMontantJour(string $montantJour): static
+    public function addPaiement(Paiement $paiement): static
     {
-        $this->montantJour = $montantJour;
+        if (!$this->paiements->contains($paiement)) {
+            $this->paiements->add($paiement);
+            $paiement->setContributeur($this);
+        }
 
         return $this;
     }
 
-    public function getMontantMois(): ?string
+    public function removePaiement(Paiement $paiement): static
     {
-        return $this->montantMois;
-    }
-
-    public function setMontantMois(string $montantMois): static
-    {
-        $this->montantMois = $montantMois;
+        if ($this->paiements->removeElement($paiement)) {
+            // set the owning side to null (unless already changed)
+            if ($paiement->getContributeur() === $this) {
+                $paiement->setContributeur(null);
+            }
+        }
 
         return $this;
     }
 
-    public function getManqueAGagnerJour(): ?string
+    public function getAgentCollecte(): ?AgentCollecte
     {
-        return $this->manqueAGagnerJour;
+        return $this->agentCollecte;
     }
 
-    public function setManqueAGagnerJour(string $manqueAGagnerJour): static
+    public function setAgentCollecte(?AgentCollecte $agentCollecte): static
     {
-        $this->manqueAGagnerJour = $manqueAGagnerJour;
+        $this->agentCollecte = $agentCollecte;
 
         return $this;
     }
-
-    public function getManqueAGagnerMois(): ?string
-    {
-        return $this->manqueAGagnerMois;
-    }
-
-    public function setManqueAGagnerMois(string $manqueAGagnerMois): static
-    {
-        $this->manqueAGagnerMois = $manqueAGagnerMois;
-
-        return $this;
-    }
-
-    public function getTotalCollecte(): ?string
-    {
-        return $this->totalCollecte;
-    }
-
-    public function setTotalCollecte(string $totalCollecte): static
-    {
-        $this->totalCollecte = $totalCollecte;
-
-        return $this;
-    }
-
 
 
 }

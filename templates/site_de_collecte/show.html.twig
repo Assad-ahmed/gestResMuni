@@ -1,0 +1,26 @@
+<h1>Site de Collecte: {{ siteDeCollecte.nom }}</h1>
+
+<table>
+    <thead>
+    <tr>
+        <th>Contributeur</th>
+        <th>Montant Mensuel</th>
+        <th>Montant Annuel</th>
+        <th>Manque à Gagner (Jour)</th>
+        <th>Manque à Gagner (Mois)</th>
+        <th>Total Collecté</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for data in contributionsData %}
+        <tr>
+            <td>{{ data.contributeur.nom }} {{ data.contributeur.prenom }}</td>
+            <td>{{ data.montantMensuel }} F CFA</td>
+            <td>{{ data.montantAnnuel }} F CFA</td>
+            <td>{{ data.manqueAGagnerJour }} F CFA</td>
+            <td>{{ data.manqueAGagnerMois }} F CFA</td>
+            <td>{{ data.totalCollecte }} F CFA</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

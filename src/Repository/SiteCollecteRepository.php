@@ -21,6 +21,8 @@ class SiteCollecteRepository extends ServiceEntityRepository
         parent::__construct($registry, SiteCollecte::class);
     }
 
+
+
 //    /**
 //     * @return SiteCollecte[] Returns an array of SiteCollecte objects
 //     */

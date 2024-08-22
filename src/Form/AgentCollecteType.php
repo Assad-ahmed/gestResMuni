@@ -30,7 +30,6 @@ class AgentCollecteType extends AbstractType
                 'label' => 'Téléphone',
                 'required' => true,
             ])
-            ->add('montantJournalier')
             ->add('date',DateType::class, [
         'label' => 'Date de paiement',
         'widget' => 'single_text',

@@ -14,6 +14,7 @@ return [
         '/_profiler/phpinfo' => [[['_route' => '_profiler_phpinfo', '_controller' => 'web_profiler.controller.profiler::phpinfoAction'], null, null, null, false, false, null]],
         '/_profiler/open' => [[['_route' => '_profiler_open_file', '_controller' => 'web_profiler.controller.profiler::openAction'], null, null, null, false, false, null]],
         '/cabinet' => [[['_route' => 'app_cabinet', '_controller' => 'App\\Controller\\CabinetController::index'], null, null, null, true, false, null]],
+        '/contributeur' => [[['_route' => 'liste_contributeur', '_controller' => 'App\\Controller\\ContributeurController::index'], null, null, null, true, false, null]],
         '/controleur/centrale' => [[['_route' => 'app_controleur_centrale', '_controller' => 'App\\Controller\\ControleurCentraleController::index'], null, null, null, true, false, null]],
         '/' => [[['_route' => 'app_home', '_controller' => 'App\\Controller\\HomeController::index'], null, null, null, false, false, null]],
         '/liste-impots' => [[['_route' => 'liste_impots', '_controller' => 'App\\Controller\\ImpotAssiValeurController::listTaxes'], null, null, null, false, false, null]],
@@ -27,6 +28,7 @@ return [
         '/impotCFPB' => [[['_route' => 'liste_impot_cfpb', '_controller' => 'App\\Controller\\ImpotCFPBController::index'], null, null, null, true, false, null]],
         '/impot/mini/fiscal' => [[['_route' => 'liste_impot_mini_fiscal', '_controller' => 'App\\Controller\\ImpotMiniFiscalController::index'], null, null, null, true, false, null]],
         '/impotTOM' => [[['_route' => 'liste_impot_tom', '_controller' => 'App\\Controller\\ImpotTOMController::index'], null, null, null, true, false, null]],
+        '/paiement/new' => [[['_route' => 'paiement_new', '_controller' => 'App\\Controller\\PaiementController::new'], null, null, null, false, false, null]],
         '/patente' => [[['_route' => 'liste_patente', '_controller' => 'App\\Controller\\PatenteController::index'], null, null, null, true, false, null]],
         '/register' => [[['_route' => 'app_register', '_controller' => 'App\\Controller\\RegistrationController::register'], null, null, null, false, false, null]],
         '/reset-password' => [[['_route' => 'app_forgot_password_request', '_controller' => 'App\\Controller\\ResetPasswordController::request'], null, null, null, false, false, null]],
@@ -62,100 +64,102 @@ return [
                         .'|alls(?:/([^/]++)(?:/([^/]++))?)?(*:214)'
                         .'|edit(?:([^/]++))?(*:239)'
                         .'|delete/([^/]++)(*:262)'
+                        .'|([^/]++)/collecte(*:287)'
                     .')'
-                    .'|lls(?:/([^/]++)(?:/([^/]++))?)?(*:302)'
+                    .'|lls(?:/([^/]++)(?:/([^/]++))?)?(*:327)'
                 .')'
                 .'|/c(?'
                     .'|abinet/(?'
-                        .'|cabinet/edit(?:([^/]++))?(*:351)'
-                        .'|delete/([^/]++)(*:374)'
+                        .'|cabinet/edit(?:([^/]++))?(*:376)'
+                        .'|delete/([^/]++)(*:399)'
                     .')'
                     .'|ontributeur/(?'
-                        .'|alls(?:/([^/]++)(?:/([^/]++))?)?(*:430)'
-                        .'|edit(?:([^/]++))?(*:455)'
-                        .'|delete/([^/]++)(*:478)'
+                        .'|edit(?:([^/]++))?(*:440)'
+                        .'|([^/]++)(*:456)'
+                        .'|delete/([^/]++)(*:479)'
                     .')'
                 .')'
                 .'|/e(?'
                     .'|xcedents/(?'
-                        .'|alls(?:/([^/]++)(?:/([^/]++))?)?(*:537)'
-                        .'|edit(?:([^/]++))?(*:562)'
-                        .'|delete/([^/]++)(*:585)'
+                        .'|alls(?:/([^/]++)(?:/([^/]++))?)?(*:538)'
+                        .'|edit(?:([^/]++))?(*:563)'
+                        .'|delete/([^/]++)(*:586)'
                     .')'
-                    .'|dit(?:([^/]++))?(*:610)'
+                    .'|dit(?:([^/]++))?(*:611)'
                 .')'
                 .'|/impot(?'
                     .'|CF(?'
                         .'|NPB/(?'
-                            .'|impot/cfnpb/edit(?:([^/]++))?(*:669)'
-                            .'|delete/([^/]++)(*:692)'
+                            .'|impot/cfnpb/edit(?:([^/]++))?(*:670)'
+                            .'|delete/([^/]++)(*:693)'
                         .')'
                         .'|PB/(?'
-                            .'|impot/cfpb/edit(?:([^/]++))?(*:735)'
-                            .'|delete/([^/]++)(*:758)'
+                            .'|impot/cfpb/edit(?:([^/]++))?(*:736)'
+                            .'|delete/([^/]++)(*:759)'
                         .')'
                     .')'
                     .'|/mini/fiscal/(?'
-                        .'|edit(?:([^/]++))?(*:801)'
-                        .'|delete/([^/]++)(*:824)'
+                        .'|edit(?:([^/]++))?(*:802)'
+                        .'|delete/([^/]++)(*:825)'
                     .')'
                     .'|TOM/(?'
-                        .'|impot/tom/edit(?:([^/]++))?(*:867)'
-                        .'|delete/([^/]++)(*:890)'
+                        .'|impot/tom/edit(?:([^/]++))?(*:868)'
+                        .'|delete/([^/]++)(*:891)'
                     .')'
                 .')'
                 .'|/p(?'
                     .'|atente/(?'
-                        .'|patente/edit(?:([^/]++))?(*:940)'
-                        .'|delete/([^/]++)(*:963)'
+                        .'|patente/edit(?:([^/]++))?(*:941)'
+                        .'|delete/([^/]++)(*:964)'
                     .')'
                     .'|ropriete/(?'
-                        .'|alls(?:/([^/]++)(?:/([^/]++))?)?(*:1016)'
-                        .'|edit(?:([^/]++))?(*:1042)'
-                        .'|delete/([^/]++)(*:1066)'
+                        .'|alls(?:/([^/]++)(?:/([^/]++))?)?(*:1017)'
+                        .'|edit(?:([^/]++))?(*:1043)'
+                        .'|delete/([^/]++)(*:1067)'
                     .')'
                 .')'
                 .'|/re(?'
                     .'|cette/(?'
-                        .'|alls(?:/([^/]++)(?:/([^/]++))?)?(*:1124)'
-                        .'|edit(?:([^/]++))?(*:1150)'
-                        .'|delete/([^/]++)(*:1174)'
+                        .'|alls(?:/([^/]++)(?:/([^/]++))?)?(*:1125)'
+                        .'|edit(?:([^/]++))?(*:1151)'
+                        .'|delete/([^/]++)(*:1175)'
                     .')'
-                    .'|set\\-password/reset(?:/([^/]++))?(*:1217)'
+                    .'|set\\-password/reset(?:/([^/]++))?(*:1218)'
                 .')'
-                .'|/delete/([^/]++)(*:1243)'
+                .'|/delete/([^/]++)(*:1244)'
                 .'|/site/(?'
-                    .'|alls(?:/([^/]++)(?:/([^/]++))?)?(*:1293)'
-                    .'|edit(?:([^/]++))?(*:1319)'
-                    .'|delete/([^/]++)(*:1343)'
+                    .'|alls(?:/([^/]++)(?:/([^/]++))?)?(*:1294)'
+                    .'|edit(?:([^/]++))?(*:1320)'
+                    .'|delete/([^/]++)(*:1344)'
+                    .'|site\\-collecte/([^/]++)(*:1376)'
                 .')'
                 .'|/tax(?'
                     .'|Indirecte/(?'
-                        .'|taxIndirecte/edit(?:([^/]++))?(*:1403)'
+                        .'|taxIndirecte/edit(?:([^/]++))?(*:1436)'
                         .'|de(?'
-                            .'|lete/([^/]++)(*:1430)'
-                            .'|tait/([^/]++)(*:1452)'
+                            .'|lete/([^/]++)(*:1463)'
+                            .'|tait/([^/]++)(*:1485)'
                         .')'
                     .')'
                     .'|e/rurale/(?'
-                        .'|edit(?:([^/]++))?(*:1492)'
-                        .'|delete/([^/]++)(*:1516)'
+                        .'|edit(?:([^/]++))?(*:1525)'
+                        .'|delete/([^/]++)(*:1549)'
                     .')'
                 .')'
-                .'|/(\\d+)(*:1533)'
+                .'|/(\\d+)(*:1566)'
                 .'|/detail(?'
-                    .'|/(\\d+)(*:1558)'
-                    .'|Cfpb/(\\d+)(*:1577)'
+                    .'|/(\\d+)(*:1591)'
+                    .'|Cfpb/(\\d+)(*:1610)'
                     .'|T(?'
-                        .'|om/(\\d+)(*:1598)'
-                        .'|axeRurale/(\\d+)(*:1622)'
+                        .'|om/(\\d+)(*:1631)'
+                        .'|axeRurale/(\\d+)(*:1655)'
                     .')'
-                    .'|ImpotMiniFiscal/(\\d+)(*:1653)'
+                    .'|ImpotMiniFiscal/(\\d+)(*:1686)'
                     .'|R(?'
-                        .'|ecette/(\\d+)(*:1678)'
-                        .'|istournes/(\\d+)(*:1702)'
+                        .'|ecette/(\\d+)(*:1711)'
+                        .'|istournes/(\\d+)(*:1735)'
                     .')'
-                    .'|Patente/(\\d+)(*:1725)'
+                    .'|Patente/(\\d+)(*:1758)'
                 .')'
             .')/?$}sDu',
     ],
@@ -170,51 +174,53 @@ return [
         214 => [[['_route' => 'list_agent', 'page' => '1', 'nbre' => '5', '_controller' => 'App\\Controller\\AgentCollecteController::index'], ['page', 'nbre'], null, null, false, true, null]],
         239 => [[['_route' => 'edit_agent', 'id' => '0', '_controller' => 'App\\Controller\\AgentCollecteController::addAgent'], ['id'], null, null, false, true, null]],
         262 => [[['_route' => 'delete_agent', '_controller' => 'App\\Controller\\AgentCollecteController::deleteAgent'], ['id'], null, null, false, true, null]],
-        302 => [[['_route' => 'list_ristournes', 'page' => '1', 'nbre' => '5', '_controller' => 'App\\Controller\\RistournesController::index'], ['page', 'nbre'], null, null, false, true, null]],
-        351 => [[['_route' => 'edit_cabinet', 'id' => '0', '_controller' => 'App\\Controller\\CabinetController::editCabinet'], ['id'], null, null, false, true, null]],
-        374 => [[['_route' => 'delete_user', '_controller' => 'App\\Controller\\CabinetController::deleteImpotTOM'], ['id'], null, null, false, true, null]],
-        430 => [[['_route' => 'liste_contributeur', 'page' => '1', 'nbre' => '5', '_controller' => 'App\\Controller\\ContributeurController::index'], ['page', 'nbre'], null, null, false, true, null]],
-        455 => [[['_route' => 'edit_contributeur', 'id' => '0', '_controller' => 'App\\Controller\\ContributeurController::addContributeur'], ['id'], null, null, false, true, null]],
-        478 => [[['_route' => 'delete_contributeur', '_controller' => 'App\\Controller\\ContributeurController::deleteAgent'], ['id'], null, null, false, true, null]],
-        537 => [[['_route' => 'list_excedents', 'page' => '1', 'nbre' => '5', '_controller' => 'App\\Controller\\ExcedentsController::index'], ['page', 'nbre'], null, null, false, true, null]],
-        562 => [[['_route' => 'edit_excedents', 'id' => '0', '_controller' => 'App\\Controller\\ExcedentsController::addExcedents'], ['id'], null, null, false, true, null]],
-        585 => [[['_route' => 'delete_excedents', '_controller' => 'App\\Controller\\ExcedentsController::deleteExecedent'], ['id'], null, null, false, true, null]],
-        610 => [[['_route' => 'edit_ristournes', 'id' => '0', '_controller' => 'App\\Controller\\RistournesController::addRistournes'], ['id'], null, null, false, true, null]],
-        669 => [[['_route' => 'edit_impot_cfnpb', 'id' => '0', '_controller' => 'App\\Controller\\ImpotCFNPBController::editImpotCFNPB'], ['id'], null, null, false, true, null]],
-        692 => [[['_route' => 'delete_impot_cfnpb', '_controller' => 'App\\Controller\\ImpotCFNPBController::deleteImpotCFNPB'], ['id'], null, null, false, true, null]],
-        735 => [[['_route' => 'edit_impot_cfpb', 'id' => '0', '_controller' => 'App\\Controller\\ImpotCFPBController::editImpotCFPB'], ['id'], null, null, false, true, null]],
-        758 => [[['_route' => 'delete_impot_cfpb', '_controller' => 'App\\Controller\\ImpotCFPBController::deleteImpotCFPB'], ['id'], null, null, false, true, null]],
-        801 => [[['_route' => 'edit_impot_mini_fiscal', 'id' => '0', '_controller' => 'App\\Controller\\ImpotMiniFiscalController::editImpotMiniFiscale'], ['id'], null, null, false, true, null]],
-        824 => [[['_route' => 'delete_impot_mini_fiscale', '_controller' => 'App\\Controller\\ImpotMiniFiscalController::deleteImpotMiniFiscale'], ['id'], null, null, false, true, null]],
-        867 => [[['_route' => 'edit_impot_tom', 'id' => '0', '_controller' => 'App\\Controller\\ImpotTOMController::new'], ['id'], null, null, false, true, null]],
-        890 => [[['_route' => 'delete_impot_tom', '_controller' => 'App\\Controller\\ImpotTOMController::deleteImpotTOM'], ['id'], null, null, false, true, null]],
-        940 => [[['_route' => 'edit_patente', 'id' => '0', '_controller' => 'App\\Controller\\PatenteController::editPatente'], ['id'], null, null, false, true, null]],
-        963 => [[['_route' => 'delete_patente', '_controller' => 'App\\Controller\\PatenteController::deletePatente'], ['id'], null, null, false, true, null]],
-        1016 => [[['_route' => 'list_propriete', 'page' => '1', 'nbre' => '5', '_controller' => 'App\\Controller\\ProprieteController::index'], ['page', 'nbre'], null, null, false, true, null]],
-        1042 => [[['_route' => 'edit_propriete', 'id' => null, '_controller' => 'App\\Controller\\ProprieteController::addPropriete'], ['id'], null, null, false, true, null]],
-        1066 => [[['_route' => 'delete_propriete', '_controller' => 'App\\Controller\\ProprieteController::deletePropriete'], ['id'], null, null, false, true, null]],
-        1124 => [[['_route' => 'liste_recette', 'page' => '1', 'nbre' => '5', '_controller' => 'App\\Controller\\RecetteController::index'], ['page', 'nbre'], null, null, false, true, null]],
-        1150 => [[['_route' => 'edit_recette', 'id' => '0', '_controller' => 'App\\Controller\\RecetteController::addRecette'], ['id'], null, null, false, true, null]],
-        1174 => [[['_route' => 'delete_recette', '_controller' => 'App\\Controller\\RecetteController::deleteRecetteNon'], ['id'], null, null, false, true, null]],
-        1217 => [[['_route' => 'app_reset_password', 'token' => null, '_controller' => 'App\\Controller\\ResetPasswordController::reset'], ['token'], null, null, false, true, null]],
-        1243 => [[['_route' => 'delete_ristournes', '_controller' => 'App\\Controller\\RistournesController::deleteRistournes'], ['id'], null, null, false, true, null]],
-        1293 => [[['_route' => 'liste_site_collecte', 'page' => '1', 'nbre' => '5', '_controller' => 'App\\Controller\\SiteCollecteController::index'], ['page', 'nbre'], null, null, false, true, null]],
-        1319 => [[['_route' => 'edit_site_collecte', 'id' => '0', '_controller' => 'App\\Controller\\SiteCollecteController::addSite'], ['id'], null, null, false, true, null]],
-        1343 => [[['_route' => 'delete_site', '_controller' => 'App\\Controller\\SiteCollecteController::deleteSite'], ['id'], null, null, false, true, null]],
-        1403 => [[['_route' => 'edit_impot_indirecte', 'id' => '0', '_controller' => 'App\\Controller\\TaxIndirecteController::editImpotIndirecte'], ['id'], null, null, false, true, null]],
-        1430 => [[['_route' => 'delete_impot_indirecte', '_controller' => 'App\\Controller\\TaxIndirecteController::deleteImpotIndirecte'], ['id'], null, null, false, true, null]],
-        1452 => [[['_route' => 'detail_taxe_indirecte', '_controller' => 'App\\Controller\\TaxIndirecteController::detailTaxIndirecte'], ['propriete_id'], null, null, false, true, null]],
-        1492 => [[['_route' => 'edit_taxe_rurale', 'id' => '0', '_controller' => 'App\\Controller\\TaxeRuraleController::editTaxeRurale'], ['id'], null, null, false, true, null]],
-        1516 => [[['_route' => 'delete_taxe_rurale', '_controller' => 'App\\Controller\\TaxeRuraleController::deleteTaxeRurale'], ['id'], null, null, false, true, null]],
-        1533 => [[['_route' => 'detail_excedents', '_controller' => 'App\\Controller\\ExcedentsController::detailExcedent'], ['propriete_id'], null, null, false, true, null]],
-        1558 => [[['_route' => 'detail_impot_cfnpb', '_controller' => 'App\\Controller\\ImpotCFNPBController::detailImpotCFNPB'], ['propriete_id'], null, null, false, true, null]],
-        1577 => [[['_route' => 'detail_impot_cfpb', '_controller' => 'App\\Controller\\ImpotCFPBController::detailImpotCFPB'], ['propriete_id'], null, null, false, true, null]],
-        1598 => [[['_route' => 'detail_impot_tom', '_controller' => 'App\\Controller\\ImpotTOMController::detailImpotTOM'], ['propriete_id'], null, null, false, true, null]],
-        1622 => [[['_route' => 'detail_taxe_rurale', '_controller' => 'App\\Controller\\TaxeRuraleController::detailTaxeRurale'], ['propriete_id'], null, null, false, true, null]],
-        1653 => [[['_route' => 'detail_impot_mini_fiscal', '_controller' => 'App\\Controller\\ImpotMiniFiscalController::detailImpotMiniFiscal'], ['propriete_id'], null, null, false, true, null]],
-        1678 => [[['_route' => 'detail_recette', '_controller' => 'App\\Controller\\RecetteController::detailRecette'], ['propriete_id'], null, null, false, true, null]],
-        1702 => [[['_route' => 'detail_ristournes', '_controller' => 'App\\Controller\\RistournesController::detailRistournes'], ['propriete_id'], null, null, false, true, null]],
-        1725 => [
+        287 => [[['_route' => 'app_agent_contributeurs', '_controller' => 'App\\Controller\\AgentCollecteController::listContributeurs'], ['id'], null, null, false, false, null]],
+        327 => [[['_route' => 'list_ristournes', 'page' => '1', 'nbre' => '5', '_controller' => 'App\\Controller\\RistournesController::index'], ['page', 'nbre'], null, null, false, true, null]],
+        376 => [[['_route' => 'edit_cabinet', 'id' => '0', '_controller' => 'App\\Controller\\CabinetController::editCabinet'], ['id'], null, null, false, true, null]],
+        399 => [[['_route' => 'delete_user', '_controller' => 'App\\Controller\\CabinetController::deleteImpotTOM'], ['id'], null, null, false, true, null]],
+        440 => [[['_route' => 'edit_contributeur', 'id' => '0', '_controller' => 'App\\Controller\\ContributeurController::addContributeur'], ['id'], null, null, false, true, null]],
+        456 => [[['_route' => 'contributeur_show', '_controller' => 'App\\Controller\\ContributeurController::show'], ['id'], ['GET' => 0], null, false, true, null]],
+        479 => [[['_route' => 'delete_contributeur', '_controller' => 'App\\Controller\\ContributeurController::deleteContributeur'], ['id'], null, null, false, true, null]],
+        538 => [[['_route' => 'list_excedents', 'page' => '1', 'nbre' => '5', '_controller' => 'App\\Controller\\ExcedentsController::index'], ['page', 'nbre'], null, null, false, true, null]],
+        563 => [[['_route' => 'edit_excedents', 'id' => '0', '_controller' => 'App\\Controller\\ExcedentsController::addExcedents'], ['id'], null, null, false, true, null]],
+        586 => [[['_route' => 'delete_excedents', '_controller' => 'App\\Controller\\ExcedentsController::deleteExecedent'], ['id'], null, null, false, true, null]],
+        611 => [[['_route' => 'edit_ristournes', 'id' => '0', '_controller' => 'App\\Controller\\RistournesController::addRistournes'], ['id'], null, null, false, true, null]],
+        670 => [[['_route' => 'edit_impot_cfnpb', 'id' => '0', '_controller' => 'App\\Controller\\ImpotCFNPBController::editImpotCFNPB'], ['id'], null, null, false, true, null]],
+        693 => [[['_route' => 'delete_impot_cfnpb', '_controller' => 'App\\Controller\\ImpotCFNPBController::deleteImpotCFNPB'], ['id'], null, null, false, true, null]],
+        736 => [[['_route' => 'edit_impot_cfpb', 'id' => '0', '_controller' => 'App\\Controller\\ImpotCFPBController::editImpotCFPB'], ['id'], null, null, false, true, null]],
+        759 => [[['_route' => 'delete_impot_cfpb', '_controller' => 'App\\Controller\\ImpotCFPBController::deleteImpotCFPB'], ['id'], null, null, false, true, null]],
+        802 => [[['_route' => 'edit_impot_mini_fiscal', 'id' => '0', '_controller' => 'App\\Controller\\ImpotMiniFiscalController::editImpotMiniFiscale'], ['id'], null, null, false, true, null]],
+        825 => [[['_route' => 'delete_impot_mini_fiscale', '_controller' => 'App\\Controller\\ImpotMiniFiscalController::deleteImpotMiniFiscale'], ['id'], null, null, false, true, null]],
+        868 => [[['_route' => 'edit_impot_tom', 'id' => '0', '_controller' => 'App\\Controller\\ImpotTOMController::new'], ['id'], null, null, false, true, null]],
+        891 => [[['_route' => 'delete_impot_tom', '_controller' => 'App\\Controller\\ImpotTOMController::deleteImpotTOM'], ['id'], null, null, false, true, null]],
+        941 => [[['_route' => 'edit_patente', 'id' => '0', '_controller' => 'App\\Controller\\PatenteController::editPatente'], ['id'], null, null, false, true, null]],
+        964 => [[['_route' => 'delete_patente', '_controller' => 'App\\Controller\\PatenteController::deletePatente'], ['id'], null, null, false, true, null]],
+        1017 => [[['_route' => 'list_propriete', 'page' => '1', 'nbre' => '5', '_controller' => 'App\\Controller\\ProprieteController::index'], ['page', 'nbre'], null, null, false, true, null]],
+        1043 => [[['_route' => 'edit_propriete', 'id' => null, '_controller' => 'App\\Controller\\ProprieteController::addPropriete'], ['id'], null, null, false, true, null]],
+        1067 => [[['_route' => 'delete_propriete', '_controller' => 'App\\Controller\\ProprieteController::deletePropriete'], ['id'], null, null, false, true, null]],
+        1125 => [[['_route' => 'liste_recette', 'page' => '1', 'nbre' => '5', '_controller' => 'App\\Controller\\RecetteController::index'], ['page', 'nbre'], null, null, false, true, null]],
+        1151 => [[['_route' => 'edit_recette', 'id' => '0', '_controller' => 'App\\Controller\\RecetteController::addRecette'], ['id'], null, null, false, true, null]],
+        1175 => [[['_route' => 'delete_recette', '_controller' => 'App\\Controller\\RecetteController::deleteRecetteNon'], ['id'], null, null, false, true, null]],
+        1218 => [[['_route' => 'app_reset_password', 'token' => null, '_controller' => 'App\\Controller\\ResetPasswordController::reset'], ['token'], null, null, false, true, null]],
+        1244 => [[['_route' => 'delete_ristournes', '_controller' => 'App\\Controller\\RistournesController::deleteRistournes'], ['id'], null, null, false, true, null]],
+        1294 => [[['_route' => 'liste_site_collecte', 'page' => '1', 'nbre' => '5', '_controller' => 'App\\Controller\\SiteCollecteController::index'], ['page', 'nbre'], null, null, false, true, null]],
+        1320 => [[['_route' => 'edit_site_collecte', 'id' => '0', '_controller' => 'App\\Controller\\SiteCollecteController::addSite'], ['id'], null, null, false, true, null]],
+        1344 => [[['_route' => 'delete_site', '_controller' => 'App\\Controller\\SiteCollecteController::deleteSite'], ['id'], null, null, false, true, null]],
+        1376 => [[['_route' => 'site_collecte_contributeurs', '_controller' => 'App\\Controller\\SiteCollecteController::siteCollecteContributeurs'], ['id'], null, null, false, true, null]],
+        1436 => [[['_route' => 'edit_impot_indirecte', 'id' => '0', '_controller' => 'App\\Controller\\TaxIndirecteController::editImpotIndirecte'], ['id'], null, null, false, true, null]],
+        1463 => [[['_route' => 'delete_impot_indirecte', '_controller' => 'App\\Controller\\TaxIndirecteController::deleteImpotIndirecte'], ['id'], null, null, false, true, null]],
+        1485 => [[['_route' => 'detail_taxe_indirecte', '_controller' => 'App\\Controller\\TaxIndirecteController::detailTaxIndirecte'], ['propriete_id'], null, null, false, true, null]],
+        1525 => [[['_route' => 'edit_taxe_rurale', 'id' => '0', '_controller' => 'App\\Controller\\TaxeRuraleController::editTaxeRurale'], ['id'], null, null, false, true, null]],
+        1549 => [[['_route' => 'delete_taxe_rurale', '_controller' => 'App\\Controller\\TaxeRuraleController::deleteTaxeRurale'], ['id'], null, null, false, true, null]],
+        1566 => [[['_route' => 'detail_excedents', '_controller' => 'App\\Controller\\ExcedentsController::detailExcedent'], ['propriete_id'], null, null, false, true, null]],
+        1591 => [[['_route' => 'detail_impot_cfnpb', '_controller' => 'App\\Controller\\ImpotCFNPBController::detailImpotCFNPB'], ['propriete_id'], null, null, false, true, null]],
+        1610 => [[['_route' => 'detail_impot_cfpb', '_controller' => 'App\\Controller\\ImpotCFPBController::detailImpotCFPB'], ['propriete_id'], null, null, false, true, null]],
+        1631 => [[['_route' => 'detail_impot_tom', '_controller' => 'App\\Controller\\ImpotTOMController::detailImpotTOM'], ['propriete_id'], null, null, false, true, null]],
+        1655 => [[['_route' => 'detail_taxe_rurale', '_controller' => 'App\\Controller\\TaxeRuraleController::detailTaxeRurale'], ['propriete_id'], null, null, false, true, null]],
+        1686 => [[['_route' => 'detail_impot_mini_fiscal', '_controller' => 'App\\Controller\\ImpotMiniFiscalController::detailImpotMiniFiscal'], ['propriete_id'], null, null, false, true, null]],
+        1711 => [[['_route' => 'detail_recette', '_controller' => 'App\\Controller\\RecetteController::detailRecette'], ['propriete_id'], null, null, false, true, null]],
+        1735 => [[['_route' => 'detail_ristournes', '_controller' => 'App\\Controller\\RistournesController::detailRistournes'], ['propriete_id'], null, null, false, true, null]],
+        1758 => [
             [['_route' => 'detail_patente', '_controller' => 'App\\Controller\\PatenteController::detailPatente'], ['propriete_id'], null, null, false, true, null],
             [null, null, null, null, false, false, 0],
         ],

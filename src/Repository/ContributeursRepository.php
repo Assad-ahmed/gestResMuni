@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Contributeurs;
+use App\Entity\SiteCollecte;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -19,6 +20,16 @@ class ContributeursRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Contributeurs::class);
+    }
+
+    public function findContributeursBySite(SiteCollecte $siteCollecte, \DateTime $date): array
+    {
+        $qb = $this->createQueryBuilder('c')
+            ->where('c.siteCollecte = :siteCollecte')
+            ->setParameter('siteCollecte', $siteCollecte)
+            ->getQuery();
+
+        return $qb->getResult();
     }
 
 //    /**

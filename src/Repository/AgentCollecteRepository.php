@@ -21,6 +21,20 @@ class AgentCollecteRepository extends ServiceEntityRepository
         parent::__construct($registry, AgentCollecte::class);
     }
 
+    public function findContributorsWithPaymentsByAgent(AgentCollecte $agent)
+    {
+        $qb = $this->createQueryBuilder('a')
+            ->join('a.sites', 's')
+            ->join('s.contributeurs', 'c')
+            ->leftJoin('c.paiements', 'p')
+            ->where('a.id = :agentId')
+            ->setParameter('agentId', $agent->getId())
+            ->select('s.nom as siteName, c.nom as contributorName, SUM(p.montant) as totalAmount, COUNT(p.id) as paymentsCount')
+            ->groupBy('s.id, c.id');
+
+        return $qb->getQuery()->getResult();
+    }
+
 //    /**
 //     * @return AgentCollecte[] Returns an array of AgentCollecte objects
 //     */

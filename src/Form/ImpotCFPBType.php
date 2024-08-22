@@ -41,7 +41,8 @@ class ImpotCFPBType extends AbstractType
 
             'attr' => [
                 'class'=> 'select2'
-            ]
+            ],
+            'placeholder'=>'Type entreprise'
         ])
         ->add('Valider', SubmitType::class);
     }

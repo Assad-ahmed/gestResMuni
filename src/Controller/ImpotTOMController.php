@@ -2,8 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\ImpotCFNPB;
-use App\Entity\ImpotCFPB;
 use App\Entity\ImpotTOM;
 use App\Form\ImpotTOMType;
 use App\Service\Ressources\TomService;

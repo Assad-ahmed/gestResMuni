@@ -6,46 +6,45 @@
 parameters:    
 
 services:
+
     App\Service\Ressources\TaxIndirecteService:
         arguments:
-            $entityManager: '@doctrine.orm.entity_manager'
             
     App\Service\Ressources\PatenteService:
         arguments:
-            $entityManager: '@doctrine.orm.entity_manager'
     App\Service\RistournesService:
         arguments:
-            $entityManager: '@doctrine.orm.entity_manager'
 
     App\Service\RecetteService:
         arguments:
-            $entityManager: '@doctrine.orm.entity_manager'
+
 
     App\Service\ImpotCapitation\ImpotMiniFiscalService:
         arguments:
-            $entityManager: '@doctrine.orm.entity_manager'
+
 
     App\Service\ImpotCapitation\TaxeRuraleService:
         arguments:
-            $entityManager: '@doctrine.orm.entity_manager'
 
     App\Service\Ressources\TomService:
         arguments:
-            $entityManager: '@doctrine.orm.entity_manager'
+
 
     App\Service\Ressources\CfpbService:
         arguments:
-            $entityManager: '@doctrine.orm.entity_manager'
+
 
     App\Service\Ressources\CfnpbService:
         arguments:
-            $entityManager: '@doctrine.orm.entity_manager'
+
             
 
     App\Service\ExcedentsService:
         arguments:
-            $entityManager: '@doctrine.orm.entity_manager'
-            
+    App\Service\CalculateurAgentContribuableSiteService:
+        arguments:
+
+
 
     App\Service\TaxCalculator:
         arguments:

@@ -32,15 +32,6 @@ class AgentCollecte
     #[Assert\Regex(pattern: " /^[0-9]*$/", message: " chiffre_seulement")]
     private ?string $telephone = null;
 
-    #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 3)]
-    private ?string $montantJournalier = null;
-
-    #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 3)]
-    private ?string $montantMensuel = null;
-
-    #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 3)]
-    private ?string $montantAnnuel = null;
-
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     #[Assert\NotNull(message: "Veuillez renseigner une date.")]
     #[Assert\DateTime(message: "Veuillez entrer une date et heure valide.")]
@@ -49,9 +40,17 @@ class AgentCollecte
     #[ORM\ManyToMany(targetEntity: SiteCollecte::class)]
     private Collection $sites;
 
+    #[ORM\OneToMany(mappedBy: 'agentCollecte', targetEntity: Contributeurs::class)]
+    private Collection $contributeurs;
+
+    #[ORM\ManyToMany(targetEntity: SiteCollecte::class, mappedBy: 'agentCollecte')]
+    private Collection $siteCollectes;
+
     public function __construct()
     {
         $this->sites = new ArrayCollection();
+        $this->contributeurs = new ArrayCollection();
+        $this->siteCollectes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -95,41 +94,7 @@ class AgentCollecte
         return $this;
     }
 
-    public function getMontantJournalier(): ?string
-    {
-        return $this->montantJournalier;
-    }
 
-    public function setMontantJournalier(string $montantJournalier): static
-    {
-        $this->montantJournalier = $montantJournalier;
-        $this->calculateMontantMensuelAnnuel();
-        return $this;
-    }
-
-    public function getMontantMensuel(): ?string
-    {
-        return $this->montantMensuel;
-    }
-
-    public function setMontantMensuel(string $montantMensuel): static
-    {
-        $this->montantMensuel = $montantMensuel;
-
-        return $this;
-    }
-
-    public function getMontantAnnuel(): ?string
-    {
-        return $this->montantAnnuel;
-    }
-
-    public function setMontantAnnuel(string $montantAnnuel): static
-    {
-        $this->montantAnnuele = $montantAnnuel;
-
-        return $this;
-    }
 
     public function getDate(): ?\DateTimeInterface
     {
@@ -166,13 +131,62 @@ class AgentCollecte
 
         return $this;
     }
-    private function calculateMontantMensuelAnnuel(): void
+
+    /**
+     * @return Collection<int, Contributeurs>
+     */
+    public function getContributeurs(): Collection
     {
-        if ($this->montantJournalier !== null) {
-            $montantJournalier = floatval($this->montantJournalier);
-            $this->montantMensuel = number_format($montantJournalier * 30, 3, '.', '');
-            $this->montantAnnuel = number_format($montantJournalier * 365, 3, '.', '');
+        return $this->contributeurs;
+    }
+
+    public function addContributeur(Contributeurs $contributeur): static
+    {
+        if (!$this->contributeurs->contains($contributeur)) {
+            $this->contributeurs->add($contributeur);
+            $contributeur->setAgentCollecte($this);
         }
+
+        return $this;
+    }
+
+    public function removeContributeur(Contributeurs $contributeur): static
+    {
+        if ($this->contributeurs->removeElement($contributeur)) {
+            // set the owning side to null (unless already changed)
+            if ($contributeur->getAgentCollecte() === $this) {
+                $contributeur->setAgentCollecte(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, SiteCollecte>
+     */
+    public function getSiteCollectes(): Collection
+    {
+        return $this->siteCollectes;
+    }
+
+    public function addSiteCollecte(SiteCollecte $siteCollecte): static
+    {
+        if (!$this->siteCollectes->contains($siteCollecte)) {
+            $this->siteCollectes->add($siteCollecte);
+            $siteCollecte->addAgentCollecte($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSiteCollecte(SiteCollecte $siteCollecte): static
+    {
+        if ($this->siteCollectes->removeElement($siteCollecte)) {
+            $siteCollecte->removeAgentCollecte($this);
+        }
+
+        return $this;
     }
 
 }

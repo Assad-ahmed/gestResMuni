@@ -18,9 +18,6 @@
             <th scope="col">prenom</th>
             <th scope="col">Téléphone</th>
             <th scope="col">Date</th>
-            <th scope="col">MontantJ</th>
-            <th scope="col">MontantM</th>
-            <th scope="col">Montant</th>
             <th scope="col">Sites</th>
             <th scope="col">Details</th>
             <th scope="col">Modifier</th>
@@ -34,9 +31,6 @@
                 <td>{{ agentCollecte.prenom }}</td>
                 <td>{{ agentCollecte.telephone }}</td>
                 <td>{{ agentCollecte.date|date('Y-m-d') }}</td>
-                <td>{{ agentCollecte.montantJournalier }} FCFA</td>
-                <td>{{ agentCollecte.montantMensuel }} FCFA</td>
-                <td>{{ agentCollecte.montantAnnuel }} FCFA</td>
                 <td>{% for site in agentCollecte.sites %}
                       {{ site.nom }}
                     {% endfor %}

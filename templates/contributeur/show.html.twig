@@ -1,0 +1,39 @@
+{% extends 'template.html.twig' %}
+
+{% block title %}Détails du Contributeur{% endblock %}
+{% block PageTitre %}
+    Détails du Contributeur
+{% endblock%}
+{% block body %}
+
+                <table class="table table-hover table-striped">
+                    <thead class="text-sm-center" style="background-color: rgb(130, 106, 251);color:#fff;">
+                    <tr>
+                        <th>Nom du Propriétaire</th>
+                        <th>Prénom du Propriétaire</th>
+                        <th>Date</th>
+                        <th>Montant</th>
+                    </tr>
+                    </thead>
+                    <tbody class="text-sm-center">
+                    {% for paiement in paiements %}
+                        <tr>
+                            <td>{{ contributeur.nom }}</td>
+                            <td>{{ contributeur.prenom }}</td>
+                            <td>{{ paiement.date|date('d-m-Y') }}</td>
+                            <td>{{ paiement.montant|number_format(0, " ", " ", " ") }} F CFA</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                    <tfoot class="text-sm-center" style="background-color: rgb(130, 106, 251);color:#fff;">
+                    <tr>
+                        <td colspan="3" class="text-end"><strong>Montant Cumulé Mensuel :</strong></td>
+                        <td>{{ montantCumuleMensuel|number_format(0, " ", " ", " ") }} F CFA</td>
+                    </tr>
+                    </tfoot>
+                </table>
+
+    <a href="{{ path('liste_contributeur') }}" class="btn btn-primary">Retour à la liste</a>
+{% endblock %}
+
+
